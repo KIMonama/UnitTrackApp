@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Get started</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+
+    <!-- Custom CSS -->
+    <link href="/frontend/styles/style.css" rel="stylesheet" />
+  </head>
+
+  <body class="bg-white">
+    <!-- Navbar -->
+    <nav class="navbar bg-primary py-3 mx-0 px-0">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/frontend/index.html">
+          <img
+            src="/frontend/assets/logo-white.png"
+            alt="Logo"
+            width="100"
+            height="27"
+            class="d-inline-block align-text-top"
+          />
+        </a>
+        <a class="text-white">Contact us</a>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero text-center py-4 border-bottom border-primary">
+      <h1>Welcome to UnitTrack</h1>
+      <p class="lead fst-italic mb-0">
+        Monitor maintenance and complaints in real time
+      </p>
+    </section>
+
+ <!-- Owner Details Section -->
+<div class="container my-5">
+  <div class="text-center mb-4">
+    <h2 class="text-primary fw-bold">Enter Landlord Details Below</h2>
+    <p class="text-muted fst-italic">Please fill in your personal and unit information carefully</p>
+  </div>
+
+  <div id="ownerDetails" class="card shadow-sm border-0 p-4 mx-auto" style="max-width: 700px;">
+    <!-- Name Inputs -->
+    <div class="row g-2 mb-3">
+      <div class="col-12 col-md-6">
+        <div class="input-group">
+          <span class="input-group-text bg-primary text-white fw-semibold">First</span>
+          <input type="text" aria-label="First name" class="form-control" placeholder="First name" />
+        </div>
+      </div>
+      <div class="col-12 col-md-6">
+        <div class="input-group">
+          <span class="input-group-text bg-primary text-white fw-semibold">Last</span>
+          <input type="text" aria-label="Last name" class="form-control" placeholder="Last name" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Phone Number -->
+    <div class="input-group flex-nowrap mb-3">
+      <span class="input-group-text bg-primary text-white fw-semibold" id="addon-wrapping">📞</span>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="e.g. 081 435 0822"
+        aria-label="Phone Number"
+        aria-describedby="addon-wrapping"
+      />
+    </div>
+
+    <!-- Total Units -->
+    <div class="input-group flex-nowrap mb-4">
+      <span class="input-group-text bg-primary text-white fw-semibold">🏘️</span>
+      <input
+        id="units"
+        type="number"
+        class="form-control"
+        placeholder="Enter total number of units"
+        aria-label="Total Units"
+      />
+    </div>
+
+    <!-- Button -->
+    <div class="text-center">
+      <button
+        onclick="enterUnits()"
+        class="btn btn-primary w-75 shadow-sm"
+      >
+        ➕ Click to Enter Unit Details
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Units Table Section -->
+<div class="container my-5">
+  <div class="card p-3 shadow-sm border-0" style="max-width: 700px; margin: auto;">
+    <h4 class="text-primary text-center mb-3 fw-bold">Units Overview</h4>
+    <div class="table-responsive">
+      <table class="table table-bordered align-middle text-center mb-0">
+        <thead class="bg-primary text-white">
+          <tr>
+            <th scope="col">Room Number</th>
+            <th scope="col">Phone Number</th>
+          </tr>
+        </thead>
+        <tbody id="unitsTableBody">
+          <!-- Populated dynamically via JavaScript -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+    <!-- Footer -->
+    <footer class="text-center py-3 bg-primary text-white fixed-bottom">
+      &#169;
+      <img
+        src="/frontend/assets/logo-white.png"
+        alt="Logo"
+        width="100"
+        height="27"
+        class="d-inline-block align-text-top"
+      />
+    </footer>
+
+    <!-- Bootstrap Bundle -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+    <!-- Your custom JavaScript -->
+    <script src="/frontend/scripts/main.js"></script>
+  </body>
+</html>

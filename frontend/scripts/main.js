@@ -8,7 +8,7 @@ const sampleRequests = [
     description: "Leaking tap in kitchen",
     urgency: "High",
     status: "In Progress",
-    date: "2025-10-29"
+    date: "2025-10-29",
   },
   {
     id: "202",
@@ -17,7 +17,7 @@ const sampleRequests = [
     description: "Light not working",
     urgency: "Medium",
     status: "Submitted",
-    date: "2025-10-28"
+    date: "2025-10-28",
   },
   {
     id: "203",
@@ -26,21 +26,25 @@ const sampleRequests = [
     description: "Spillage on floor",
     urgency: "Low",
     status: "Resolved",
-    date: "2025-10-27"
-  }
+    date: "2025-10-27",
+  },
 ];
 
 // Function to populate table
 function populateTable() {
   const tableBody = document.getElementById("requestsTableBody");
 
-  sampleRequests.forEach(request => {
+  sampleRequests.forEach((request) => {
     const row = document.createElement("tr");
 
     row.innerHTML = `
       <td>${request.id} <br><small>${request.room}</small></td>
-      <td>${request.category}<br><span class="badge ${getUrgencyClass(request.urgency)}">${request.urgency}</span></td>
-      <td><span class="badge ${getStatusClass(request.status)}">${request.status}</span></td>
+      <td>${request.category}<br><span class="badge ${getUrgencyClass(
+      request.urgency
+    )}">${request.urgency}</span></td>
+      <td><span class="badge ${getStatusClass(request.status)}">${
+      request.status
+    }</span></td>
       <td>${request.date}</td>
       <td>
         <button class="btn btn-sm btn-primary" onclick="openModal(
@@ -62,31 +66,66 @@ function populateTable() {
 // Helper functions for colours
 function getUrgencyClass(urgency) {
   switch (urgency) {
-    case "High": return "bg-danger";
-    case "Medium": return "bg-warning text-dark";
-    case "Low": return "bg-success";
-    default: return "bg-secondary";
+    case "High":
+      return "bg-danger";
+    case "Medium":
+      return "bg-warning text-dark";
+    case "Low":
+      return "bg-success";
+    default:
+      return "bg-secondary";
   }
 }
 
 function getStatusClass(status) {
   switch (status) {
-    case "Submitted": return "bg-secondary";
-    case "In Progress": return "bg-warning text-dark";
-    case "Resolved": return "bg-success";
-    default: return "bg-secondary";
+    case "Submitted":
+      return "bg-secondary";
+    case "In Progress":
+      return "bg-warning text-dark";
+    case "Resolved":
+      return "bg-success";
+    default:
+      return "bg-secondary";
   }
 }
 
 function openModal(id, room, category, description, urgency, status, date) {
-  document.getElementById('modalRequestId').textContent = id;
-  document.getElementById('modalRoom').textContent = room;
-  document.getElementById('modalCategory').textContent = category;
-  document.getElementById('modalDescription').textContent = description;
-  document.getElementById('modalUrgency').textContent = urgency;
-  document.getElementById('modalStatus').textContent = status;
-  document.getElementById('modalDate').textContent = date;
+  document.getElementById("modalRequestId").textContent = id;
+  document.getElementById("modalRoom").textContent = room;
+  document.getElementById("modalCategory").textContent = category;
+  document.getElementById("modalDescription").textContent = description;
+  document.getElementById("modalUrgency").textContent = urgency;
+  document.getElementById("modalStatus").textContent = status;
+  document.getElementById("modalDate").textContent = date;
 
-  const modal = new bootstrap.Modal(document.getElementById('viewRequestModal'));
+  const modal = new bootstrap.Modal(
+    document.getElementById("viewRequestModal")
+  );
   modal.show();
 }
+
+const inputValidate = () => {
+  const mOrC = document.getElementById("mOrC");
+  if (mOrC.selectedIndex !== -1) {
+    mOrC.style.borderColor = "red";
+  }
+};
+
+//Function to populate the Enter units table 
+const enterUnits = () => {
+  const units = parseInt(document.getElementById("units").value);
+  const tableBody = document.getElementById("unitsTableBody");
+  tableBody.innerHTML = '';
+
+  for (let i = 0; i < units; i++) {
+    const row = document.createElement("tr");
+
+    row.innerHTML = `
+      <td>${i + 1}</td>
+      <td><input type="text" class="form-control" placeholder="Example: 081 435 0822" aria-label="Username" aria-describedby="basic-addon1"></td>
+      `;
+
+    tableBody.appendChild(row);
+  }
+};

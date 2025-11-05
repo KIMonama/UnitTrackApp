@@ -37,8 +37,8 @@
       <p class="lead fst-italic mb-0">Track every fix, right from your unit</p>
     </section>
 
-    <div class="border-pulse mt-3 text-center w-50 mx-auto">
-      <select class="form-select text-center text-white bg-primary">
+    <div id="mOrC1" class="border-pulse mt-3 text-center w-50 mx-auto">
+      <select class="form-select text-center text-white bg-primary" id="mOrC">
         <option selected disabled>Maintenance or complaint</option>
         <option>Maintenance request</option>
         <option>Complaint</option>
@@ -98,8 +98,8 @@
         </div>
       </div>
       <div class="mt-3 mx-auto">
-        <a href="success.html"
-          ><button class="btn btn-primary w-50 mx-auto d-block">Submit</button></a>
+        <a
+          ><button onclick="inputValidate()" class="btn btn-primary w-50 mx-auto d-block">Submit</button></a>
       </div>
     </div>
 
@@ -108,6 +108,9 @@
       integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
       crossorigin="anonymous"
     ></script>
+
+     <!-- Your custom JavaScript -->
+    <script src="/frontend/scripts/main.js"></script>
   </body>
   <!-- Footer -->
   <footer
