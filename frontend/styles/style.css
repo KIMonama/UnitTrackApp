@@ -35,3 +35,23 @@ body {
 tr:hover {
   background-color: #8dc0f4;
 }
+
+.card img {
+  animation: pop 0.8s ease;
+}
+
+@keyframes pop {
+  0% { transform: scale(0.8); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.btn-primary {
+  background: linear-gradient(90deg, #007bff, #0056d2);
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(90deg, #0056d2, #003c9e);
+  transform: translateY(-2px);
+}

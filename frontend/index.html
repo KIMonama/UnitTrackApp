@@ -44,7 +44,7 @@
     <div class="container mt-5 mb-5">
       <div class="card p-4 mx-auto" style="max-width: 400px">
         <div class="mb-3 text-center">
-          <select class="form-select text-center text-white bg-primary">
+          <select class="form-select text-center text-white bg-primary" id="logOption">
             <option selected disabled>Select option</option>
             <option>TENANT</option>
             <option>OWNER</option>
@@ -62,8 +62,8 @@
         </div>
 
         <div class="d-grid gap-2">
-          <a href="Tenant/report.html"
-            ><button class="btn btn-primary btn-lg w-100">Log in</button></a
+          <a id="logInLink"
+            ><button onclick="logInPage()" class="btn btn-primary btn-lg w-100">Log in</button></a
           >
           <a href="Owner/getStarted.html">
             <button class="btn btn-outline-primary w-100">
@@ -80,6 +80,8 @@
       integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
       crossorigin="anonymous"
     ></script>
+    <!-- Your custom JavaScript -->
+    <script src="/frontend/scripts/main.js"></script>
   </body>
   <!-- Footer -->
   <footer

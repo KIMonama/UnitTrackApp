@@ -129,3 +129,13 @@ const enterUnits = () => {
     tableBody.appendChild(row);
   }
 };
+
+//Function to determine which page to open on log in
+
+const logInPage =()=>{
+  console.log("function works");
+  const SelectedOption = document.getElementById("logOption").value;
+
+  const pageUrl = SelectedOption == "TENANT" ? "Tenant/report.html" : "Owner/owner-dashboard.html" ;
+  window.location.href = pageUrl;
+};
