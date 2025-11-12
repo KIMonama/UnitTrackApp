@@ -112,11 +112,11 @@ const inputValidate = () => {
   }
 };
 
-//Function to populate the Enter units table 
+//Function to populate the Enter units table
 const enterUnits = () => {
   const units = parseInt(document.getElementById("units").value);
   const tableBody = document.getElementById("unitsTableBody");
-  tableBody.innerHTML = '';
+  tableBody.innerHTML = "";
 
   for (let i = 0; i < units; i++) {
     const row = document.createElement("tr");
@@ -132,34 +132,55 @@ const enterUnits = () => {
 
 //Function to determine which page to open on log in
 
-const logInPage =()=>{
-  console.log("function works");
+const logInPage = () => {
+  const code = document.getElementById("code").value.trim();
   const SelectedOption = document.getElementById("logOption").value;
 
-  const pageUrl = SelectedOption == "TENANT" ? "Tenant/report.html" : "Owner/owner-dashboard.html" ;
-  window.location.href = pageUrl;
+  // Input validation
+  if (!code) {
+    //showError("Please enter your code");
+    document.getElementById("codeLabel").classList.add("text-danger");
+  }
+
+  fetch("data/tenants.json")
+    .then((request) => request.json())
+    .then((tenants) => {
+      
+       // Find matching tenant
+          const foundTenant = tenants.find(tenant => code === tenant.tenantId);
+        if (foundTenant) {
+          const pageUrl = SelectedOption === "TENANT" && code.length===4 
+              ? "Tenant/report.html"
+              : "Owner/owner-dashboard.html";
+          window.location.href = pageUrl;
+        } else {
+          // No match found
+          document.getElementById("codeLabel").classList.add("text-danger");
+                console.log("error");
+        }
+      })
+    .catch((error) => console.error("Error loading JSON:", error));
 };
 
 //function to grey out input elements in an event of a complaint entry
 
-const greyOut =()=>{
+const greyOut = () => {
   const option = document.getElementById("mOrC").value;
   const fields = ["category", "inputGroupFile01", "urgency", "availableDate"];
-    
-    if (option === "Complaint") {
-        // Disable and grey out all fields
-        fields.forEach(fieldId => {
-            const field = document.getElementById(fieldId);
-            field.disabled = true;
-            field.classList.add('text-muted', 'bg-light');
-        });
-    } else {
-        // RE-ENABLE all fields
-        fields.forEach(fieldId => {
-            const field = document.getElementById(fieldId);
-            field.disabled = false;
-            field.classList.remove('text-muted', 'bg-light');
-        });
-    }
-  
-}
+
+  if (option === "Complaint") {
+    // Disable and grey out all fields
+    fields.forEach((fieldId) => {
+      const field = document.getElementById(fieldId);
+      field.disabled = true;
+      field.classList.add("text-muted", "bg-light");
+    });
+  } else {
+    // RE-ENABLE all fields
+    fields.forEach((fieldId) => {
+      const field = document.getElementById(fieldId);
+      field.disabled = false;
+      field.classList.remove("text-muted", "bg-light");
+    });
+  }
+};

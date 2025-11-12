@@ -1,0 +1,12 @@
+[
+  {
+    "reportId": "R1",
+    "tenantId": "T1",
+    "type": "Maintenance",
+    "category": "Plumbing",
+    "description": "Leaking tap",
+    "urgency": "High",
+    "status": "Submitted",
+    "dateSubmitted": "2025-11-10"
+  }
+]
