@@ -38,9 +38,9 @@
     </section>
 
     <div id="mOrC1" class="border-pulse mt-3 text-center w-50 mx-auto">
-      <select class="form-select text-center text-white bg-primary" id="mOrC">
-        <option selected disabled>Maintenance or complaint</option>
-        <option>Maintenance request</option>
+      <select class="form-select text-center text-white bg-primary" id="mOrC" onchange="greyOut()">
+        <option selected disabled>Maintenance/complaint</option>
+        <option>Maintenance</option>
         <option>Complaint</option>
       </select>
     </div>
@@ -48,7 +48,7 @@
     <div class="container mt-3 mb-5">
       <div class="card p-4 mx-auto" style="max-width: 400px">
         <div class="mb-3 text-center">
-          <select class="form-select text-center text-white bg-primary">
+          <select class="form-select text-center text-white bg-primary" id="category">
             <option selected disabled>Issue category</option>
             <option>Plumbing</option>
             <option>Electrical</option>
@@ -69,11 +69,11 @@
           <label for="code">Add a description</label>
         </div>
 
-        <div class="input-group mb-3">
+        <div class="input-group mb-3" >
           <label class="input-group-text" for="inputGroupFile01">Upload</label>
           <input type="file" class="form-control" id="inputGroupFile01" />
         </div>
-        <select class="form-select" name="urgency" required>
+        <select class="form-select" name="urgency" id="urgency" required>
           <option value="" disabled selected>How urgent is this issue?</option>
           <option value="low">🟢 Low - Minor issue, no time sensitivity</option>
           <option value="medium">

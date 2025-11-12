@@ -139,3 +139,27 @@ const logInPage =()=>{
   const pageUrl = SelectedOption == "TENANT" ? "Tenant/report.html" : "Owner/owner-dashboard.html" ;
   window.location.href = pageUrl;
 };
+
+//function to grey out input elements in an event of a complaint entry
+
+const greyOut =()=>{
+  const option = document.getElementById("mOrC").value;
+  const fields = ["category", "inputGroupFile01", "urgency", "availableDate"];
+    
+    if (option === "Complaint") {
+        // Disable and grey out all fields
+        fields.forEach(fieldId => {
+            const field = document.getElementById(fieldId);
+            field.disabled = true;
+            field.classList.add('text-muted', 'bg-light');
+        });
+    } else {
+        // RE-ENABLE all fields
+        fields.forEach(fieldId => {
+            const field = document.getElementById(fieldId);
+            field.disabled = false;
+            field.classList.remove('text-muted', 'bg-light');
+        });
+    }
+  
+}
