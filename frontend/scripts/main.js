@@ -1,66 +1,41 @@
 // frontend/scripts/main.js
-// Sample data (will later come from JSON)
-const sampleRequests = [
-  {
-    id: "201",
-    room: "Room A2",
-    category: "Plumbing",
-    description: "Leaking tap in kitchen",
-    urgency: "High",
-    status: "In Progress",
-    date: "2025-10-29",
-  },
-  {
-    id: "202",
-    room: "Room B1",
-    category: "Electrical",
-    description: "Light not working",
-    urgency: "Medium",
-    status: "Submitted",
-    date: "2025-10-28",
-  },
-  {
-    id: "203",
-    room: "Room C3",
-    category: "Cleaning",
-    description: "Spillage on floor",
-    urgency: "Low",
-    status: "Resolved",
-    date: "2025-10-27",
-  },
-];
 
 // Function to populate table
 function populateTable() {
   const tableBody = document.getElementById("requestsTableBody");
 
-  sampleRequests.forEach((request) => {
-    const row = document.createElement("tr");
+  fetch("/frontend/data/reports.json")
+    .then((request) => request.json())
+    .then((reports) => {
+      reports.forEach((report) => {
+        const row = document.createElement("tr");
 
-    row.innerHTML = `
-      <td>${request.id} <br><small>${request.room}</small></td>
-      <td>${request.category}<br><span class="badge ${getUrgencyClass(
-      request.urgency
-    )}">${request.urgency}</span></td>
-      <td><span class="badge ${getStatusClass(request.status)}">${
-      request.status
-    }</span></td>
-      <td>${request.date}</td>
-      <td>
+        row.innerHTML = `
+    <td>${report.reportId} <br><small>${report.tenantId}</small></td>
+    <td>${report.category}<br><span class="badge ${getUrgencyClass(
+          report.urgency
+        )}">${report.urgency}</span></td>
+    <td><span class="badge ${getStatusClass(report.status)}">${
+          report.status
+        }</span></td>
+    <td>${report.dateSubmitted}</td>
+    <td>
         <button class="btn btn-sm btn-primary" onclick="openModal(
-          '${request.id}',
-          '${request.room}',
-          '${request.category}',
-          '${request.description}',
-          '${request.urgency}',
-          '${request.status}',
-          '${request.date}'
+            '${report.reportId}',
+            '${report.tenantId}',
+            '${report.category}',
+            '${report.description}',
+            '${report.urgency}',
+            '${report.status}',
+            '${report.dateSubmitted}'
         )">View</button>
-      </td>
-    `;
+    </td>
+`;
 
-    tableBody.appendChild(row);
-  });
+        tableBody.appendChild(row);
+      });
+    })
+    .catch((error) => console.error("Error loading JSON:", error));
 }
 
 // Helper functions for colours
@@ -231,6 +206,23 @@ const logInPage = () => {
     if (code.length !== 4 || isNaN(code)) {
       showError("Tenant code must be exactly 4 digits");
       return;
+    } else {
+      fetch("data/tenants.json")
+        .then((request) => request.json())
+        .then((tenants) => {
+          // Find matching tenant
+          const foundTenant = tenants.find(
+            (tenant) => code === tenant.tenantId
+          );
+          //check navigation logic
+          if (SelectedOptionValue === "TENANT" && foundTenant) {
+            window.location.href = "Tenant/report.html";
+          } else {
+            showError("Invalid login details");
+            document.getElementById("codeLabel").classList.add("text-danger");
+          }
+        })
+        .catch((error) => console.error("Error loading JSON:", error));
     }
   }
 
@@ -238,27 +230,25 @@ const logInPage = () => {
     if (code.length !== 10 || isNaN(code)) {
       showError("Phone number must be 10 digits");
       return;
+    } else {
+      //Fetch Owner data and validate
+
+      fetch("data/owners.json")
+        .then((request) => request.json())
+        .then((owners) => {
+          // Find matching tenant
+          const foundOwner = owners.find((owner) => code === owner.phone);
+          //check navigation logic
+          if (SelectedOptionValue === "OWNER" && foundOwner) {
+            window.location.href = "Owner/owner-dashboard.html";
+          } else {
+            showError("Invalid login details");
+            document.getElementById("codeLabel").classList.add("text-danger");
+          }
+        })
+        .catch((error) => console.error("Error loading JSON:", error));
     }
   }
-
-  //Fetch the data and validate
-
-  fetch("data/tenants.json")
-    .then((request) => request.json())
-    .then((tenants) => {
-      // Find matching tenant
-      const foundTenant = tenants.find((tenant) => code === tenant.tenantId);
-      //check navigation logic
-      if (SelectedOptionValue === "TENANT" && foundTenant) {
-        window.location.href = "Tenant/report.html";
-      } else if (SelectedOptionValue === "OWNER") {
-        window.location.href = "Owner/owner-dashboard.html";
-      } else {
-        showError("Invalid login details");
-        document.getElementById("codeLabel").classList.add("text-danger");
-      }
-    })
-    .catch((error) => console.error("Error loading JSON:", error));
 };
 
 //Error helper function to show pop ups in cases of errors

@@ -1,0 +1,26 @@
+{
+  "name": "unittrackapp",
+  "version": "1.0.0",
+  "description": "A mobile-friendly web application that simplifies communication between tenants and property owners for maintenance reporting.",
+  "homepage": "https://github.com/KIMonama/UnitTrackApp#readme",
+  "bugs": {
+    "url": "https://github.com/KIMonama/UnitTrackApp/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KIMonama/UnitTrackApp.git"
+  },
+  "license": "ISC",
+  "author": "Isaac Monama",
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.11"
+  }
+}
