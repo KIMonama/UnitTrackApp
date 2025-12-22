@@ -174,10 +174,10 @@ const enterUnits = () => {
 const logInPage = () => {
   const code = document.getElementById("code").value.trim();
   const SelectedOption = document.getElementById("logOption");
-  const SelectedOptionValue = SelectedOption.value;
+  const UserType = SelectedOption.value;
 
   //Input validation for the selected option
-  if (SelectedOptionValue === "" || SelectedOption.selectedIndex === 0) {
+  if (UserType === "" || SelectedOption.selectedIndex === 0) {
     showError("Please select option");
     // Add red border
     document
@@ -202,51 +202,53 @@ const logInPage = () => {
     document.getElementById("codeLabel").classList.remove("text-danger");
   }
   // 3. Extra validation based on selected option
-  if (SelectedOptionValue === "TENANT") {
+  if (UserType === "TENANT") {
     if (code.length !== 4 || isNaN(code)) {
       showError("Tenant code must be exactly 4 digits");
       return;
     } else {
-      fetch("data/tenants.json")
-        .then((request) => request.json())
-        .then((tenants) => {
-          // Find matching tenant
-          const foundTenant = tenants.find(
-            (tenant) => code === tenant.tenantId
-          );
-          //check navigation logic
-          if (SelectedOptionValue === "TENANT" && foundTenant) {
-            window.location.href = "Tenant/report.html";
-          } else {
-            showError("Invalid login details");
-            document.getElementById("codeLabel").classList.add("text-danger");
+      fetch(
+        `http://localhost:3000/api/login?role=${UserType}&tenantCode=${code}`
+      )
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Invalid login details");
           }
+          return response.json();
         })
-        .catch((error) => console.error("Error loading JSON:", error));
+        .then((data) => {
+          // If backend confirms tenant exists
+          window.location.href = "Tenant/report.html";
+        })
+        .catch((error) => {
+          showError(error.message);
+          document.getElementById("codeLabel").classList.add("text-danger");
+        });
     }
   }
 
-  if (SelectedOptionValue === "OWNER") {
+  if (UserType === "OWNER") {
     if (code.length !== 10 || isNaN(code)) {
       showError("Phone number must be 10 digits");
       return;
     } else {
       //Fetch Owner data and validate
 
-      fetch("data/owners.json")
-        .then((request) => request.json())
-        .then((owners) => {
-          // Find matching tenant
-          const foundOwner = owners.find((owner) => code === owner.phone);
-          //check navigation logic
-          if (SelectedOptionValue === "OWNER" && foundOwner) {
-            window.location.href = "Owner/owner-dashboard.html";
-          } else {
-            showError("Invalid login details");
-            document.getElementById("codeLabel").classList.add("text-danger");
+      fetch(`http://localhost:3000/api/login?role=${UserType}&phone=${code}`)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Invalid login details");
           }
+          return response.json();
         })
-        .catch((error) => console.error("Error loading JSON:", error));
+        .then((data) => {
+          // If backend confirms tenant exists
+          window.location.href = "Owner/owner-dashboard.html"
+        })
+        .catch((error) => {
+          showError(error.message);
+          document.getElementById("codeLabel").classList.add("text-danger");
+        });
     }
   }
 };

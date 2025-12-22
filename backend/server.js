@@ -12,7 +12,12 @@ const getLogin = (req, res) => {
     //To debug
     console.log("LOGIN HIT:", req.query);
 
-    const tenantsPath = path.join(__dirname, "..", "frontend/data", "tenants.json");
+    const tenantsPath = path.join(
+      __dirname,
+      "..",
+      "frontend/data",
+      "tenants.json"
+    );
     const data = fs.readFileSync(tenantsPath, "utf-8");
 
     const tenants = JSON.parse(data);
@@ -25,7 +30,12 @@ const getLogin = (req, res) => {
       return res.status(200).json({ message: "User exists" });
     }
   } else if (req.query.role === "OWNER") {
-    const ownersPath = path.join(__dirname, "..", "frontend/data", "owners.json");
+    const ownersPath = path.join(
+      __dirname,
+      "..",
+      "frontend/data",
+      "owners.json"
+    );
     const data = fs.readFileSync(ownersPath, "utf-8");
     const owners = JSON.parse(data);
     const ownerExists = owners.find((owner) => owner.phone === req.query.phone);
