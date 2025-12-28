@@ -60,28 +60,21 @@
             <option>Complaints</option>
           </select>
 
-          <button class="btn btn-outline-primary" onclick="populateTable()">🔄 Refresh</button>
+          <button class="btn btn-outline-primary" onclick="location.reload()">
+            🔄 Refresh
+          </button>
         </div>
       </div>
 
       <!-- Table Section -->
-      <div class="table-responsive card p-2 shadow-sm border-0">
-        <table class="table table-bordered align-middle text-center">
-          <thead class="bg-primary text-white">
-            <tr>
-              <th scope="col">Request ID <br />& room</th>
-
-              <th scope="col">Category <br />& Urgency</th>
-
-              <th scope="col">Status</th>
-              <th scope="col">Date</th>
-              <th scope="col">Action</th>
-            </tr>
-          </thead>
-          <tbody id="requestsTableBody">
-            <!-- populated by a function-->
-          </tbody>
-        </table>
+      <div class="card shadow-sm border-0">
+        <div class="table-responsive">
+          <table class="table table-borderless mb-0">
+            <tbody id="requestsTableBody">
+              <!-- populated by a function-->
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
     <!-- Modal (Bootstrap) -->
@@ -89,64 +82,74 @@
       class="modal fade"
       id="viewRequestModal"
       tabindex="-1"
-      aria-labelledby="viewRequestModalLabel"
       aria-hidden="true"
     >
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content border-primary">
-          <div class="modal-header bg-primary text-white">
-            <h5 class="modal-title" id="viewRequestModalLabel">
-              Request Details
-            </h5>
+      <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content border-0 shadow">
+          <!-- Header -->
+          <div class="modal-header bg-primary text-white rounded-top">
+            <h6 class="modal-title fw-semibold">Request Details</h6>
             <button
               type="button"
-              class="btn-close"
+              class="btn-close btn-close-white"
               data-bs-dismiss="modal"
-              aria-label="Close"
             ></button>
           </div>
-          <div class="modal-body text-start">
-            <p><strong>ID:</strong> <span id="modalRequestId"></span></p>
-            <p><strong>Room:</strong> <span id="modalRoom"></span></p>
-            <p><strong>Category:</strong> <span id="modalCategory"></span></p>
-            <p>
-              <strong>Description:</strong> <span id="modalDescription"></span>
-            </p>
-            <p><strong>Urgency:</strong> <span id="modalUrgency"></span></p>
-            <p><strong>Status:</strong> <span id="modalStatus"></span></p>
-            <p><strong>Date:</strong> <span id="modalDate"></span></p>
-            <p><strong>SET STATUS:</strong> <span id="setStatus"></span></p>
+
+          <!-- Body -->
+          <div class="modal-body">
+            <div class="mb-3">
+              <small class="text-muted">Request ID</small>
+              <div class="fw-semibold" id="modalRequestId"></div>
+            </div>
+            <div class="mb-3">
+              <small class="text-muted">Room</small>
+              <div class="fw-semibold" id="modalRoom"></div>
+            </div>
+
+            <div class="mb-3">
+              <small class="text-muted">Category</small>
+              <div id="modalCategory"></div>
+            </div>
+
+            <div class="mb-3">
+              <small class="text-muted">Description</small>
+              <div class="bg-light rounded-2 p-2" id="modalDescription"></div>
+            </div>
+
+            <div class="d-flex justify-content-between mb-3">
+              <div>
+                <small class="text-muted">Urgency</small><br />
+                <span id="modalUrgency" class="badge"></span>
+              </div>
+
+              <div>
+                <small class="text-muted">Status</small><br />
+                <span id="modalStatus" class="badge"></span>
+              </div>
+            </div>
+
+            <div>
+              <small class="text-muted">Date Submitted</small>
+              <div id="modalDate"></div>
+            </div>
           </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
+
+          <!-- Footer -->
+          <div class="modal-footer d-flex justify-content-between">
+            <button type="button" class="btn btn-light" data-bs-dismiss="modal">
               Close
             </button>
-            <div class="dropdown">
-              <button
-                class="btn btn-secondary dropdown-toggle"
-                type="button"
-                id="dropdownMenuButton1"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Dropdown button
-              </button>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li>
-                  <a class="dropdown-item" href="#">Something else here</a>
-                </li>
-              </ul>
-            </div>
+
+            <!-- Optional, simple status action -->
+            <button class="btn btn-success btn-sm rounded-pill px-3">
+              Mark as Done
+            </button>
           </div>
         </div>
       </div>
     </div>
+
     <!-- Footer -->
     <footer class="text-center py-3 bg-primary text-white fixed-bottom">
       &#169;

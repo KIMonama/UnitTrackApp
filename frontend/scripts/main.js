@@ -3,7 +3,61 @@
 // Function to populate table
 function populateTable() {
   const tableBody = document.getElementById("requestsTableBody");
+  tableBody.innerHTML = "";
+  fetch("/frontend/data/reports.json")
+    .then((res) => res.json())
+    .then((reports) => {
+      // Sort first (New → Seen → Done)
+      const statusOrder = { New: 1, Seen: 2, Done: 3 };
+      reports.sort((a, b) => statusOrder[a.status] - statusOrder[b.status]);
 
+      reports.forEach((report) => {
+        const row = document.createElement("tr");
+
+        row.innerHTML = `
+          <td>
+            <div class="d-flex justify-content-between align-items-start">
+              
+              <!-- Left info -->
+              <div>
+                <strong>Room ${report.tenantId}</strong><br>
+                <small class="text-muted">${report.category}</small><br>
+
+                <span class="badge ${getUrgencyClass(report.urgency)}">
+                  ${report.urgency}
+                </span>
+                <span class="badge ${getStatusClass(report.status)} ms-1">
+                  ${report.status}
+                </span>
+              </div>
+
+              <!-- Action -->
+              <div>
+                <button class="btn btn-sm btn-outline-primary"
+                  onclick="openModal(
+                    '${report.reportId}',
+                    '${report.tenantId}',
+                    '${report.category}',
+                    '${report.description}',
+                    '${report.urgency}',
+                    '${report.status}',
+                    '${report.dateSubmitted}'
+                  )">
+                  View
+                </button>
+              </div>
+
+            </div>
+          </td>
+        `;
+
+        tableBody.appendChild(row);
+      });
+    })
+    .catch((error) => console.error("Error loading reports:", error));
+}
+
+function temporary() {
   fetch("/frontend/data/reports.json")
     .then((request) => request.json())
     .then((reports) => {
@@ -146,7 +200,8 @@ const inputValidate = () => {
       return;
     } else {
       // If all maintenance fields pass:
-      window.location.href = "success.html";
+      //window.location.href = "success.html";
+      createNewReport();
     }
   }
 };
@@ -243,7 +298,7 @@ const logInPage = () => {
         })
         .then((data) => {
           // If backend confirms tenant exists
-          window.location.href = "Owner/owner-dashboard.html"
+          window.location.href = "Owner/owner-dashboard.html";
         })
         .catch((error) => {
           showError(error.message);
@@ -251,6 +306,43 @@ const logInPage = () => {
         });
     }
   }
+};
+
+const createNewReport = () => {
+  const option = document.getElementById("mOrC").value;
+  const category = document.getElementById("category").value;
+  const description = document.getElementById("code").value;
+  const urgency = document.getElementById("urgency").value;
+  const dateSubmitted = document.getElementById("availableDate").value;
+
+  fetch("http://localhost:3000/api/report", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      reportId: Date.now(), // simple ID for now
+      tenantId: "T1", // placeholder (OK for now)
+      type: option,
+      category: category,
+      description: description,
+      urgency: urgency,
+      status: "Submitted",
+      dateSubmitted: dateSubmitted,
+    }),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Cannot create a new report");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      // If backend confirms tenant exists
+      window.location.href = "success.html";
+    })
+    .catch((error) => {
+      showError(error.message);
+      document.getElementById("codeLabel").classList.add("text-danger");
+    });
 };
 
 //Error helper function to show pop ups in cases of errors
