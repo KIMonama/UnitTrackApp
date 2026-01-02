@@ -128,11 +128,71 @@ function openModal(id, room, category, description, urgency, status, date) {
   document.getElementById("modalStatus").textContent = status;
   document.getElementById("modalDate").textContent = date;
 
+  document
+    .getElementById("modalUrgency")
+    .classList.add(getUrgencyClass(urgency));
+  document.getElementById("modalStatus").classList.add(getStatusClass(status));
+
+  status === "Done" ? markAsDone() : resetDoneButton() ;
+  
   const modal = new bootstrap.Modal(
     document.getElementById("viewRequestModal")
   );
   modal.show();
 }
+
+
+
+//Function to change the mark as done button after you click it
+
+const markAsDone = () => {
+  //initialise the variables
+  const button = document.getElementById("doneButton");
+  const buttonIcon = document.getElementById("buttonIcon");
+  const buttonText = document.getElementById("buttonText");
+
+  //change colour from blue to grey of the button
+  button.classList.remove("btn-success");
+  button.classList.add("btn-secondary");
+
+  //change the icon
+  // Update Icon (Using Bootstrap Icons class 'bi-check-lg')
+  buttonIcon.classList.remove("bi-circle");
+  buttonIcon.classList.add("bi-check-lg");
+  // Update Text
+  buttonText.innerText = "Done";
+
+  // Optional: Disable button after clicking
+  button.disabled = true;
+  //Initialise the reportID and the new status
+  //const requestID = document.getElementById("modalRequestId").innerHTML;
+  //const newStatus ="Done";
+
+  //Update the status on the server
+  //updateReportStatus(requestID, newStatus);
+};
+
+//Function to reset the done button
+
+const resetDoneButton = () => {
+  const button = document.getElementById("doneButton");
+  const buttonIcon = document.getElementById("buttonIcon");
+  const buttonText = document.getElementById("buttonText");
+
+  // Reset to original Green state
+  button.classList.remove("btn-secondary");
+  button.classList.add("btn-success");
+
+  // Reset Icon to circle
+  buttonIcon.classList.remove("bi-check-lg");
+  buttonIcon.classList.add("bi-circle");
+
+  // Reset Text
+  buttonText.innerText = "Mark as Done";
+
+  // Re-enable the button
+  button.disabled = false;
+};
 
 const inputValidate = () => {
   const option = document.getElementById("mOrC");
@@ -377,4 +437,31 @@ const greyOut = () => {
       field.classList.remove("text-muted", "bg-light");
     });
   }
+};
+
+const updateReportStatus = () => {
+
+  const requestID = document.getElementById("modalRequestId").innerHTML;
+  const newStatus ="Done";
+
+  fetch(`http://localhost:3000/api/report/${requestID}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      status: newStatus,
+    }),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Failed to update report status");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      console.log(data.message);
+      location.reload(); // simple refresh after upda
+    })
+    .catch((error) => {
+      showError(error.message);
+    });
 };

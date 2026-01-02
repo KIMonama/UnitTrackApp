@@ -73,9 +73,60 @@ const logAreport = (req, res) => {
     .json({ message: "New report was recreated successfully" });
 };
 
+const updateReportStatus = (req, res) => {
+  console.log("PARAM ID:", req.params.id);
+  console.log("BODY:", req.body);
+
+  try {
+    const reportId = Number(req.params.id);
+    const { status } = req.body;
+
+    const reportsPath = path.join(
+      __dirname,
+      "..",
+      "frontend/data",
+      "reports.json"
+    );
+
+    // Read file
+    const data = fs.readFileSync(reportsPath, "utf-8");
+
+    const reports = JSON.parse(data);
+
+    let reportFound = false;
+
+    // Update status
+    reports.forEach((report) => {
+      if (report.reportId === reportId) {
+        report.status = status;
+        reportFound = true;
+      }
+    });
+    if (!reportFound) {
+      return res.status(404).json({ message: "Report not found" });
+    }
+
+    // ✅ WRITE BACK TO FILE (this was missing)
+    fs.writeFileSync(reportsPath, JSON.stringify(reports, null, 2));
+
+    // ✅ RESPONSE
+    return res
+      .status(200)
+      .json({ message: "New report was recreated successfully" });
+  } catch (error) {
+    return res.status(500).json({
+      message: "Error updating report status",
+      error: error.message,
+    });
+  }
+};
+
 app.get("/api/login", getLogin);
 app.post("/api/report", logAreport);
+app.put("/api/report/:id", updateReportStatus);
 
 app.listen(3000, () => {
   console.log("SERVER IS RUNNING");
 });
+
+//OBD17302012026

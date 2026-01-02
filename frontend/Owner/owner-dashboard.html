@@ -12,6 +12,10 @@
       integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
       crossorigin="anonymous"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
 
     <!-- Custom CSS -->
     <link href="/frontend/styles/style.css" rel="stylesheet" />
@@ -142,8 +146,14 @@
             </button>
 
             <!-- Optional, simple status action -->
-            <button class="btn btn-success btn-sm rounded-pill px-3">
-              Mark as Done
+            <button
+              id="doneButton"
+              class="btn btn-success btn-sm rounded-pill px-3"
+
+              onclick="updateReportStatus()"
+            >
+              <i id="buttonIcon" class="bi bi-circle me-1"></i>
+              <span id="buttonText">Mark as Done</span>
             </button>
           </div>
         </div>
