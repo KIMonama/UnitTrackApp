@@ -97,6 +97,7 @@
               type="button"
               class="btn-close btn-close-white"
               data-bs-dismiss="modal"
+              onclick="updateReportStatus('Seen')"
             ></button>
           </div>
 
@@ -141,7 +142,7 @@
 
           <!-- Footer -->
           <div class="modal-footer d-flex justify-content-between">
-            <button type="button" class="btn btn-light" data-bs-dismiss="modal">
+            <button onclick="updateReportStatus('Seen')" type="button" class="btn btn-light" data-bs-dismiss="modal">
               Close
             </button>
 
@@ -150,7 +151,7 @@
               id="doneButton"
               class="btn btn-success btn-sm rounded-pill px-3"
 
-              onclick="updateReportStatus()"
+              onclick="updateReportStatus('Done',1)"
             >
               <i id="buttonIcon" class="bi bi-circle me-1"></i>
               <span id="buttonText">Mark as Done</span>

@@ -108,11 +108,11 @@ function getUrgencyClass(urgency) {
 
 function getStatusClass(status) {
   switch (status) {
-    case "Submitted":
+    case "Done":
       return "bg-secondary";
-    case "In Progress":
-      return "bg-warning text-dark";
-    case "Resolved":
+    case "Seen":
+      return "bg-primary";
+    case "NEW":
       return "bg-success";
     default:
       return "bg-secondary";
@@ -133,15 +133,13 @@ function openModal(id, room, category, description, urgency, status, date) {
     .classList.add(getUrgencyClass(urgency));
   document.getElementById("modalStatus").classList.add(getStatusClass(status));
 
-  status === "Done" ? markAsDone() : resetDoneButton() ;
-  
+  status === "Done" ? markAsDone() : resetDoneButton();
+
   const modal = new bootstrap.Modal(
     document.getElementById("viewRequestModal")
   );
   modal.show();
 }
-
-
 
 //Function to change the mark as done button after you click it
 
@@ -385,7 +383,7 @@ const createNewReport = () => {
       category: category,
       description: description,
       urgency: urgency,
-      status: "Submitted",
+      status: "NEW",
       dateSubmitted: dateSubmitted,
     }),
   })
@@ -439,29 +437,33 @@ const greyOut = () => {
   }
 };
 
-const updateReportStatus = () => {
-
+const updateReportStatus = (newStatus,pass=0) => {
   const requestID = document.getElementById("modalRequestId").innerHTML;
-  const newStatus ="Done";
+  const oldStatus = document.getElementById("modalStatus").innerHTML;
+  
 
-  fetch(`http://localhost:3000/api/report/${requestID}`, {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      status: newStatus,
-    }),
-  })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Failed to update report status");
-      }
-      return response.json();
+  if (oldStatus === "Done" && newStatus==="Seen") {
+    return;
+  } else {
+    fetch(`http://localhost:3000/api/report/${requestID}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        status: newStatus,
+      }),
     })
-    .then((data) => {
-      console.log(data.message);
-      location.reload(); // simple refresh after upda
-    })
-    .catch((error) => {
-      showError(error.message);
-    });
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to update report status");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data.message);
+        location.reload(); // simple refresh after upda
+      })
+      .catch((error) => {
+        showError(error.message);
+      });
+  }
 };
