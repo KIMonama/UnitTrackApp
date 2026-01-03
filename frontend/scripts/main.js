@@ -57,41 +57,6 @@ function populateTable() {
     .catch((error) => console.error("Error loading reports:", error));
 }
 
-function temporary() {
-  fetch("/frontend/data/reports.json")
-    .then((request) => request.json())
-    .then((reports) => {
-      reports.forEach((report) => {
-        const row = document.createElement("tr");
-
-        row.innerHTML = `
-    <td>${report.reportId} <br><small>${report.tenantId}</small></td>
-    <td>${report.category}<br><span class="badge ${getUrgencyClass(
-          report.urgency
-        )}">${report.urgency}</span></td>
-    <td><span class="badge ${getStatusClass(report.status)}">${
-          report.status
-        }</span></td>
-    <td>${report.dateSubmitted}</td>
-    <td>
-        <button class="btn btn-sm btn-primary" onclick="openModal(
-            '${report.reportId}',
-            '${report.tenantId}',
-            '${report.category}',
-            '${report.description}',
-            '${report.urgency}',
-            '${report.status}',
-            '${report.dateSubmitted}'
-        )">View</button>
-    </td>
-`;
-
-        tableBody.appendChild(row);
-      });
-    })
-    .catch((error) => console.error("Error loading JSON:", error));
-}
-
 // Helper functions for colours
 function getUrgencyClass(urgency) {
   switch (urgency) {
@@ -264,24 +229,6 @@ const inputValidate = () => {
   }
 };
 
-//Function to populate the Enter units table
-const enterUnits = () => {
-  const units = parseInt(document.getElementById("units").value);
-  const tableBody = document.getElementById("unitsTableBody");
-  tableBody.innerHTML = "";
-
-  for (let i = 0; i < units; i++) {
-    const row = document.createElement("tr");
-
-    row.innerHTML = `
-      <td>${i + 1}</td>
-      <td><input type="text" class="form-control" placeholder="Example: 081 435 0822" aria-label="Username" aria-describedby="basic-addon1"></td>
-      `;
-
-    tableBody.appendChild(row);
-  }
-};
-
 //Function to determine which page to open on log in
 
 const logInPage = () => {
@@ -437,12 +384,11 @@ const greyOut = () => {
   }
 };
 
-const updateReportStatus = (newStatus,pass=0) => {
+const updateReportStatus = (newStatus, pass = 0) => {
   const requestID = document.getElementById("modalRequestId").innerHTML;
   const oldStatus = document.getElementById("modalStatus").innerHTML;
-  
 
-  if (oldStatus === "Done" && newStatus==="Seen") {
+  if (oldStatus === "Done" && newStatus === "Seen") {
     return;
   } else {
     fetch(`http://localhost:3000/api/report/${requestID}`, {

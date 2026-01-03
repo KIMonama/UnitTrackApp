@@ -142,7 +142,12 @@
 
           <!-- Footer -->
           <div class="modal-footer d-flex justify-content-between">
-            <button onclick="updateReportStatus('Seen')" type="button" class="btn btn-light" data-bs-dismiss="modal">
+            <button
+              onclick="updateReportStatus('Seen')"
+              type="button"
+              class="btn btn-light"
+              data-bs-dismiss="modal"
+            >
               Close
             </button>
 
@@ -150,7 +155,6 @@
             <button
               id="doneButton"
               class="btn btn-success btn-sm rounded-pill px-3"
-
               onclick="updateReportStatus('Done',1)"
             >
               <i id="buttonIcon" class="bi bi-circle me-1"></i>
@@ -180,6 +184,9 @@
       crossorigin="anonymous"
     ></script>
     <!-- Your custom JavaScript -->
-    <script src="/frontend/scripts/main.js"></script>
+    <script src="/frontend/scripts/ui/table.js"></script>
+    <script src="/frontend/scripts/ui/modal.js"></script>
+    <script src="/frontend/scripts/api/reports.api.js"></script>
+    <script src="/frontend/scripts/utils/helpers.js"></script>
   </body>
 </html>
