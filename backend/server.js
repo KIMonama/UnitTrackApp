@@ -51,6 +51,7 @@ const getLogin = (req, res) => {
     return res.status(404).json({ message: "Invalid role" });
   }
 };
+
 const logAreport = (req, res) => {
   const reportsPath = path.join(
     __dirname,
@@ -71,6 +72,26 @@ const logAreport = (req, res) => {
   return res
     .status(200)
     .json({ message: "New report was recreated successfully" });
+};
+
+const createNewAdminUser = (req, res) => {
+  const adminDetails = req.body;
+
+  const adminPath = path.join(__dirname, "..", "frontend/data", "admins.json");
+
+  const data = fs.readFileSync(adminPath, "utf-8");
+
+  const admin = JSON.parse(data);
+
+  admin.push(adminDetails);
+
+  // ✅ WRITE BACK TO FILE (this was missing)
+  fs.writeFileSync(adminPath, JSON.stringify(admin, null, 2));
+
+  // ✅ RESPONSE
+  return res
+    .status(200)
+    .json({ message: "New administrator was created successfully" });
 };
 
 const updateReportStatus = (req, res) => {
@@ -121,30 +142,12 @@ const updateReportStatus = (req, res) => {
   }
 };
 
-const createNewOwner = (req, res) => {
-  const ownerDetails = req.body;
-
-  const ownersPath = path.join(__dirname, "..", "frontend/data", "owners.json");
-
-  const data = fs.readFileSync(ownersPath, "utf-8");
-
-  const owners = JSON.parse(data);
-
-  owners.push(ownerDetails);
-
-  // ✅ WRITE BACK TO FILE (this was missing)
-  fs.writeFileSync(ownersPath, JSON.stringify(owners, null, 2));
-
-  // ✅ RESPONSE
-  return res
-    .status(200)
-    .json({ message: "New owner was created successfully" });
-};
-
 app.get("/api/login", getLogin);
-app.post("/api/report", logAreport);
+
 app.put("/api/report/:id", updateReportStatus);
-app.post("/api/getStarted", createNewOwner);
+
+app.post("/api/report", logAreport);
+app.post("/api/admin", createNewAdminUser);
 
 app.listen(3000, () => {
   console.log("SERVER IS RUNNING");

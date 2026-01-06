@@ -36,14 +36,21 @@ const createNewReport = () => {
 };
 
 const createNewOwner = () => {
-  fetch("http://localhost:3000/api/getStarted", {
+  const name = document.getElementById("name").value;
+  const email = document.getElementById("email").value;
+  const phoneNumber = document.getElementById("phone").value;
+  const property = document.getElementById("property").value;
+  const numberOfUnits = document.getElementById("numberOfUnits").value;
+
+  fetch("http://localhost:3000/api/admin", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      fullname: "Thabo Mokoena",
-      emailAddress: "keamog099@gmail.com",
-      propertyName: null,
-      numberOfUnits: 10,
+      name: name,
+      email: email,
+      phoneNumber: phoneNumber,
+      propertyName: property,
+      numberOfUnits: numberOfUnits,
       dateCreated: Date.now(),
     }),
   })
@@ -56,7 +63,7 @@ const createNewOwner = () => {
     .then((data) => {
       // If backend confirms successful onboarding
       console.log(data.message);
-      window.location.href = "success.html";
+      window.location.href = "../Owner/success.html";
     })
     .catch((error) => {
       console.log(error.message);

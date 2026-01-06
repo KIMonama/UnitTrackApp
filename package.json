@@ -15,8 +15,8 @@
   "type": "commonjs",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1" ,
-    "dev" : "node /Users/keamogetswemonama/Desktop/UnitTrackApp/backend/server.js"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon /Users/keamogetswemonama/Desktop/UnitTrackApp/backend/server.js"
   },
   "dependencies": {
     "cors": "^2.8.5",

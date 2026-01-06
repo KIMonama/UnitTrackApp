@@ -49,5 +49,24 @@
     "status": "Done",
     "dateSubmitted": "2026-01-29"
   },
-  null
+  {
+    "reportId": 1768000000001,
+    "tenantId": "T1",
+    "type": "Maintenance",
+    "category": "plumbing",
+    "description": "🚰 Leaking tap",
+    "urgency": "High",
+    "status": "Done",
+    "dateSubmitted": "2025-01-06"
+  },
+  {
+    "reportId": 1768000000001,
+    "tenantId": "T1",
+    "type": "Maintenance",
+    "category": "plumbing",
+    "description": "🚰 Leaking tap",
+    "urgency": "High",
+    "status": "Done",
+    "dateSubmitted": "2025-01-06"
+  }
 ]

@@ -1,0 +1,95 @@
+[
+  {
+    "fullName": "John Doe",
+    "email": "john@example.com",
+    "phoneNumber": "0123456789",
+    "propertyName": "Sunset Heights",
+    "numberOfUnits": 5
+  },
+  {
+    "fullName": "Jane Smith",
+    "email": "jane@example.com",
+    "phoneNumber": "0987654321",
+    "propertyName": null,
+    "numberOfUnits": 2
+  },
+  {
+    "fullName": "Jane Smith",
+    "email": "jane@example.com",
+    "phoneNumber": "0987654321",
+    "propertyName": null,
+    "numberOfUnits": 2
+  },
+  {
+    "name": "wfghgfds",
+    "email": "sdfghgfds",
+    "phoneNumber": "123456s",
+    "propertyName": "dfg",
+    "numberOfUnits": "12",
+    "dateCreated": 1767735775422
+  },
+  {
+    "name": "wfghgfds",
+    "email": "sdfghgfds",
+    "phoneNumber": "123456s",
+    "propertyName": "dfg",
+    "numberOfUnits": "12",
+    "dateCreated": 1767736009061
+  },
+  {
+    "name": "wfghgfds",
+    "email": "sdfghgfds",
+    "phoneNumber": "123456s",
+    "propertyName": "dfg",
+    "numberOfUnits": "12",
+    "dateCreated": 1767736025080
+  },
+  {
+    "name": "",
+    "email": "",
+    "phoneNumber": "",
+    "propertyName": "",
+    "numberOfUnits": "",
+    "dateCreated": 1767736030596
+  },
+  {
+    "name": "",
+    "email": "",
+    "phoneNumber": "",
+    "propertyName": "",
+    "numberOfUnits": "",
+    "dateCreated": 1767736060002
+  },
+  {
+    "name": "",
+    "email": "",
+    "phoneNumber": "",
+    "propertyName": "",
+    "numberOfUnits": "",
+    "dateCreated": 1767736206914
+  },
+  {
+    "name": "",
+    "email": "",
+    "phoneNumber": "",
+    "propertyName": "",
+    "numberOfUnits": "",
+    "dateCreated": 1767736247819
+  },
+  {
+    "name": "",
+    "email": "",
+    "phoneNumber": "",
+    "propertyName": "",
+    "numberOfUnits": "",
+    "dateCreated": 1767736484177
+  },
+  {
+    "name": "",
+    "email": "",
+    "phoneNumber": "",
+    "propertyName": "",
+    "numberOfUnits": "",
+    "dateCreated": 1767736519365
+  }
+]
