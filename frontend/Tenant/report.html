@@ -55,6 +55,7 @@
           <select
             class="form-select text-center text-white bg-primary"
             id="category"
+            onchange="showDescriptionSuggestions(this.value)"
           >
             <option selected disabled>Issue category</option>
             <option>Plumbing</option>
@@ -70,11 +71,16 @@
           <input
             type="text"
             class="form-control"
-            id="code"
-            placeholder="Enter code"
+            id="description"
+            placeholder="Describe the issue"
           />
-          <label for="code">Add a description</label>
+          <label for="description">Describe the issue</label>
         </div>
+        <!-- Description Suggestions -->
+        <div
+          id="descriptionSuggestions"
+          class="mb-3 d-flex flex-wrap gap-2"
+        ></div>
 
         <div class="input-group mb-3">
           <label class="input-group-text" for="inputGroupFile01">Upload</label>
@@ -138,9 +144,11 @@
     ></script>
 
     <!-- Your custom JavaScript -->
+
     <script src="/frontend/scripts/forms/submission.js"></script>
     <script src="/frontend/scripts/forms/validation.js"></script>
     <script src="/frontend/scripts/utils/helpers.js"></script>
+    <script src="/frontend/scripts/UI/suggestions.js"></script>
   </body>
   <!-- Footer -->
   <footer

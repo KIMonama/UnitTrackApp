@@ -41,86 +41,71 @@
         Monitor maintenance and complaints in real time
       </p>
     </section>
+    <!-- Get Started Form -->
+    <div class="container my-1">
+      <div class="card shadow-sm border-0 p-4 mx-auto" style="max-width: 600px">
+        <div class="text-center mb-4">
+          <h4 class="text-primary fw-bold">Owner Information</h4>
+        </div>
 
- <!-- Owner Details Section -->
-<div class="container my-5">
-  <div class="text-center mb-4">
-    <h2 class="text-primary fw-bold">Enter Landlord Details Below</h2>
-    <p class="text-muted fst-italic">Please fill in your personal and unit information carefully</p>
-  </div>
+        <!-- Full Name -->
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Full Name</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="e.g. Thabo Mokoena"
+          />
+        </div>
 
-  <div id="ownerDetails" class="card shadow-sm border-0 p-4 mx-auto" style="max-width: 700px;">
-    <!-- Name Inputs -->
-    <div class="row g-2 mb-3">
-      <div class="col-12 col-md-6">
-        <div class="input-group">
-          <span class="input-group-text bg-primary text-white fw-semibold">First</span>
-          <input type="text" aria-label="First name" class="form-control" placeholder="First name" />
+        <!-- Email -->
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Email Address</label>
+          <input
+            type="email"
+            class="form-control"
+            placeholder="e.g. owner@email.com"
+          />
+        </div>
+
+        <!-- Phone -->
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Phone Number</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="e.g. 081 234 5678"
+          />
+        </div>
+
+        <!-- Property Name (Optional) -->
+        <div class="mb-4">
+          <label class="form-label fw-semibold">
+            Property Name <span class="text-muted">(optional)</span>
+          </label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="e.g. Mokoena Rooms"
+          />
+        </div>
+        <!-- Property Name (Optional) -->
+        <div class="mb-4">
+          <label class="form-label fw-semibold"> Number of Units </label>
+          <input type="text" class="form-control" placeholder="e.g. 10" />
+        </div>
+
+        <!-- Button -->
+        <div class="d-grid">
+          <button
+            onclick="createNewOwner()"
+            class="btn btn-primary btn-lg shadow-sm"
+          >
+            Continue
+          </button>
         </div>
       </div>
-      <div class="col-12 col-md-6">
-        <div class="input-group">
-          <span class="input-group-text bg-primary text-white fw-semibold">Last</span>
-          <input type="text" aria-label="Last name" class="form-control" placeholder="Last name" />
-        </div>
-      </div>
     </div>
-
-    <!-- Phone Number -->
-    <div class="input-group flex-nowrap mb-3">
-      <span class="input-group-text bg-primary text-white fw-semibold" id="addon-wrapping">📞</span>
-      <input
-        type="text"
-        class="form-control"
-        placeholder="e.g. 081 435 0822"
-        aria-label="Phone Number"
-        aria-describedby="addon-wrapping"
-      />
-    </div>
-
-    <!-- Total Units -->
-    <div class="input-group flex-nowrap mb-4">
-      <span class="input-group-text bg-primary text-white fw-semibold">🏘️</span>
-      <input
-        id="units"
-        type="number"
-        class="form-control"
-        placeholder="Enter total number of units"
-        aria-label="Total Units"
-      />
-    </div>
-
-    <!-- Button -->
-    <div class="text-center">
-      <button
-        onclick="enterUnits()"
-        class="btn btn-primary w-75 shadow-sm"
-      >
-        ➕ Click to Enter Unit Details
-      </button>
-    </div>
-  </div>
-</div>
-
-<!-- Units Table Section -->
-<div class="container my-5">
-  <div class="card p-3 shadow-sm border-0" style="max-width: 700px; margin: auto;">
-    <h4 class="text-primary text-center mb-3 fw-bold">Units Overview</h4>
-    <div class="table-responsive">
-      <table class="table table-bordered align-middle text-center mb-0">
-        <thead class="bg-primary text-white">
-          <tr>
-            <th scope="col">Room Number</th>
-            <th scope="col">Phone Number</th>
-          </tr>
-        </thead>
-        <tbody id="unitsTableBody">
-          <!-- Populated dynamically via JavaScript -->
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
 
     <!-- Footer -->
     <footer class="text-center py-3 bg-primary text-white fixed-bottom">
@@ -141,6 +126,7 @@
       crossorigin="anonymous"
     ></script>
     <!-- Your custom JavaScript -->
-    <script src="/frontend/scripts/main.js"></script>
+    <script src="/frontend/scripts/ui/table.js"></script>
+    <script src="/frontend/scripts/forms/submission.js"></script>
   </body>
 </html>

@@ -34,3 +34,31 @@ const createNewReport = () => {
       document.getElementById("codeLabel").classList.add("text-danger");
     });
 };
+
+const createNewOwner = () => {
+  fetch("http://localhost:3000/api/getStarted", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      fullname: "Thabo Mokoena",
+      emailAddress: "keamog099@gmail.com",
+      propertyName: null,
+      numberOfUnits: 10,
+      dateCreated: Date.now(),
+    }),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Failed to create owner account");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      // If backend confirms successful onboarding
+      console.log(data.message);
+      window.location.href = "success.html";
+    })
+    .catch((error) => {
+      console.log(error.message);
+    });
+};
