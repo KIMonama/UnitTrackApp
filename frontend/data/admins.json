@@ -1,95 +1,27 @@
 [
   {
-    "fullName": "John Doe",
-    "email": "john@example.com",
-    "phoneNumber": "0123456789",
-    "propertyName": "Sunset Heights",
-    "numberOfUnits": 5
+    "adminCode": "001",
+    "name": "Keamogetswe Monama",
+    "email": "keamonama077@gmail.com",
+    "active": true,
+    "createdAt": "2026-01-11"
   },
   {
-    "fullName": "Jane Smith",
-    "email": "jane@example.com",
-    "phoneNumber": "0987654321",
-    "propertyName": null,
-    "numberOfUnits": 2
+    "adminCode": "002",
+    "name": "Keamogetswe Monama",
+    "email": "keamonama077@gmail.com",
+    "unitCount": null,
+    "active": true,
+    "createdAt": "2026-01-11"
   },
   {
-    "fullName": "Jane Smith",
-    "email": "jane@example.com",
-    "phoneNumber": "0987654321",
-    "propertyName": null,
-    "numberOfUnits": 2
-  },
-  {
-    "name": "wfghgfds",
-    "email": "sdfghgfds",
-    "phoneNumber": "123456s",
-    "propertyName": "dfg",
-    "numberOfUnits": "12",
-    "dateCreated": 1767735775422
-  },
-  {
-    "name": "wfghgfds",
-    "email": "sdfghgfds",
-    "phoneNumber": "123456s",
-    "propertyName": "dfg",
-    "numberOfUnits": "12",
-    "dateCreated": 1767736009061
-  },
-  {
-    "name": "wfghgfds",
-    "email": "sdfghgfds",
-    "phoneNumber": "123456s",
-    "propertyName": "dfg",
-    "numberOfUnits": "12",
-    "dateCreated": 1767736025080
-  },
-  {
-    "name": "",
-    "email": "",
-    "phoneNumber": "",
-    "propertyName": "",
-    "numberOfUnits": "",
-    "dateCreated": 1767736030596
-  },
-  {
-    "name": "",
-    "email": "",
-    "phoneNumber": "",
-    "propertyName": "",
-    "numberOfUnits": "",
-    "dateCreated": 1767736060002
-  },
-  {
-    "name": "",
-    "email": "",
-    "phoneNumber": "",
-    "propertyName": "",
-    "numberOfUnits": "",
-    "dateCreated": 1767736206914
-  },
-  {
-    "name": "",
-    "email": "",
-    "phoneNumber": "",
-    "propertyName": "",
-    "numberOfUnits": "",
-    "dateCreated": 1767736247819
-  },
-  {
-    "name": "",
-    "email": "",
-    "phoneNumber": "",
-    "propertyName": "",
-    "numberOfUnits": "",
-    "dateCreated": 1767736484177
-  },
-  {
-    "name": "",
-    "email": "",
-    "phoneNumber": "",
-    "propertyName": "",
-    "numberOfUnits": "",
-    "dateCreated": 1767736519365
+    "adminCode": "003",
+    "name": "kjahjlfnad",
+    "email": "dfaffs",
+    "phone": "fsgs",
+    "property": "sgfg",
+    "unitCount": 10,
+    "active": true,
+    "createdAt": "2026-01-11"
   }
 ]

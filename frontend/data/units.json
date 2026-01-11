@@ -1,0 +1,72 @@
+[
+  {
+    "unitCode": "00301",
+    "adminCode": "003",
+    "unitNumber": "01",
+    "unitLabel": "Room 1",
+    "active": true
+  },
+  {
+    "unitCode": "00302",
+    "adminCode": "003",
+    "unitNumber": "02",
+    "unitLabel": "Room 2",
+    "active": true
+  },
+  {
+    "unitCode": "00303",
+    "adminCode": "003",
+    "unitNumber": "03",
+    "unitLabel": "Room 3",
+    "active": true
+  },
+  {
+    "unitCode": "00304",
+    "adminCode": "003",
+    "unitNumber": "04",
+    "unitLabel": "Room 4",
+    "active": true
+  },
+  {
+    "unitCode": "00305",
+    "adminCode": "003",
+    "unitNumber": "05",
+    "unitLabel": "Room 5",
+    "active": true
+  },
+  {
+    "unitCode": "00306",
+    "adminCode": "003",
+    "unitNumber": "06",
+    "unitLabel": "Room 6",
+    "active": true
+  },
+  {
+    "unitCode": "00307",
+    "adminCode": "003",
+    "unitNumber": "07",
+    "unitLabel": "Room 7",
+    "active": true
+  },
+  {
+    "unitCode": "00308",
+    "adminCode": "003",
+    "unitNumber": "08",
+    "unitLabel": "Room 8",
+    "active": true
+  },
+  {
+    "unitCode": "00309",
+    "adminCode": "003",
+    "unitNumber": "09",
+    "unitLabel": "Room 9",
+    "active": true
+  },
+  {
+    "unitCode": "00310",
+    "adminCode": "003",
+    "unitNumber": "10",
+    "unitLabel": "Room 10",
+    "active": true
+  }
+]

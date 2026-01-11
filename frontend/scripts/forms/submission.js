@@ -35,7 +35,7 @@ const createNewReport = () => {
     });
 };
 
-const createNewOwner = () => {
+const createNewAdmin = () => {
   const name = document.getElementById("name").value;
   const email = document.getElementById("email").value;
   const phoneNumber = document.getElementById("phone").value;
@@ -48,10 +48,9 @@ const createNewOwner = () => {
     body: JSON.stringify({
       name: name,
       email: email,
-      phoneNumber: phoneNumber,
-      propertyName: property,
-      numberOfUnits: numberOfUnits,
-      dateCreated: Date.now(),
+      phone: phoneNumber,
+      property: property,
+      unitCount: numberOfUnits
     }),
   })
     .then((response) => {
