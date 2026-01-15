@@ -68,5 +68,355 @@
     "unitNumber": "10",
     "unitLabel": "Room 10",
     "active": true
+  },
+  {
+    "unitCode": "00401",
+    "adminCode": "004",
+    "unitNumber": "01",
+    "unitLabel": "Room 1",
+    "active": true
+  },
+  {
+    "unitCode": "00402",
+    "adminCode": "004",
+    "unitNumber": "02",
+    "unitLabel": "Room 2",
+    "active": true
+  },
+  {
+    "unitCode": "00403",
+    "adminCode": "004",
+    "unitNumber": "03",
+    "unitLabel": "Room 3",
+    "active": true
+  },
+  {
+    "unitCode": "00404",
+    "adminCode": "004",
+    "unitNumber": "04",
+    "unitLabel": "Room 4",
+    "active": true
+  },
+  {
+    "unitCode": "00405",
+    "adminCode": "004",
+    "unitNumber": "05",
+    "unitLabel": "Room 5",
+    "active": true
+  },
+  {
+    "unitCode": "00406",
+    "adminCode": "004",
+    "unitNumber": "06",
+    "unitLabel": "Room 6",
+    "active": true
+  },
+  {
+    "unitCode": "00407",
+    "adminCode": "004",
+    "unitNumber": "07",
+    "unitLabel": "Room 7",
+    "active": true
+  },
+  {
+    "unitCode": "00408",
+    "adminCode": "004",
+    "unitNumber": "08",
+    "unitLabel": "Room 8",
+    "active": true
+  },
+  {
+    "unitCode": "00409",
+    "adminCode": "004",
+    "unitNumber": "09",
+    "unitLabel": "Room 9",
+    "active": true
+  },
+  {
+    "unitCode": "00410",
+    "adminCode": "004",
+    "unitNumber": "10",
+    "unitLabel": "Room 10",
+    "active": true
+  },
+  {
+    "unitCode": "00501",
+    "adminCode": "005",
+    "unitNumber": "01",
+    "unitLabel": "Room 1",
+    "active": true
+  },
+  {
+    "unitCode": "00502",
+    "adminCode": "005",
+    "unitNumber": "02",
+    "unitLabel": "Room 2",
+    "active": true
+  },
+  {
+    "unitCode": "00503",
+    "adminCode": "005",
+    "unitNumber": "03",
+    "unitLabel": "Room 3",
+    "active": true
+  },
+  {
+    "unitCode": "00504",
+    "adminCode": "005",
+    "unitNumber": "04",
+    "unitLabel": "Room 4",
+    "active": true
+  },
+  {
+    "unitCode": "00505",
+    "adminCode": "005",
+    "unitNumber": "05",
+    "unitLabel": "Room 5",
+    "active": true
+  },
+  {
+    "unitCode": "00506",
+    "adminCode": "005",
+    "unitNumber": "06",
+    "unitLabel": "Room 6",
+    "active": true
+  },
+  {
+    "unitCode": "00507",
+    "adminCode": "005",
+    "unitNumber": "07",
+    "unitLabel": "Room 7",
+    "active": true
+  },
+  {
+    "unitCode": "00508",
+    "adminCode": "005",
+    "unitNumber": "08",
+    "unitLabel": "Room 8",
+    "active": true
+  },
+  {
+    "unitCode": "00509",
+    "adminCode": "005",
+    "unitNumber": "09",
+    "unitLabel": "Room 9",
+    "active": true
+  },
+  {
+    "unitCode": "00510",
+    "adminCode": "005",
+    "unitNumber": "10",
+    "unitLabel": "Room 10",
+    "active": true
+  },
+  {
+    "unitCode": "00601",
+    "adminCode": "006",
+    "unitNumber": "01",
+    "unitLabel": "Room 1",
+    "active": true
+  },
+  {
+    "unitCode": "00602",
+    "adminCode": "006",
+    "unitNumber": "02",
+    "unitLabel": "Room 2",
+    "active": true
+  },
+  {
+    "unitCode": "00603",
+    "adminCode": "006",
+    "unitNumber": "03",
+    "unitLabel": "Room 3",
+    "active": true
+  },
+  {
+    "unitCode": "00604",
+    "adminCode": "006",
+    "unitNumber": "04",
+    "unitLabel": "Room 4",
+    "active": true
+  },
+  {
+    "unitCode": "00605",
+    "adminCode": "006",
+    "unitNumber": "05",
+    "unitLabel": "Room 5",
+    "active": true
+  },
+  {
+    "unitCode": "00606",
+    "adminCode": "006",
+    "unitNumber": "06",
+    "unitLabel": "Room 6",
+    "active": true
+  },
+  {
+    "unitCode": "00607",
+    "adminCode": "006",
+    "unitNumber": "07",
+    "unitLabel": "Room 7",
+    "active": true
+  },
+  {
+    "unitCode": "00608",
+    "adminCode": "006",
+    "unitNumber": "08",
+    "unitLabel": "Room 8",
+    "active": true
+  },
+  {
+    "unitCode": "00609",
+    "adminCode": "006",
+    "unitNumber": "09",
+    "unitLabel": "Room 9",
+    "active": true
+  },
+  {
+    "unitCode": "00610",
+    "adminCode": "006",
+    "unitNumber": "10",
+    "unitLabel": "Room 10",
+    "active": true
+  },
+  {
+    "unitCode": "00701",
+    "adminCode": "007",
+    "unitNumber": "01",
+    "unitLabel": "Room 1",
+    "active": true
+  },
+  {
+    "unitCode": "00702",
+    "adminCode": "007",
+    "unitNumber": "02",
+    "unitLabel": "Room 2",
+    "active": true
+  },
+  {
+    "unitCode": "00703",
+    "adminCode": "007",
+    "unitNumber": "03",
+    "unitLabel": "Room 3",
+    "active": true
+  },
+  {
+    "unitCode": "00704",
+    "adminCode": "007",
+    "unitNumber": "04",
+    "unitLabel": "Room 4",
+    "active": true
+  },
+  {
+    "unitCode": "00705",
+    "adminCode": "007",
+    "unitNumber": "05",
+    "unitLabel": "Room 5",
+    "active": true
+  },
+  {
+    "unitCode": "00706",
+    "adminCode": "007",
+    "unitNumber": "06",
+    "unitLabel": "Room 6",
+    "active": true
+  },
+  {
+    "unitCode": "00707",
+    "adminCode": "007",
+    "unitNumber": "07",
+    "unitLabel": "Room 7",
+    "active": true
+  },
+  {
+    "unitCode": "00708",
+    "adminCode": "007",
+    "unitNumber": "08",
+    "unitLabel": "Room 8",
+    "active": true
+  },
+  {
+    "unitCode": "00709",
+    "adminCode": "007",
+    "unitNumber": "09",
+    "unitLabel": "Room 9",
+    "active": true
+  },
+  {
+    "unitCode": "00710",
+    "adminCode": "007",
+    "unitNumber": "10",
+    "unitLabel": "Room 10",
+    "active": true
+  },
+  {
+    "unitCode": "00801",
+    "adminCode": "008",
+    "unitNumber": "01",
+    "unitLabel": "Room 1",
+    "active": true
+  },
+  {
+    "unitCode": "00802",
+    "adminCode": "008",
+    "unitNumber": "02",
+    "unitLabel": "Room 2",
+    "active": true
+  },
+  {
+    "unitCode": "00803",
+    "adminCode": "008",
+    "unitNumber": "03",
+    "unitLabel": "Room 3",
+    "active": true
+  },
+  {
+    "unitCode": "00804",
+    "adminCode": "008",
+    "unitNumber": "04",
+    "unitLabel": "Room 4",
+    "active": true
+  },
+  {
+    "unitCode": "00805",
+    "adminCode": "008",
+    "unitNumber": "05",
+    "unitLabel": "Room 5",
+    "active": true
+  },
+  {
+    "unitCode": "00806",
+    "adminCode": "008",
+    "unitNumber": "06",
+    "unitLabel": "Room 6",
+    "active": true
+  },
+  {
+    "unitCode": "00807",
+    "adminCode": "008",
+    "unitNumber": "07",
+    "unitLabel": "Room 7",
+    "active": true
+  },
+  {
+    "unitCode": "00808",
+    "adminCode": "008",
+    "unitNumber": "08",
+    "unitLabel": "Room 8",
+    "active": true
+  },
+  {
+    "unitCode": "00809",
+    "adminCode": "008",
+    "unitNumber": "09",
+    "unitLabel": "Room 9",
+    "active": true
+  },
+  {
+    "unitCode": "00810",
+    "adminCode": "008",
+    "unitNumber": "10",
+    "unitLabel": "Room 10",
+    "active": true
   }
 ]

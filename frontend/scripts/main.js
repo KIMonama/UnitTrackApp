@@ -413,3 +413,16 @@ const updateReportStatus = (newStatus, pass = 0) => {
       });
   }
 };
+
+
+
+
+import { handleLogin } from "./forms/login.form.js";
+
+document.addEventListener("DOMContentLoaded", () => {
+  const loginBtn = document.getElementById("loginBtn");
+
+  if (loginBtn) {
+    loginBtn.addEventListener("click", handleLogin);
+  }
+});

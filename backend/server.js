@@ -9,46 +9,93 @@ const app = new express();
 app.use(cors());
 app.use(express.json());
 
-const getLogin = (req, res) => {
-  if (req.query.role === "TENANT") {
-    //To debug
-    console.log("LOGIN HIT:", req.query);
+const login = (req, res) => {
+  try {
+    const { role } = req.body;
 
-    const tenantsPath = path.join(
-      __dirname,
-      "..",
-      "frontend/data",
-      "tenants.json"
-    );
-    const data = fs.readFileSync(tenantsPath, "utf-8");
+    if (!role) {
+      return res.status(400).json({ message: "Role is required" });
+    }
 
-    const tenants = JSON.parse(data);
-    const tenantExists = tenants.find(
-      (tenant) => tenant.tenantId === req.query.tenantCode
-    );
-    if (!tenantExists) {
-      return res.status(404).json({ message: "User not found" });
-    } else {
-      return res.status(200).json({ message: "User exists" });
+    // ===============================
+    // TENANT LOGIN (UNIT-BASED)
+    // ===============================
+    if (role === "TENANT") {
+      const { unitCode } = req.body;
+
+      if (!unitCode) {
+        return res.status(400).json({ message: "Unit code is required" });
+      }
+
+      const unitsPath = path.join(
+        __dirname,
+        "..",
+        "frontend/data",
+        "units.json"
+      );
+
+      const units = JSON.parse(fs.readFileSync(unitsPath, "utf-8"));
+
+      const unitExists = units.find(
+        (unit) => unit.unitCode === unitCode && unit.active === true
+      );
+
+      if (!unitExists) {
+        return res.status(404).json({ message: "Unit not found" });
+      }
+
+      return res.status(200).json({
+        message: "Login successful",
+        role: "TENANT",
+        adminCode: unitExists.adminCode,
+        unitCode: unitExists.unitCode,
+      });
     }
-  } else if (req.query.role === "OWNER") {
-    const ownersPath = path.join(
-      __dirname,
-      "..",
-      "frontend/data",
-      "owners.json"
-    );
-    console.log(ownersPath);
-    const data = fs.readFileSync(ownersPath, "utf-8");
-    const owners = JSON.parse(data);
-    const ownerExists = owners.find((owner) => owner.phone === req.query.phone);
-    if (!ownerExists) {
-      return res.status(404).json({ message: "user not found" });
-    } else {
-      return res.status(200).json({ message: "user exist" });
+
+    // ===============================
+    // ADMIN LOGIN
+    // ===============================
+    if (role === "ADMIN") {
+      const { adminCode } = req.body;
+
+      if (!adminCode) {
+        return res.status(400).json({ message: "Admin code is required" });
+      }
+
+      const adminsPath = path.join(
+        __dirname,
+        "..",
+        "frontend/data",
+        "admins.json"
+      );
+
+      const admins = JSON.parse(fs.readFileSync(adminsPath, "utf-8"));
+
+      const adminExists = admins.find(
+        (admin) => admin.adminCode === adminCode && admin.active === true
+      );
+
+      if (!adminExists) {
+        return res.status(404).json({ message: "Admin not found" });
+      }
+
+      return res.status(200).json({
+        message: "Login successful",
+        role: "ADMIN",
+        adminCode: adminExists.adminCode,
+        property: adminExists.property,
+      });
     }
-  } else {
-    return res.status(404).json({ message: "Invalid role" });
+
+    // ===============================
+    // INVALID ROLE
+    // ===============================
+    return res.status(400).json({ message: "Invalid role" });
+  } catch (error) {
+    return res.status(500).json({
+      message: "Login failed",
+      error: error.message,
+    });
   }
 };
 
@@ -76,7 +123,7 @@ const logAreport = (req, res) => {
 
 const createNewAdminUser = (req, res) => {
   try {
-    const { name, email, phone, property} = req.body;
+    const { name, email, phone, property } = req.body;
     const unitCount = Number(req.body.unitCount);
 
     //Create paths for both the units and admins files
@@ -189,7 +236,7 @@ const updateReportStatus = (req, res) => {
   }
 };
 
-app.get("/api/login", getLogin);
+app.post("/api/auth/login", login);
 
 app.put("/api/report/:id", updateReportStatus);
 

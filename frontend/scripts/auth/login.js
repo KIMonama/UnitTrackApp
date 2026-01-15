@@ -32,13 +32,18 @@ const logInPage = () => {
   }
   // 3. Extra validation based on selected option
   if (UserType === "TENANT") {
-    if (code.length !== 4 || isNaN(code)) {
-      showError("Tenant code must be exactly 4 digits");
+    if (code.length !== 5 || isNaN(code)) {
+      showError("Tenant code must be exactly 5 digits");
       return;
     } else {
-      fetch(
-        `http://localhost:3000/api/login?role=${UserType}&tenantCode=${code}`
-      )
+      fetch("http://localhost:3000/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          role: UserType,
+          unitCode: code,
+        }),
+      })
         .then((response) => {
           if (!response.ok) {
             throw new Error("Invalid login details");
@@ -55,17 +60,24 @@ const logInPage = () => {
         });
     }
   }
-  if (UserType === "OWNER") {
-    if (code.length !== 10 || isNaN(code)) {
-      showError("Phone number must be 10 digits");
+  if (UserType === "ADMIN") {
+    if (code.length !== 3 || isNaN(code)) {
+      showError("Phone number must be 3 digits");
       return;
     } else {
       //Fetch Owner data and validate
 
-      fetch(`http://localhost:3000/api/login?role=${UserType}&phone=${code}`)
+      fetch("http://localhost:3000/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          role: UserType,
+          adminCode: code,
+        }),
+      })
         .then((response) => {
           if (!response.ok) {
-            throw new Error("Invalid login details");
+            throw new Error(response.message);
           }
           return response.json();
         })

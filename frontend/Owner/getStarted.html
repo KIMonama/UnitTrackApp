@@ -57,6 +57,9 @@
             class="form-control"
             placeholder="e.g. Thabo Mokoena"
           />
+          <div class="invalid-feedback">
+            Please enter your full name (at least 3 characters).
+          </div>
         </div>
 
         <!-- Email -->
@@ -68,6 +71,9 @@
             class="form-control"
             placeholder="e.g. owner@email.com"
           />
+          <div class="invalid-feedback">
+            Please enter a valid email address.
+          </div>
         </div>
 
         <!-- Phone -->
@@ -79,6 +85,9 @@
             class="form-control"
             placeholder="e.g. 081 234 5678"
           />
+          <div class="invalid-feedback">
+            Please enter a valid 10-digit SA phone number.
+          </div>
         </div>
 
         <!-- Property Name (Optional) -->
@@ -102,12 +111,15 @@
             class="form-control"
             placeholder="e.g. 10"
           />
+          <div class="invalid-feedback">
+            Please enter a valid number (minimum 1).
+          </div>
         </div>
 
         <!-- Button -->
         <div class="d-grid">
           <button
-            onclick="createNewAdmin()"
+            id="submitBtn"
             class="btn btn-primary btn-lg shadow-sm"
           >
             Continue
@@ -136,6 +148,6 @@
     ></script>
     <!-- Your custom JavaScript -->
     <script src="/frontend/scripts/ui/table.js"></script>
-    <script src="/frontend/scripts/forms/submission.js"></script>
+    <script type="module" src="/frontend/scripts/forms/submission.js"></script>
   </body>
 </html>

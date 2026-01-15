@@ -26,13 +26,3 @@ function getStatusClass(status) {
 }
 
 
-//Error helper function to show pop ups in cases of errors
-const showError = (message) => {
-  //Initialise the elements
-  const errorMessage = document.getElementById("errorMessage");
-  const alert = document.getElementById("alert");
-
-  //populate and display the error
-  errorMessage.innerText = message;
-  alert.classList.remove("d-none");
-};

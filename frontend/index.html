@@ -50,7 +50,7 @@
           >
             <option selected disabled>Select option</option>
             <option>TENANT</option>
-            <option>OWNER</option>
+            <option>ADMIN</option>
           </select>
         </div>
 
@@ -58,7 +58,7 @@
           <input
             type="text"
             class="form-control"
-            id="code"
+            id="loginCode"
             placeholder="Enter code"
           />
           <label id="codeLabel" for="code">Enter room code or cellphone</label>
@@ -66,7 +66,7 @@
 
         <div class="d-grid gap-2">
           <a id="logInLink"
-            ><button onclick="logInPage()" class="btn btn-primary btn-lg w-100">
+            ><button id="loginBtn" class="btn btn-primary btn-lg w-100">
               Log in
             </button></a
           >
@@ -104,8 +104,9 @@
       crossorigin="anonymous"
     ></script>
     <!-- Your custom JavaScript -->
-    <script src="/frontend/scripts/auth/login.js"></script>
-    <script src="/frontend/scripts/utils/helpers.js"></script>
+    <!--<script src="/frontend/scripts/auth/login.js"></script>-->
+    <!--<script src="/frontend/scripts/utils/helpers.js"></script>-->
+    <script type="module" src="/frontend/scripts/main.js"></script>
   </body>
   <!-- Footer -->
   <footer
