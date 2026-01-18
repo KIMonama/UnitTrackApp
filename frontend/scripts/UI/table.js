@@ -54,21 +54,3 @@ function populateTable() {
     })
     .catch((error) => console.error("Error loading reports:", error));
 }
-
-//Function to populate the Enter units table
-const enterUnits = () => {
-  const units = parseInt(document.getElementById("units").value);
-  const tableBody = document.getElementById("unitsTableBody");
-  tableBody.innerHTML = "";
-
-  for (let i = 0; i < units; i++) {
-    const row = document.createElement("tr");
-
-    row.innerHTML = `
-      <td>${i + 1}</td>
-      <td><input type="text" class="form-control" placeholder="Example: 081 435 0822" aria-label="Username" aria-describedby="basic-addon1"></td>
-      `;
-
-    tableBody.appendChild(row);
-  }
-};

@@ -8,7 +8,7 @@ export const handleLogin = async () => {
 
   const role = getActiveRole();
 
-  //const identifierInput = document.getElementById("loginCode");
+  
 
   const error = validateLogin(role);    //const error = validateLogin(role, identifierInput);
   if (error) {
@@ -18,14 +18,16 @@ export const handleLogin = async () => {
 
   try {
     const payload =
-      role.value === "tenant"
-        ? { role: role.value, unitCode: identifierInput.value.trim() }
-        : { role: role.value, adminCode: identifierInput.value.trim() };
+      role === "tenant"
+        ? { role: role, unitCode: document.getElementById("unitCode").value.trim() }
+        : { role: role, email: document.getElementById("email").value.trim(),
+          pin: document.getElementById("pin").value.trim()
+         };
 
     const data = await loginUser(payload);
 
     // Redirects 
-    if (role.value === "tenant") {
+    if (role === "tenant") {
       window.location.href = "Tenant/report.html";
     } else {
       window.location.href = "Owner/owner-dashboard.html";

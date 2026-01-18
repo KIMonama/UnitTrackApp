@@ -38,3 +38,21 @@ export const markValid = (input) => {
 export const resetInputState = (input) => {
   input.classList.remove("is-invalid", "is-valid");
 };
+
+// A simple helper to generate IDs like: MAINT-X8J2 or COMP-Z9L1
+export const generateReportId = (role) => {
+  const prefix = role === "maintenance" ? "MAINT" : "COMP";
+  // Generates a random 4-character alphanumeric string
+  const randomStr = Math.random().toString(36).substring(2, 6).toUpperCase();
+  return `${prefix}-${randomStr}`;
+};
+export const getFormattedDate = () => {
+  const date = new Date();
+
+  // padStart ensures that Jan (1) becomes "01"
+  const day = String(date.getDate()).padStart(2, "0");
+  const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are 0-indexed
+  const year = date.getFullYear();
+
+  return `${day}-${month}-${year}`;
+};

@@ -157,233 +157,6 @@ const resetDoneButton = () => {
   button.disabled = false;
 };
 
-const inputValidate = () => {
-  const option = document.getElementById("mOrC");
-  const category = document.getElementById("category");
-  const description = document.getElementById("code");
-  const urgency = document.getElementById("urgency");
-  const date = document.getElementById("availableDate");
-
-  // Reset previous error styles
-  document
-    .getElementById("mOrC1")
-    .classList.remove("border", "border-danger", "border-2");
-  category.classList.remove("border", "border-danger", "border-2");
-  description.classList.remove("border", "border-danger", "border-2");
-  urgency.classList.remove("border", "border-danger", "border-2");
-  date.classList.remove("border", "border-danger", "border-2");
-
-  // 1️⃣ Check if user selected Maintenance or Complaint
-  if (option.value === "" || option.value === "Maintenance/complaint") {
-    showError("Please select Maintenance or Complaint");
-    document
-      .getElementById("mOrC1")
-      .classList.add("border", "border-danger", "border-2");
-    return;
-  }
-
-  // If COMPLAINT — no validation needed
-  if (option.value === "Complaint") {
-    // 3️⃣ Description required
-    if (!description.value.trim()) {
-      showError("Please enter a description of the issue");
-      description.classList.add("border", "border-danger", "border-2");
-      return;
-    } else {
-      window.location.href = "success.html";
-    }
-  } else {
-    // From here on, ONLY Maintenance validation applies
-
-    // 2️⃣ Category required
-    if (category.selectedIndex === 0) {
-      showError("Please select issue category");
-      category.classList.add("border", "border-danger", "border-2");
-      return;
-    }
-
-    // 3️⃣ Description required
-    else if (!description.value.trim()) {
-      showError("Please enter a description of the issue");
-      description.classList.add("border", "border-danger", "border-2");
-      return;
-    }
-
-    // 4️⃣ Urgency required
-    else if (urgency.selectedIndex === 0) {
-      showError("Please select how urgent the issue is");
-      urgency.classList.add("border", "border-danger", "border-2");
-      return;
-    }
-
-    // 5️⃣ Date required
-    else if (!date.value) {
-      showError("Please select the date you will be available");
-      date.classList.add("border", "border-danger", "border-2");
-      return;
-    } else {
-      // If all maintenance fields pass:
-      //window.location.href = "success.html";
-      createNewReport();
-    }
-  }
-};
-
-//Function to determine which page to open on log in
-
-const logInPage = () => {
-  const code = document.getElementById("code").value.trim();
-  const SelectedOption = document.getElementById("logOption");
-  const UserType = SelectedOption.value;
-
-  //Input validation for the selected option
-  if (UserType === "" || SelectedOption.selectedIndex === 0) {
-    showError("Please select option");
-    // Add red border
-    document
-      .getElementById("logOption")
-      .classList.add("border", "border-danger", "border-2");
-
-    return;
-  } else {
-    // Remove red border when valid
-    document
-      .getElementById("logOption")
-      .classList.remove("border", "border-danger", "border-2");
-  }
-
-  // Input validation for the code
-  if (!code) {
-    showError("Please enter your code");
-    document.getElementById("codeLabel").classList.add("text-danger");
-    return;
-  } else {
-    // Remove red text when valid
-    document.getElementById("codeLabel").classList.remove("text-danger");
-  }
-  // 3. Extra validation based on selected option
-  if (UserType === "TENANT") {
-    if (code.length !== 4 || isNaN(code)) {
-      showError("Tenant code must be exactly 4 digits");
-      return;
-    } else {
-      fetch(
-        `http://localhost:3000/api/login?role=${UserType}&tenantCode=${code}`
-      )
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error("Invalid login details");
-          }
-          return response.json();
-        })
-        .then((data) => {
-          // If backend confirms tenant exists
-          window.location.href = "Tenant/report.html";
-        })
-        .catch((error) => {
-          showError(error.message);
-          document.getElementById("codeLabel").classList.add("text-danger");
-        });
-    }
-  }
-
-  if (UserType === "OWNER") {
-    if (code.length !== 10 || isNaN(code)) {
-      showError("Phone number must be 10 digits");
-      return;
-    } else {
-      //Fetch Owner data and validate
-
-      fetch(`http://localhost:3000/api/login?role=${UserType}&phone=${code}`)
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error("Invalid login details");
-          }
-          return response.json();
-        })
-        .then((data) => {
-          // If backend confirms tenant exists
-          window.location.href = "Owner/owner-dashboard.html";
-        })
-        .catch((error) => {
-          showError(error.message);
-          document.getElementById("codeLabel").classList.add("text-danger");
-        });
-    }
-  }
-};
-
-const createNewReport = () => {
-  const option = document.getElementById("mOrC").value;
-  const category = document.getElementById("category").value;
-  const description = document.getElementById("code").value;
-  const urgency = document.getElementById("urgency").value;
-  const dateSubmitted = document.getElementById("availableDate").value;
-
-  fetch("http://localhost:3000/api/report", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      reportId: Date.now(), // simple ID for now
-      tenantId: "T1", // placeholder (OK for now)
-      type: option,
-      category: category,
-      description: description,
-      urgency: urgency,
-      status: "NEW",
-      dateSubmitted: dateSubmitted,
-    }),
-  })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Cannot create a new report");
-      }
-      return response.json();
-    })
-    .then((data) => {
-      // If backend confirms tenant exists
-      window.location.href = "success.html";
-    })
-    .catch((error) => {
-      showError(error.message);
-      document.getElementById("codeLabel").classList.add("text-danger");
-    });
-};
-
-//Error helper function to show pop ups in cases of errors
-const showError = (message) => {
-  //Initialise the elements
-  const errorMessage = document.getElementById("errorMessage");
-  const alert = document.getElementById("alert");
-
-  //populate and display the error
-  errorMessage.innerText = message;
-  alert.classList.remove("d-none");
-};
-
-//function to grey out input elements in an event of a complaint entry
-
-const greyOut = () => {
-  const option = document.getElementById("mOrC").value;
-  const fields = ["category", "inputGroupFile01", "urgency", "availableDate"];
-
-  if (option === "Complaint") {
-    // Disable and grey out all fields
-    fields.forEach((fieldId) => {
-      const field = document.getElementById(fieldId);
-      field.disabled = true;
-      field.classList.add("text-muted", "bg-light");
-    });
-  } else {
-    // RE-ENABLE all fields
-    fields.forEach((fieldId) => {
-      const field = document.getElementById(fieldId);
-      field.disabled = false;
-      field.classList.remove("text-muted", "bg-light");
-    });
-  }
-};
-
 const updateReportStatus = (newStatus, pass = 0) => {
   const requestID = document.getElementById("modalRequestId").innerHTML;
   const oldStatus = document.getElementById("modalStatus").innerHTML;
@@ -414,15 +187,41 @@ const updateReportStatus = (newStatus, pass = 0) => {
   }
 };
 
-
-
+///////////////////////////////////////////////////////////
+// IMPORTS
+///////////////////////////////////////////////////////////
 
 import { handleLogin } from "./forms/login.form.js";
+import { handleNewreport } from "./forms/report.form.js";
+
+import { initLoginUI } from "./UI/login.ui.js";
+import { initReportUI } from "./UI/report.ui.js";
+
+///////////////////////////////////////////////////////////
+// DOM READY
+///////////////////////////////////////////////////////////
 
 document.addEventListener("DOMContentLoaded", () => {
-  const loginBtn = document.getElementById("loginBtn");
+  // LOGIN PAGE
+  initLoginUI();
 
+  const loginBtn = document.getElementById("loginBtn");
   if (loginBtn) {
     loginBtn.addEventListener("click", handleLogin);
+  }
+
+  // REPORT PAGE
+  initReportUI();
+
+  //const submitBtn = document.getElementById("submitBtn1");
+  //if (submitBtn) {
+  //submitBtn.addEventListener("click", handleNewreport);
+  // }
+  // To this:
+  const reportForm = document.getElementById("reportForm"); // Use your <form> ID here
+  if (reportForm) {
+    reportForm.addEventListener("submit", (event) => {
+      handleNewreport(event); // Pass the event object!
+    });
   }
 });

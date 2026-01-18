@@ -20,7 +20,7 @@ const login = (req, res) => {
     // ===============================
     // TENANT LOGIN (UNIT-BASED)
     // ===============================
-    if (role === "TENANT") {
+    if (role === "tenant") {
       const { unitCode } = req.body;
 
       if (!unitCode) {
@@ -46,7 +46,7 @@ const login = (req, res) => {
 
       return res.status(200).json({
         message: "Login successful",
-        role: "TENANT",
+        role: "tenant",
         adminCode: unitExists.adminCode,
         unitCode: unitExists.unitCode,
       });
@@ -55,11 +55,11 @@ const login = (req, res) => {
     // ===============================
     // ADMIN LOGIN
     // ===============================
-    if (role === "ADMIN") {
-      const { adminCode } = req.body;
+    if (role === "admin") {
+      const { email, pin } = req.body;
 
-      if (!adminCode) {
-        return res.status(400).json({ message: "Admin code is required" });
+      if (!email||!pin) {
+        return res.status(400).json({ message: "Admin credentials is required" });
       }
 
       const adminsPath = path.join(
@@ -72,7 +72,7 @@ const login = (req, res) => {
       const admins = JSON.parse(fs.readFileSync(adminsPath, "utf-8"));
 
       const adminExists = admins.find(
-        (admin) => admin.adminCode === adminCode && admin.active === true
+        (admin) => admin.email === email && admin.pin ===pin && admin.active === true
       );
 
       if (!adminExists) {
@@ -81,7 +81,7 @@ const login = (req, res) => {
 
       return res.status(200).json({
         message: "Login successful",
-        role: "ADMIN",
+        role: "admin",
         adminCode: adminExists.adminCode,
         property: adminExists.property,
       });

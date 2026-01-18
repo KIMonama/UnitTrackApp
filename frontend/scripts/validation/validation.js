@@ -3,46 +3,51 @@ import * as helpers from "../utils/helpers.js";
 export const validateLogin = (role) => {
   console.log("validation hit");
 
-  // TENANT VALIDATION
+  // tenant VALIDATION
 
-  if (role === "TENANT") {
+  if (role === "tenant") {
     const unitCode = document.getElementById("unitCode");
+    helpers.resetInputState(unitCode);
 
     if (!unitCode.value.trim()) {
       helpers.markInvalid(unitCode);
-      document.getElementById("codeLabel").classList.add("text-danger");
       return "Please enter your unit code";
     }
 
     if (unitCode.value.trim().length !== 5) {
+      helpers.markInvalid(unitCode);
       return "Unit code must be exactly 5 characters";
     }
-
+    helpers.markValid(unitCode);
     return null; // valid tenant login
   }
 
-  // ADMIN VALIDATION
+  // admin VALIDATION
 
-  if (role === "ADMIN") {
+  if (role === "admin") {
     const email = document.getElementById("email");
     const pin = document.getElementById("pin");
 
     // Email check
     if (!email || !email.value.trim()) {
+      helpers.markInvalid(email);
       return "Please enter your email address";
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email.value.trim())) {
+      helpers.markInvalid(email);
       return "Please enter a valid email address";
     }
 
     // PIN check
     if (!pin || !pin.value.trim()) {
+      helpers.markInvalid(pin);
       return "Please enter your PIN";
     }
 
     if (isNaN(pin.value) || pin.value.length !== 4) {
+      helpers.markInvalid(pin);
       return "PIN must be exactly 4 digits";
     }
 
@@ -53,4 +58,64 @@ export const validateLogin = (role) => {
   // FALLBACK
   // =========================
   return "Invalid login role";
+};
+
+export const validateReport = (role) => {
+  console.log("validation hit");
+  // ===============================
+  // MAINTENANCE REPORT
+  // ===============================
+  if (role === "maintenance") {
+    const category = document.getElementById("category");
+    const description = document.getElementById("description");
+    const urgency = document.getElementById("urgency");
+    const availableDate = document.getElementById("availableDate");
+
+    // Category
+    if (!category || category.selectedIndex === 0) {
+      helpers.markInvalid(category);
+      return "Please select an issue category";
+    }
+    helpers.markValid(category);
+
+    // Description
+    if (!description || !description.value.trim()) {
+      helpers.markInvalid(description);
+      return "Please describe the issue";
+    }
+    helpers.markValid(description);
+
+    // Urgency
+    if (!urgency || urgency.selectedIndex === 0) {
+      helpers.markInvalid(urgency);
+      return "Please select how urgent the issue is";
+    }
+    helpers.markValid(urgency);
+
+    // Available date
+    if (!availableDate || !availableDate.value) {
+      helpers.markInvalid(availableDate);
+      return "Please select a date you are available";
+    }
+    helpers.markValid(availableDate);
+
+    return null; // ✅ valid
+  }
+
+  // ===============================
+  // COMPLAINT / SUGGESTION
+  // ===============================
+  if (role === "complaints") {
+    const description = document.getElementById("complaintsDescription");
+
+    if (!description || !description.value.trim()) {
+      helpers.markInvalid(description);
+      return "Please describe your complaint or suggestion";
+    }
+
+    helpers.markValid(description);
+    return null; // ✅ valid
+  }
+
+  return "Invalid report type";
 };
