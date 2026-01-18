@@ -37,49 +37,88 @@
     <!-- Hero Section -->
     <section class="hero text-center">
       <h1>Welcome to UnitTrack</h1>
-      <p class="lead fst-italic mb-0">Track every fix, right from your unit</p>
+      <p class="lead fst-italic mb-0">Maintenance requests made simple</p>
     </section>
 
     <!-- Main Content -->
-    <div class="container mt-5 mb-5">
-      <div class="card p-4 mx-auto" style="max-width: 400px">
-        <div class="mb-3 text-center">
-          <select
-            class="form-select text-center text-white bg-primary"
-            id="logOption"
-          >
-            <option selected disabled>Select option</option>
-            <option>TENANT</option>
-            <option>ADMIN</option>
-          </select>
-        </div>
+    <div class="container d-flex justify-content-center mt-4">
+      <div
+        class="card shadow-sm rounded-4 p-4"
+        style="max-width: 420px; width: 100%"
+      >
+        <h3 class="text-center mb-1">UnitTrack</h3>
+        <p class="text-center text-muted mb-4">Enter log in details</p>
 
-        <div class="form-floating mb-3">
-          <input
-            type="text"
-            class="form-control"
-            id="loginCode"
-            placeholder="Enter code"
-          />
-          <label id="codeLabel" for="code">Enter room code or cellphone</label>
-        </div>
-
-        <div class="d-grid gap-2">
-          <a id="logInLink"
-            ><button id="loginBtn" class="btn btn-primary btn-lg w-100">
-              Log in
-            </button></a
-          >
-          <a href="Owner/getStarted.html">
-            <button class="btn btn-outline-primary w-100">
-              <span class="spinner-border spinner-border-sm me-1"></span>
-              Get started
+        <!-- Role Tabs -->
+        <ul class="nav nav-pills nav-fill mb-4" id="loginTabs">
+          <li class="nav-item">
+            <button class="nav-link active" data-role="TENANT" type="button">
+              Tenant
             </button>
-          </a>
-        </div>
+          </li>
+          <li class="nav-item">
+            <button class="nav-link" data-role="ADMIN" type="button">
+              Admin
+            </button>
+          </li>
+        </ul>
+
+        <!-- Login Form -->
+        <form id="loginForm" novalidate>
+          <!-- Tenant -->
+          <div id="tenantFields">
+            <div class="mb-3">
+              <label id="codeLabel">Unit Code</label>
+              <input
+                type="text"
+                id="unitCode"
+                class="form-control rounded-3"
+                placeholder="e.g. A12"
+              />
+            </div>
+          </div>
+
+          <!-- Admin -->
+          <div id="adminFields" class="d-none">
+            <div class="mb-3">
+              <label class="form-label">Email</label>
+              <input
+                type="email"
+                id="email"
+                class="form-control rounded-3"
+                placeholder="admin@email.com"
+              />
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">PIN</label>
+              <input
+                type="password"
+                id="pin"
+                class="form-control rounded-3"
+                placeholder="••••"
+              />
+            </div>
+          </div>
+
+          <button
+            type="button"
+            id="loginBtn"
+            class="btn btn-primary w-100 rounded-3"
+          >
+            Login
+          </button>
+        </form>
       </div>
     </div>
-
+    <div class="mx-5 my-4">
+      <a href="Owner/getStarted.html">
+        <button class="btn btn-outline-primary w-100">
+          <span class="spinner-border spinner-border-sm me-1"></span>
+          Get started
+        </button>
+      </a>
+    </div>
     <!-- Hidden alert  -->
     <div
       class="alert alert-danger d-flex align-items-center d-none mx-auto"
@@ -104,8 +143,7 @@
       crossorigin="anonymous"
     ></script>
     <!-- Your custom JavaScript -->
-    <!--<script src="/frontend/scripts/auth/login.js"></script>-->
-    <!--<script src="/frontend/scripts/utils/helpers.js"></script>-->
+    <script type="module" src="/frontend/scripts/UI/login.ui.js"></script>
     <script type="module" src="/frontend/scripts/main.js"></script>
   </body>
   <!-- Footer -->

@@ -25,4 +25,16 @@ function getStatusClass(status) {
   }
 }
 
+export const markInvalid = (input) => {
+  input.classList.remove("is-valid");
+  input.classList.add("is-invalid");
+};
 
+export const markValid = (input) => {
+  input.classList.remove("is-invalid");
+  input.classList.add("is-valid");
+};
+
+export const resetInputState = (input) => {
+  input.classList.remove("is-invalid", "is-valid");
+};
