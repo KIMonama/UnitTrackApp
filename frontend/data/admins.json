@@ -1,70 +1,5 @@
 [
-  {
-    "adminCode": "001",
-    "name": "Keamogetswe Monama",
-    "email": "keamonama077@gmail.com",
-    "pin": "1234",
-    "active": true,
-    "createdAt": "2026-01-11"
-  },
-  {
-    "adminCode": "002",
-    "name": "Keamogetswe Monama",
-    "email": "keamonama077@gmail.com",
-    "unitCount": null,
-    "active": true,
-    "createdAt": "2026-01-11"
-  },
-  {
-    "adminCode": "003",
-    "name": "kjahjlfnad",
-    "email": "dfaffs",
-    "phone": "fsgs",
-    "property": "sgfg",
-    "unitCount": 10,
-    "active": true,
-    "createdAt": "2026-01-11"
-  },
-  {
-    "adminCode": "004",
-    "name": "KAMO ZOZO",
-    "email": "KAKSJSKJ@GMAIL.COM",
-    "phone": "081 435 0822",
-    "property": "mint resorts",
-    "unitCount": 10,
-    "active": true,
-    "createdAt": "2026-01-13"
-  },
-  {
-    "adminCode": "005",
-    "name": "KAMO ZOZO",
-    "email": "KAKSJSKJ@GMAIL.COM",
-    "phone": "081 435 0822",
-    "property": "mint resorts",
-    "unitCount": 10,
-    "active": true,
-    "createdAt": "2026-01-13"
-  },
-  {
-    "adminCode": "006",
-    "name": "KAMO ZOZO",
-    "email": "KAKSJSKJ@GMAIL.COM",
-    "phone": "081 435 0822",
-    "property": "mint resorts",
-    "unitCount": 10,
-    "active": true,
-    "createdAt": "2026-01-13"
-  },
-  {
-    "adminCode": "007",
-    "name": "kgkj",
-    "email": "jkhkj",
-    "phone": "hlhl",
-    "property": "lkj",
-    "unitCount": 10,
-    "active": true,
-    "createdAt": "2026-01-13"
-  },
+  
   {
     "adminCode": "008",
     "name": "Keamogetswe Monama",
@@ -73,6 +8,8 @@
     "property": "Mint resorts",
     "unitCount": 10,
     "active": true,
-    "createdAt": "2026-01-13"
+    "createdAt": "2026-01-13",
+    "role" : "admin",
+    "pin": "1234"
   }
 ]

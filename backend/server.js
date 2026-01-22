@@ -46,9 +46,7 @@ const login = (req, res) => {
 
       return res.status(200).json({
         message: "Login successful",
-        role: "tenant",
-        adminCode: unitExists.adminCode,
-        unitCode: unitExists.unitCode,
+        user: unitExists
       });
     }
 
@@ -81,9 +79,7 @@ const login = (req, res) => {
 
       return res.status(200).json({
         message: "Login successful",
-        role: "admin",
-        adminCode: adminExists.adminCode,
-        property: adminExists.property,
+        user: adminExists
       });
     }
 

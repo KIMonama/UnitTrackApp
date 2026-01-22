@@ -197,6 +197,8 @@ import { handleNewreport } from "./forms/report.form.js";
 import { initLoginUI } from "./UI/login.ui.js";
 import { initReportUI } from "./UI/report.ui.js";
 
+import { renderUserDetails } from "./UI/user.ui.js";
+
 ///////////////////////////////////////////////////////////
 // DOM READY
 ///////////////////////////////////////////////////////////
@@ -213,15 +215,13 @@ document.addEventListener("DOMContentLoaded", () => {
   // REPORT PAGE
   initReportUI();
 
-  //const submitBtn = document.getElementById("submitBtn1");
-  //if (submitBtn) {
-  //submitBtn.addEventListener("click", handleNewreport);
-  // }
-  // To this:
   const reportForm = document.getElementById("reportForm"); // Use your <form> ID here
   if (reportForm) {
     reportForm.addEventListener("submit", (event) => {
       handleNewreport(event); // Pass the event object!
     });
   }
+
+  // Always safe
+  renderUserDetails();
 });

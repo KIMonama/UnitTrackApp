@@ -4,28 +4,32 @@
     "adminCode": "003",
     "unitNumber": "01",
     "unitLabel": "Room 1",
-    "active": true
+    "active": true,
+    "role": "tenant"
   },
   {
     "unitCode": "00302",
     "adminCode": "003",
     "unitNumber": "02",
     "unitLabel": "Room 2",
-    "active": true
+    "active": true,
+    "role": "tenant"
   },
   {
     "unitCode": "00303",
     "adminCode": "003",
     "unitNumber": "03",
     "unitLabel": "Room 3",
-    "active": true
+    "active": true,
+    "role": "tenant"
   },
   {
     "unitCode": "00304",
     "adminCode": "003",
     "unitNumber": "04",
     "unitLabel": "Room 4",
-    "active": true
+    "active": true,
+    "role": "tenant"
   },
   {
     "unitCode": "00305",
