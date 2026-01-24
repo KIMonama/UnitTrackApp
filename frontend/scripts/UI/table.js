@@ -1,56 +1,81 @@
-// Function to populate table
-function populateTable() {
-  const tableBody = document.getElementById("requestsTableBody");
-  tableBody.innerHTML = "";
-  fetch("/frontend/data/reports.json")
-    .then((res) => res.json())
-    .then((reports) => {
-      // Sort first (New → Seen → Done)
-      const statusOrder = { New: 1, Seen: 2, Done: 3 };
-      reports.sort((a, b) => statusOrder[a.status] - statusOrder[b.status]);
+import { fetchAllReports } from "../api/reports.api.js";
+import { getCurrentUser } from "../state/session.js";
+import {
+  getStatusClass,
+  getUrgencyClass,
+  getCategoryAccent,
+  getCategoryIcon,
+} from "../utils/helpers.js";
 
-      reports.forEach((report) => {
-        const row = document.createElement("tr");
+export const populateTableUI = async () => {
+  try {
+    const tableBody = document.getElementById("requestsTableBody");
+    if (!tableBody) return;
 
-        row.innerHTML = `
-          <td>
-            <div class="d-flex justify-content-between align-items-start">
-              
-              <!-- Left info -->
-              <div>
-                <strong>Room ${report.tenantId}</strong><br>
-                <small class="text-muted">${report.category}</small><br>
+    tableBody.innerHTML = "";
 
-                <span class="badge ${getUrgencyClass(report.urgency)}">
-                  ${report.urgency}
-                </span>
-                <span class="badge ${getStatusClass(report.status)} ms-1">
-                  ${report.status}
-                </span>
-              </div>
+    const user = getCurrentUser();
+    if (!user || !user.adminCode) {
+      console.warn("No admin logged in");
+      return;
+    }
 
-              <!-- Action -->
-              <div>
-                <button class="btn btn-sm btn-outline-primary"
-                  onclick="openModal(
-                    '${report.reportId}',
-                    '${report.tenantId}',
-                    '${report.category}',
-                    '${report.description}',
-                    '${report.urgency}',
-                    '${report.status}',
-                    '${report.dateSubmitted}'
-                  )">
-                  View
-                </button>
-              </div>
+    const reports = await fetchAllReports(user.adminCode);
 
-            </div>
-          </td>
-        `;
+    const statusOrder = { New: 1, Seen: 2, Done: 3 };
+    reports.sort((a, b) => statusOrder[a.status] - statusOrder[b.status]);
 
-        tableBody.appendChild(row);
-      });
-    })
-    .catch((error) => console.error("Error loading reports:", error));
-}
+    console.log(reports);
+
+    reports.forEach((report) => {
+      const row = document.createElement("tr");
+      row.className = getCategoryAccent(report.category);
+
+      row.innerHTML = `
+  <td>
+    <div class="d-flex justify-content-between align-items-start">
+
+      <!-- LEFT CONTENT -->
+      <div>
+        <strong>
+          <i class="bi ${getCategoryIcon(report.category)} me-2"></i>
+          ${report.unitLabel}
+        </strong><br>
+
+        <small class="text-muted">${report.category}</small><br>
+
+        <span class="badge ${getUrgencyClass(report.urgency)}">
+          ${report.urgency}
+        </span>
+
+        <span class="badge ${getStatusClass(report.status)} ms-1">
+          ${report.status}
+        </span>
+      </div>
+
+      <!-- RIGHT ACTION -->
+      <div>
+        <button class="btn btn-sm btn-outline-primary"
+          onclick="openModal(
+            '${report.reportId}',
+            '${report.tenantId}',
+            '${report.category}',
+            '${report.description}',
+            '${report.urgency}',
+            '${report.status}',
+            '${report.dateSubmitted}'
+          )">
+          View
+        </button>
+      </div>
+
+    </div>
+  </td>
+`;
+
+      tableBody.appendChild(row);
+    });
+  } catch (error) {
+    console.error("Error loading reports:", error);
+  }
+};

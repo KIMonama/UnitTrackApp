@@ -1,7 +1,6 @@
 [
-  
   {
-    "adminCode": "008",
+    "adminCode": "003",
     "name": "Keamogetswe Monama",
     "email": "keamonama077@gmail.com",
     "phone": "0814350822",
@@ -9,7 +8,7 @@
     "unitCount": 10,
     "active": true,
     "createdAt": "2026-01-13",
-    "role" : "admin",
+    "role": "admin",
     "pin": "1234"
   }
 ]

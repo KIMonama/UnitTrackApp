@@ -8,8 +8,6 @@ export const renderUserDetails = () => {
 
   const user = getCurrentUser();
   // 🛡️ Guard #2: No user in session
-
-  alert(user.role);
   
   if (!user) {
     unitDetails.innerText = "Welcome";

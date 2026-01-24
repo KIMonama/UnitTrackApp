@@ -46,7 +46,7 @@ const login = (req, res) => {
 
       return res.status(200).json({
         message: "Login successful",
-        user: unitExists
+        user: unitExists,
       });
     }
 
@@ -56,8 +56,10 @@ const login = (req, res) => {
     if (role === "admin") {
       const { email, pin } = req.body;
 
-      if (!email||!pin) {
-        return res.status(400).json({ message: "Admin credentials is required" });
+      if (!email || !pin) {
+        return res
+          .status(400)
+          .json({ message: "Admin credentials is required" });
       }
 
       const adminsPath = path.join(
@@ -70,7 +72,8 @@ const login = (req, res) => {
       const admins = JSON.parse(fs.readFileSync(adminsPath, "utf-8"));
 
       const adminExists = admins.find(
-        (admin) => admin.email === email && admin.pin ===pin && admin.active === true
+        (admin) =>
+          admin.email === email && admin.pin === pin && admin.active === true
       );
 
       if (!adminExists) {
@@ -79,7 +82,7 @@ const login = (req, res) => {
 
       return res.status(200).json({
         message: "Login successful",
-        user: adminExists
+        user: adminExists,
       });
     }
 
@@ -232,6 +235,46 @@ const updateReportStatus = (req, res) => {
   }
 };
 
+const getAllReports = (req, res) => {
+  try {
+    const { adminCode } = req.params;
+    console.log("ADMIN CODE FROM URL:", adminCode);
+
+    const reportsPath = path.join(
+      __dirname,
+      "..",
+      "frontend/data",
+      "reports.json"
+    );
+
+    // Read file
+    const data = fs.readFileSync(reportsPath, "utf-8");
+
+    const reports = JSON.parse(data);
+
+    //container for the specific admin data
+    const container = [];
+
+    // Update status
+    reports.forEach((report) => {
+      if (report.adminCode === adminCode) {
+        container.push(report);
+      }
+    });
+
+    // ✅ RESPONSE
+    return res.status(200).json({
+      message: "New report was recreated successfully",
+      reports: container,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: "Error retrieving reports",
+      error: error.message,
+    });
+  }
+};
+
 app.post("/api/auth/login", login);
 
 app.put("/api/report/:id", updateReportStatus);
@@ -239,8 +282,8 @@ app.put("/api/report/:id", updateReportStatus);
 app.post("/api/report", logAreport);
 app.post("/api/admin", createNewAdminUser);
 
+app.get("/api/reports/:adminCode", getAllReports);
+
 app.listen(3000, () => {
   console.log("SERVER IS RUNNING");
 });
-
-//OBD17302012026

@@ -1,163 +1,38 @@
 [
   {
-    "reportId": 1766923989344,
-    "tenantId": "T1",
-    "type": "Maintenance",
-    "category": "Plumbing",
-    "description": "Leaking tap",
-    "urgency": "High",
-    "status": "Done",
-    "dateSubmitted": "2025-11-10"
-  },
-  {
-    "reportId": 1766923989345,
-    "tenantId": "T1",
-    "type": "Maintenance",
-    "category": "Plumbing",
-    "description": "ohdkjhsjkhlkeqr",
-    "urgency": "low",
-    "status": "Done",
-    "dateSubmitted": "2025-12-24"
-  },
-  {
-    "reportId": 1767169109575,
-    "tenantId": "T1",
-    "type": "Maintenance",
-    "category": "Plumbing",
-    "description": "hggh",
-    "urgency": "emergency",
-    "status": "Done",
-    "dateSubmitted": "2025-12-31"
-  },
-  {
-    "reportId": 1767366236077,
-    "tenantId": "T1",
-    "type": "Maintenance",
-    "category": "Cleaning",
-    "description": "please clean ",
-    "urgency": "medium",
-    "status": "Done",
-    "dateSubmitted": "2026-01-07"
-  },
-  {
-    "reportId": 1767366495642,
-    "tenantId": "T1",
-    "type": "Maintenance",
-    "category": "Noise",
-    "description": "tooo much noise",
+    "reportId": "MAINT-JOKM",
+    "adminCode": "003",
+    "unitLabel": "Room 1",
+    "role": "maintenance",
+    "category": "Doors",
+    "description": "🚪 Door won’t close",
     "urgency": "high",
-    "status": "Done",
-    "dateSubmitted": "2026-01-29"
-  },
-  {
-    "reportId": 1768000000001,
-    "tenantId": "T1",
-    "type": "Maintenance",
-    "category": "plumbing",
-    "description": "🚰 Leaking tap",
-    "urgency": "High",
-    "status": "Done",
-    "dateSubmitted": "2025-01-06"
-  },
-  {
-    "reportId": 1768000000001,
-    "tenantId": "T1",
-    "type": "Maintenance",
-    "category": "plumbing",
-    "description": "🚰 Leaking tap",
-    "urgency": "High",
-    "status": "Done",
-    "dateSubmitted": "2025-01-06"
-  },
-  {
-    "role": "maintenance",
-    "category": "Noise",
-    "description": "🔊 Loud noise at night",
-    "urgency": "emergency",
-    "dateAvailable": "2026-01-11",
+    "dateAvailable": "2026-01-24",
     "status": "NEW",
-    "dateSubmitted": 1768768257041
+    "dateSubmitted": "23-01-2026"
   },
   {
-    "reportId": 1768000000001,
-    "tenantId": "T1",
-    "type": "Maintenance",
-    "category": "plumbing",
-    "description": "🚰 Leaking tap",
-    "urgency": "High",
-    "status": "Submitted",
-    "dateSubmitted": "2025-01-06"
-  },
-  {
+    "reportId": "MAINT-SMX4",
+    "adminCode": "003",
+    "unitLabel": "Room 1",
     "role": "maintenance",
     "category": "Plumbing",
-    "description": "🚰 Leaking tap",
+    "description": "🧹 Dirty common area",
     "urgency": "high",
-    "dateAvailable": "2026-01-18",
+    "dateAvailable": "2026-01-24",
     "status": "NEW",
-    "dateSubmitted": 1768769386516
+    "dateSubmitted": "23-01-2026"
   },
   {
+    "reportId": "MAINT-66BO",
+    "adminCode": "003",
+    "unitLabel": "Room 1",
     "role": "maintenance",
     "category": "Cleaning",
     "description": "🧹 Dirty common area",
-    "urgency": "emergency",
-    "dateAvailable": "2026-01-18",
+    "urgency": "high",
+    "dateAvailable": "2026-01-24",
     "status": "NEW",
-    "dateSubmitted": 1768769496234
-  },
-  {
-    "role": "maintenance",
-    "category": "Cleaning",
-    "description": "🧹 Dirty common area",
-    "urgency": "emergency",
-    "dateAvailable": "2026-01-19",
-    "status": "NEW",
-    "dateSubmitted": 1768769995419
-  },
-  {
-    "role": "maintenance",
-    "category": "Cleaning",
-    "description": "🧹 Dirty common area",
-    "urgency": "emergency",
-    "dateAvailable": "2026-01-19",
-    "status": "NEW",
-    "dateSubmitted": 1768770191699
-  },
-  {
-    "role": "maintenance",
-    "category": "Cleaning",
-    "description": "🧹 Dirty common area",
-    "urgency": "emergency",
-    "dateAvailable": "2026-01-19",
-    "status": "NEW",
-    "dateSubmitted": 1768770228580
-  },
-  {
-    "role": "maintenance",
-    "category": "Noise",
-    "description": "🔊 Loud noise at night",
-    "urgency": "medium",
-    "dateAvailable": "2026-01-19",
-    "status": "NEW",
-    "dateSubmitted": 1768770246901
-  },
-  {
-    "role": "maintenance",
-    "category": "Cleaning",
-    "description": "🧹 Dirty common area",
-    "urgency": "emergency",
-    "dateAvailable": "2026-01-18",
-    "status": "NEW",
-    "dateSubmitted": 1768770282483
-  },
-  {
-    "role": "maintenance",
-    "category": "Cleaning",
-    "description": "🧹 Dirty common area",
-    "urgency": "emergency",
-    "dateAvailable": "2026-01-25",
-    "status": "NEW",
-    "dateSubmitted": 1768770445417
+    "dateSubmitted": "23-01-2026"
   }
 ]

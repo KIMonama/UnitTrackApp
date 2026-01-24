@@ -1,88 +1,3 @@
-// frontend/scripts/main.js
-
-// Function to populate table
-function populateTable() {
-  const tableBody = document.getElementById("requestsTableBody");
-  tableBody.innerHTML = "";
-  fetch("/frontend/data/reports.json")
-    .then((res) => res.json())
-    .then((reports) => {
-      // Sort first (New → Seen → Done)
-      const statusOrder = { New: 1, Seen: 2, Done: 3 };
-      reports.sort((a, b) => statusOrder[a.status] - statusOrder[b.status]);
-
-      reports.forEach((report) => {
-        const row = document.createElement("tr");
-
-        row.innerHTML = `
-          <td>
-            <div class="d-flex justify-content-between align-items-start">
-              
-              <!-- Left info -->
-              <div>
-                <strong>Room ${report.tenantId}</strong><br>
-                <small class="text-muted">${report.category}</small><br>
-
-                <span class="badge ${getUrgencyClass(report.urgency)}">
-                  ${report.urgency}
-                </span>
-                <span class="badge ${getStatusClass(report.status)} ms-1">
-                  ${report.status}
-                </span>
-              </div>
-
-              <!-- Action -->
-              <div>
-                <button class="btn btn-sm btn-outline-primary"
-                  onclick="openModal(
-                    '${report.reportId}',
-                    '${report.tenantId}',
-                    '${report.category}',
-                    '${report.description}',
-                    '${report.urgency}',
-                    '${report.status}',
-                    '${report.dateSubmitted}'
-                  )">
-                  View
-                </button>
-              </div>
-
-            </div>
-          </td>
-        `;
-
-        tableBody.appendChild(row);
-      });
-    })
-    .catch((error) => console.error("Error loading reports:", error));
-}
-
-// Helper functions for colours
-function getUrgencyClass(urgency) {
-  switch (urgency) {
-    case "High":
-      return "bg-danger";
-    case "Medium":
-      return "bg-warning text-dark";
-    case "Low":
-      return "bg-success";
-    default:
-      return "bg-secondary";
-  }
-}
-
-function getStatusClass(status) {
-  switch (status) {
-    case "Done":
-      return "bg-secondary";
-    case "Seen":
-      return "bg-primary";
-    case "NEW":
-      return "bg-success";
-    default:
-      return "bg-secondary";
-  }
-}
 
 function openModal(id, room, category, description, urgency, status, date) {
   document.getElementById("modalRequestId").textContent = id;
@@ -198,6 +113,8 @@ import { initLoginUI } from "./UI/login.ui.js";
 import { initReportUI } from "./UI/report.ui.js";
 
 import { renderUserDetails } from "./UI/user.ui.js";
+import { populateTableUI } from "./UI/table.js";
+import { getCurrentUser } from "./state/session.js";
 
 ///////////////////////////////////////////////////////////
 // DOM READY
@@ -221,7 +138,18 @@ document.addEventListener("DOMContentLoaded", () => {
       handleNewreport(event); // Pass the event object!
     });
   }
+  // =========================
+  // DASHBOARD PAGE
+  // =========================
+  const tableBody = document.getElementById("requestsTableBody");
+  if (tableBody) {
+    const user = getCurrentUser();
 
-  // Always safe
-  renderUserDetails();
+    if (!user) {
+      console.warn("No user in session");
+      return;
+    }
+    renderUserDetails(); // sets Welcome Admin XXX
+    populateTableUI(); // fetches reports + renders table
+  }
 });

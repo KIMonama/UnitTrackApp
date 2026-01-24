@@ -28,10 +28,9 @@ const updateReportStatus = (newStatus, pass = 0) => {
   }
 };
 
-
 export const logNewreport = async (payload) => {
   console.log("api hit");
-  console.log (payload);
+  console.log(payload);
 
   const response = await fetch("http://localhost:3000/api/report", {
     method: "POST",
@@ -44,4 +43,16 @@ export const logNewreport = async (payload) => {
   }
 
   return response.json();
+};
+
+export const fetchAllReports = async (adminCode) => {
+  const response = await fetch(
+    `http://localhost:3000/api/reports/${adminCode}`
+  );
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch reports");
+  }
+  const data = await response.json();
+  return data.reports;
 };

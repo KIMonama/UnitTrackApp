@@ -1,18 +1,18 @@
 // Helper functions for colours
-function getUrgencyClass(urgency) {
+export function getUrgencyClass(urgency) {
   switch (urgency) {
-    case "High":
+    case "high":
       return "bg-danger";
-    case "Medium":
+    case "medium":
       return "bg-warning text-dark";
-    case "Low":
+    case "low":
       return "bg-success";
     default:
       return "bg-secondary";
   }
 }
 
-function getStatusClass(status) {
+export function getStatusClass(status) {
   switch (status) {
     case "Done":
       return "bg-secondary";
@@ -55,4 +55,34 @@ export const getFormattedDate = () => {
   const year = date.getFullYear();
 
   return `${day}-${month}-${year}`;
+};
+
+export const getCategoryAccent = (category) => {
+  switch (category.toLowerCase()) {
+    case "plumbing":
+      return "border-start border-4 border-info";
+    case "electricity":
+      return "border-start border-4 border-warning";
+    case "cleaning":
+      return "border-start border-4 border-success";
+    case "water":
+      return "border-start border-4 border-primary";
+    default:
+      return "border-start border-4 border-secondary";
+  }
+};
+
+export const getCategoryIcon = (category) => {
+  switch (category.toLowerCase()) {
+    case "plumbing":
+      return "bi-droplet";
+    case "electricity":
+      return "bi-lightning";
+    case "cleaning":
+      return "bi-bucket";
+    case "water":
+      return "bi-water";
+    default:
+      return "bi-clipboard";
+  }
 };

@@ -3,6 +3,7 @@ import { validateReport } from "../validation/validation.js";
 import { showError } from "../utils/ui.utils.js";
 import { getActiveReportRole } from "../UI/report.ui.js";
 import { generateReportId, getFormattedDate } from "../utils/helpers.js";
+import { getCurrentUser } from "../state/session.js";
 
 export const handleNewreport = async (event) => {
   console.log("form function hit");
@@ -14,12 +15,15 @@ export const handleNewreport = async (event) => {
     showError(error);
     return;
   }
+ const user = getCurrentUser();
 
   try {
     const payload =
       role === "maintenance"
         ? {
             reportId : generateReportId(role),
+            adminCode : user.adminCode,
+            unitLabel : user.unitLabel,
             role: role,
             category: document.getElementById("category").value,
             description: document.getElementById("description").value,
@@ -30,6 +34,8 @@ export const handleNewreport = async (event) => {
           }
         : {
             reportId : generateReportId(role),
+            adminCode : user.adminCode,
+            unitLabel :user.unitLabel,
             role: role,
             description: document.getElementById("complaintsDescription").value,
             dateSubmitted: getFormattedDate(),
