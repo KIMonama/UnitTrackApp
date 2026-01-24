@@ -58,31 +58,39 @@ export const getFormattedDate = () => {
 };
 
 export const getCategoryAccent = (category) => {
-  switch (category.toLowerCase()) {
-    case "plumbing":
-      return "border-start border-4 border-info";
-    case "electricity":
-      return "border-start border-4 border-warning";
-    case "cleaning":
-      return "border-start border-4 border-success";
-    case "water":
-      return "border-start border-4 border-primary";
+  switch (category) {
+    case "Plumbing":
+      return "border-start border-4 border-info"; // blue
+    case "Electrical":
+      return "border-start border-4 border-warning"; // yellow
+    case "Doors":
+      return "border-start border-4 border-secondary"; // gray
+    case "Cleaning":
+      return "border-start border-4 border-success"; // green
+    case "Noise":
+      return "border-start border-4 border-danger"; // red
+    case "Other":
+      return "border-start border-4 border-dark"; // dark
     default:
-      return "border-start border-4 border-secondary";
+      return "border-start border-4 border-muted";
   }
 };
 
 export const getCategoryIcon = (category) => {
-  switch (category.toLowerCase()) {
-    case "plumbing":
-      return "bi-droplet";
-    case "electricity":
-      return "bi-lightning";
-    case "cleaning":
-      return "bi-bucket";
-    case "water":
-      return "bi-water";
+  switch (category) {
+    case "Plumbing":
+      return "bi-droplet-fill"; // 💧 water
+    case "Electrical":
+      return "bi-lightning-fill"; // ⚡ electricity
+    case "Doors":
+      return "bi-door-closed-fill"; // 🚪 doors
+    case "Cleaning":
+      return "bi-bucket-fill"; // 🪣 cleaning
+    case "Noise":
+      return "bi-volume-up-fill"; // 🔊 noise
+    case "Other":
+      return "bi-three-dots"; // …
     default:
-      return "bi-clipboard";
+      return "bi-question-circle"; // fallback
   }
 };

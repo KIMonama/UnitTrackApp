@@ -40,7 +40,9 @@
 
     <!-- Hero Section -->
     <section class="hero text-center py-4 border-bottom border-primary">
+      <h1>Welcome</h1>
       <h1 class="text-warning" id="unitDetails"></h1>
+      <h1 class="text-" id="propertyName"></h1>
       <p class="lead fst-italic mb-0">
         Monitor maintenance and complaints in real time
       </p>
@@ -69,16 +71,24 @@
             </li>
           </ul>
 
-          <button class="btn btn-outline-primary" onclick="location.reload()">
-            🔄 Refresh
-          </button>
+          <button 
+  class="btn btn-m btn-primary rounded px-3 shadow-sm d-flex align-items-center gap-1 btn-refresh"
+  onclick="location.reload()"
+>
+  <i class="bi bi-arrow-clockwise"></i>
+  Refresh
+</button>
+
         </div>
       </div>
 
       <!-- Table Section -->
       <div class="card shadow-sm border-0">
         <div class="table-responsive">
-          <table class="table table-borderless mb-0">
+          <table
+            class="table table-borderless align-middle"
+            style="border-collapse: separate; border-spacing: 0 10px"
+          >
             <tbody id="requestsTableBody">
               <!-- populated by a function-->
             </tbody>

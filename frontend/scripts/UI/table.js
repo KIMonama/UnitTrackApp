@@ -30,9 +30,10 @@ export const populateTableUI = async () => {
     reports.forEach((report) => {
       const row = document.createElement("tr");
       row.className = getCategoryAccent(report.category);
+      row.classList.add("shadow-sm");
 
       row.innerHTML = `
-  <td>
+  <td class=" bg-white rounded ${getCategoryAccent(report.category)} ps-3">
     <div class="d-flex justify-content-between align-items-start">
 
       <!-- LEFT CONTENT -->

@@ -34,5 +34,29 @@
     "dateAvailable": "2026-01-24",
     "status": "NEW",
     "dateSubmitted": "23-01-2026"
+  },
+  {
+    "reportId": "MAINT-OYB2",
+    "adminCode": "003",
+    "unitLabel": "Room 1",
+    "role": "maintenance",
+    "category": "Noise",
+    "description": "🎵 Music too loud",
+    "urgency": "medium",
+    "dateAvailable": "2026-01-25",
+    "status": "NEW",
+    "dateSubmitted": "24-01-2026"
+  },
+  {
+    "reportId": "MAINT-5W8W",
+    "adminCode": "003",
+    "unitLabel": "Room 1",
+    "role": "maintenance",
+    "category": "Electrical",
+    "description": "❌ No electricity",
+    "urgency": "emergency",
+    "dateAvailable": "2026-01-25",
+    "status": "NEW",
+    "dateSubmitted": "24-01-2026"
   }
 ]
