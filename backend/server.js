@@ -192,7 +192,7 @@ const updateReportStatus = (req, res) => {
   console.log("BODY:", req.body);
 
   try {
-    const reportId = Number(req.params.id);
+    const reportId = req.params.id;
     const { status } = req.body;
 
     const reportsPath = path.join(

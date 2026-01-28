@@ -1,4 +1,3 @@
-
 function openModal(id, room, category, description, urgency, status, date) {
   document.getElementById("modalRequestId").textContent = id;
   document.getElementById("modalRoom").textContent = room;
@@ -122,18 +121,19 @@ import { getCurrentUser } from "./state/session.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   // LOGIN PAGE
-  initLoginUI();
+  // initLoginUI();
 
   const loginBtn = document.getElementById("loginBtn");
   if (loginBtn) {
+    initLoginUI();
     loginBtn.addEventListener("click", handleLogin);
   }
 
   // REPORT PAGE
-  initReportUI();
 
   const reportForm = document.getElementById("reportForm"); // Use your <form> ID here
   if (reportForm) {
+    initReportUI();
     reportForm.addEventListener("submit", (event) => {
       handleNewreport(event); // Pass the event object!
     });
@@ -151,5 +151,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     renderUserDetails(); // sets Welcome Admin XXX
     populateTableUI(); // fetches reports + renders table
+    initModalUI();
   }
 });

@@ -6,6 +6,7 @@ import {
   getCategoryAccent,
   getCategoryIcon,
 } from "../utils/helpers.js";
+import { openReportModal } from "./modal.ui.js";
 
 export const populateTableUI = async () => {
   try {
@@ -43,7 +44,7 @@ export const populateTableUI = async () => {
           ${report.unitLabel}
         </strong><br>
 
-        <small class="text-muted">${report.category}</small><br>
+        <small class="text-muted">${report.category}</small>
 
         <span class="badge ${getUrgencyClass(report.urgency)}">
           ${report.urgency}
@@ -56,16 +57,7 @@ export const populateTableUI = async () => {
 
       <!-- RIGHT ACTION -->
       <div>
-        <button class="btn btn-sm btn-outline-primary"
-          onclick="openModal(
-            '${report.reportId}',
-            '${report.tenantId}',
-            '${report.category}',
-            '${report.description}',
-            '${report.urgency}',
-            '${report.status}',
-            '${report.dateSubmitted}'
-          )">
+        <button class="btn btn-sm btn-outline-primary view-btn">
           View
         </button>
       </div>
@@ -73,7 +65,9 @@ export const populateTableUI = async () => {
     </div>
   </td>
 `;
-
+      row.querySelector(".view-btn").addEventListener("click", () => {
+        openReportModal(report);
+      });
       tableBody.appendChild(row);
     });
   } catch (error) {

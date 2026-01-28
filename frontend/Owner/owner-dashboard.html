@@ -71,14 +71,13 @@
             </li>
           </ul>
 
-          <button 
-  class="btn btn-m btn-primary rounded px-3 shadow-sm d-flex align-items-center gap-1 btn-refresh"
-  onclick="location.reload()"
->
-  <i class="bi bi-arrow-clockwise"></i>
-  Refresh
-</button>
-
+          <button
+            class="btn btn-m btn-primary rounded px-3 shadow-sm d-flex align-items-center gap-1 btn-refresh"
+            onclick="location.reload()"
+          >
+            <i class="bi bi-arrow-clockwise"></i>
+            Refresh
+          </button>
         </div>
       </div>
 
@@ -105,23 +104,21 @@
     >
       <div class="modal-dialog modal-dialog-centered modal-sm">
         <div class="modal-content border-0 shadow">
-          <!-- Header -->
           <div class="modal-header bg-primary text-white rounded-top">
             <h6 class="modal-title fw-semibold">Request Details</h6>
             <button
               type="button"
               class="btn-close btn-close-white"
               data-bs-dismiss="modal"
-              onclick="updateReportStatus('Seen')"
             ></button>
           </div>
 
-          <!-- Body -->
           <div class="modal-body">
             <div class="mb-3">
               <small class="text-muted">Request ID</small>
               <div class="fw-semibold" id="modalRequestId"></div>
             </div>
+
             <div class="mb-3">
               <small class="text-muted">Room</small>
               <div class="fw-semibold" id="modalRoom"></div>
@@ -155,10 +152,9 @@
             </div>
           </div>
 
-          <!-- Footer -->
           <div class="modal-footer d-flex justify-content-between">
             <button
-              onclick="updateReportStatus('Seen')"
+              id="closeModalBtn"
               type="button"
               class="btn btn-light"
               data-bs-dismiss="modal"
@@ -166,11 +162,9 @@
               Close
             </button>
 
-            <!-- Optional, simple status action -->
             <button
               id="doneButton"
               class="btn btn-success btn-sm rounded-pill px-3"
-              onclick="updateReportStatus('Done',1)"
             >
               <i id="buttonIcon" class="bi bi-circle me-1"></i>
               <span id="buttonText">Mark as Done</span>
