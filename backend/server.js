@@ -226,7 +226,7 @@ const updateReportStatus = (req, res) => {
     // ✅ RESPONSE
     return res
       .status(200)
-      .json({ message: "New report was recreated successfully" });
+      .json({ message: "Report status updated"});
   } catch (error) {
     return res.status(500).json({
       message: "Error updating report status",

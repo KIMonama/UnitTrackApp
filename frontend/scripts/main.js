@@ -114,6 +114,7 @@ import { initReportUI } from "./UI/report.ui.js";
 import { renderUserDetails } from "./UI/user.ui.js";
 import { populateTableUI } from "./UI/table.js";
 import { getCurrentUser } from "./state/session.js";
+import { initModalUI } from "./UI/modal.ui.js";
 
 ///////////////////////////////////////////////////////////
 // DOM READY

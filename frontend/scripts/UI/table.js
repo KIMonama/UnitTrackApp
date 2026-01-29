@@ -23,7 +23,7 @@ export const populateTableUI = async () => {
 
     const reports = await fetchAllReports(user.adminCode);
 
-    const statusOrder = { New: 1, Seen: 2, Done: 3 };
+    const statusOrder = { NEW: 1, Seen: 2, Done: 3 };
     reports.sort((a, b) => statusOrder[a.status] - statusOrder[b.status]);
 
     console.log(reports);

@@ -8,7 +8,7 @@
     "description": "🚪 Door won’t close",
     "urgency": "high",
     "dateAvailable": "2026-01-24",
-    "status": "Seen",
+    "status": "NEW",
     "dateSubmitted": "23-01-2026"
   },
   {
@@ -20,7 +20,7 @@
     "description": "🧹 Dirty common area",
     "urgency": "high",
     "dateAvailable": "2026-01-24",
-    "status": "Seen",
+    "status": "Done",
     "dateSubmitted": "23-01-2026"
   },
   {
@@ -32,7 +32,7 @@
     "description": "🧹 Dirty common area",
     "urgency": "high",
     "dateAvailable": "2026-01-24",
-    "status": "Seen",
+    "status": "Done",
     "dateSubmitted": "23-01-2026"
   },
   {
@@ -44,7 +44,7 @@
     "description": "🎵 Music too loud",
     "urgency": "medium",
     "dateAvailable": "2026-01-25",
-    "status": "Seen",
+    "status": "Done",
     "dateSubmitted": "24-01-2026"
   },
   {
@@ -56,7 +56,7 @@
     "description": "❌ No electricity",
     "urgency": "emergency",
     "dateAvailable": "2026-01-25",
-    "status": "NEW",
+    "status": "Done",
     "dateSubmitted": "24-01-2026"
   }
 ]

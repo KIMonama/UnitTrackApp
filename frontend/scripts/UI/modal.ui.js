@@ -2,24 +2,40 @@
 
 import { getUrgencyClass, getStatusClass } from "../utils/helpers.js";
 import { updateReportStatus } from "../api/reports.api.js";
+import { populateTableUI } from "../UI/table.js";
 
 let currentReportId = null;
+let activeReport = null;
 
 export const initModalUI = () => {
   const doneButton = document.getElementById("doneButton");
+  const shareButton = document.getElementById("shareButton");
 
   if (!doneButton) return;
 
-  doneButton.addEventListener("click", () => {
+  doneButton.addEventListener("click", async () => {
     if (!currentReportId) return;
-    updateReportStatus(currentReportId, "Done");
-    setDoneState();
+
+    try {
+      await updateReportStatus(currentReportId, "Done");
+      activeReport.status = "Done";
+      setDoneState();
+      await populateTableUI(); // refresh table immediately
+    } catch (err) {
+      console.error("Failed to mark as Done:", err);
+    }
   });
+  if (shareButton) {
+    shareButton.addEventListener("click", handleShare);
+  }
 };
 
-export const openReportModal = (report) => {
+/* ============================
+   OPEN MODAL
+============================ */
+export const openReportModal = async (report) => {
   currentReportId = report.reportId;
-
+  activeReport = report;
   setText("modalRequestId", report.reportId);
   setText("modalRoom", report.unitLabel || report.tenantId);
   setText("modalCategory", report.category);
@@ -27,19 +43,36 @@ export const openReportModal = (report) => {
   setText("modalUrgency", report.urgency);
   setText("modalStatus", report.status);
   setText("modalDate", report.dateSubmitted);
+  setText("availableDate", report.dateAvailable);
 
   setBadge("modalUrgency", getUrgencyClass(report.urgency));
   setBadge("modalStatus", getStatusClass(report.status));
 
-  // ✅ NEW PART (ONLY THIS)
-  if (report.status === "NEW") {
-    updateReportStatus(currentReportId,"Seen");
-  }
-  report.status === "Done" ? setDoneState() : resetDoneState();
+  // 🔥 AUTO: New → Seen when opening
+  const modalEl = document.getElementById("viewRequestModal");
+  const modal = new bootstrap.Modal(modalEl);
 
-  const modal = new bootstrap.Modal(
-    document.getElementById("viewRequestModal")
+  //Set the modal done button if the status is done
+  activeReport.status === "Done" ? setDoneState() : resetDoneState();
+
+  // ✅ Only mark Seen AFTER viewing (on close)
+  modalEl.addEventListener(
+    "hidden.bs.modal",
+    async () => {
+      if (activeReport && activeReport.status === "NEW") {
+        try {
+          await updateReportStatus(activeReport.reportId, "Seen");
+          activeReport.status = "Seen";
+        } catch (err) {
+          console.error("Failed to mark Seen:", err);
+        }
+      }
+      // ✅ FORCE TABLE RELOAD AFTER MODAL CLOSE
+      await populateTableUI();
+    },
+    { once: true }
   );
+
   modal.show();
 };
 
@@ -74,4 +107,39 @@ const resetDoneState = () => {
   icon.classList.replace("bi-check-lg", "bi-circle");
   text.innerText = "Mark as Done";
   button.disabled = false;
+};
+
+const handleShare = async () => {
+  if (!activeReport) return;
+
+  const text = formatReportText(activeReport);
+
+  // 📱 If device supports share (phones)
+  if (navigator.share) {
+    try {
+      await navigator.share({
+        title: "Maintenance Request",
+        text,
+      });
+    } catch (err) {
+      console.warn("Share cancelled");
+    }
+  }
+  // 💻 Else copy to clipboard
+  else {
+    await navigator.clipboard.writeText(text);
+    alert("Report copied to clipboard");
+  }
+};
+
+const formatReportText = (report) => {
+  return `
+Maintenance Request  Date submitted: ${report.dateSubmitted}
+
+Unit: ${report.unitLabel}
+Category: ${report.category}
+Description: ${report.description}
+Urgency: ${report.urgency}
+Date Available: ${report.dateAvailable}
+`.trim();
 };

@@ -114,11 +114,16 @@
           </div>
 
           <div class="modal-body">
-            <div class="mb-3">
-              <small class="text-muted">Request ID</small>
-              <div class="fw-semibold" id="modalRequestId"></div>
+            <div class="d-flex justify-content-between mb-3">
+              <div class="mb-3">
+                <small class="text-muted">Request ID</small>
+                <div class="fw-semibold" id="modalRequestId"></div>
+              </div>
+              <div class="mb-3">
+                <small class="text-muted">Date Submitted</small>
+                <div id="modalDate"></div>
+              </div>
             </div>
-
             <div class="mb-3">
               <small class="text-muted">Room</small>
               <div class="fw-semibold" id="modalRoom"></div>
@@ -147,8 +152,8 @@
             </div>
 
             <div>
-              <small class="text-muted">Date Submitted</small>
-              <div id="modalDate"></div>
+              <small class="text-muted">Date Available</small>
+              <div id="availableDate"></div>
             </div>
           </div>
 
@@ -161,7 +166,9 @@
             >
               Close
             </button>
-
+            <button id="shareButton" class="btn btn-outline-secondary btn-sm">
+              <i class="bi bi-share"></i> Share
+            </button>
             <button
               id="doneButton"
               class="btn btn-success btn-sm rounded-pill px-3"

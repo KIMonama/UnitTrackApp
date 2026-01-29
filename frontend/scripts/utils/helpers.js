@@ -94,3 +94,4 @@ export const getCategoryIcon = (category) => {
       return "bi-question-circle"; // fallback
   }
 };
+
