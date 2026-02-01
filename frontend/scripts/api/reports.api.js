@@ -1,5 +1,5 @@
 // api/report.api.js
-const BASE_URL = "http://localhost:3000/api/report";
+const BASE_URL = "http://localhost:3000/api/reports";
 
 export const updateReportStatus = async (id, status) => {
   const response = await fetch(`${BASE_URL}/${id}`, {
@@ -18,7 +18,7 @@ export const updateReportStatus = async (id, status) => {
 };
 
 export const logNewreport = async (payload) => {
-  const response = await fetch("http://localhost:3000/api/report", {
+  const response = await fetch(`${BASE_URL}`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload),
@@ -33,7 +33,7 @@ export const logNewreport = async (payload) => {
 
 export const fetchAllReports = async (adminCode) => {
   const response = await fetch(
-    `http://localhost:3000/api/reports/${adminCode}`
+    `${BASE_URL}?adminCode=${adminCode}`
   );
 
   if (!response.ok) {

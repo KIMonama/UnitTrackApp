@@ -224,9 +224,7 @@ const updateReportStatus = (req, res) => {
     fs.writeFileSync(reportsPath, JSON.stringify(reports, null, 2));
 
     // ✅ RESPONSE
-    return res
-      .status(200)
-      .json({ message: "Report status updated"});
+    return res.status(200).json({ message: "Report status updated" });
   } catch (error) {
     return res.status(500).json({
       message: "Error updating report status",
@@ -235,10 +233,15 @@ const updateReportStatus = (req, res) => {
   }
 };
 
+// backend/controllers/report.controller.js
+
+import fs from "fs";
+import path from "path";
+
 const getAllReports = (req, res) => {
   try {
-    const { adminCode } = req.params;
-    console.log("ADMIN CODE FROM URL:", adminCode);
+    const { adminCode, status } = req.query;
+    console.log("QUERY PARAMS:", req.query);
 
     const reportsPath = path.join(
       __dirname,
@@ -247,25 +250,22 @@ const getAllReports = (req, res) => {
       "reports.json"
     );
 
-    // Read file
     const data = fs.readFileSync(reportsPath, "utf-8");
+    let reports = JSON.parse(data);
 
-    const reports = JSON.parse(data);
+    // ✅ FILTER BY adminCode IF PROVIDED
+    if (adminCode) {
+      reports = reports.filter((report) => report.adminCode === adminCode);
+    }
 
-    //container for the specific admin data
-    const container = [];
+    // ✅ FILTER BY status IF PROVIDED
+    if (status) {
+      reports = reports.filter((report) => report.status === status);
+    }
 
-    // Update status
-    reports.forEach((report) => {
-      if (report.adminCode === adminCode) {
-        container.push(report);
-      }
-    });
-
-    // ✅ RESPONSE
     return res.status(200).json({
-      message: "New report was recreated successfully",
-      reports: container,
+      message: "Reports retrieved successfully",
+      reports,
     });
   } catch (error) {
     return res.status(500).json({
@@ -277,12 +277,12 @@ const getAllReports = (req, res) => {
 
 app.post("/api/auth/login", login);
 
-app.put("/api/report/:id", updateReportStatus);
+app.put("/api/reports/:id", updateReportStatus);
 
-app.post("/api/report", logAreport);
-app.post("/api/admin", createNewAdminUser);
+app.post("/api/reports", logAreport);
+app.post("/api/admins", createNewAdminUser);
 
-app.get("/api/reports/:adminCode", getAllReports);
+app.get("/api/reports", getAllReports);
 
 app.listen(3000, () => {
   console.log("SERVER IS RUNNING");
