@@ -8,7 +8,7 @@
     "description": "🚪 Door won’t close",
     "urgency": "high",
     "dateAvailable": "2026-01-24",
-    "status": "NEW",
+    "status": "Done",
     "dateSubmitted": "23-01-2026"
   },
   {
@@ -58,5 +58,61 @@
     "dateAvailable": "2026-01-25",
     "status": "Done",
     "dateSubmitted": "24-01-2026"
+  },
+  {
+    "reportId": "COMP-51XJ",
+    "adminCode": "003",
+    "unitLabel": "Room 1",
+    "role": "suggestions",
+    "description": "The is intense smell coming out of the toilets ",
+    "dateSubmitted": "30-01-2026"
+  },
+  {
+    "reportId": "COMP-51XJ",
+    "adminCode": "003",
+    "unitLabel": "Room 1",
+    "role": "suggestions",
+    "description": "The is intense smell coming out of the toilets ",
+    "dateSubmitted": "30-01-2026"
+  },
+  {
+    "reportId": "COMP-51XJ",
+    "adminCode": "003",
+    "unitLabel": "Room 1",
+    "role": "suggestions",
+    "description": "The is intense smell coming out of the toilets ",
+    "dateSubmitted": "30-01-2026"
+  },
+  {
+    "reportId": "COMP-51XJ",
+    "adminCode": "003",
+    "unitLabel": "Room 1",
+    "role": "suggestions",
+    "description": "The is intense smell coming out of the toilets ",
+    "dateSubmitted": "30-01-2026"
+  },
+  {
+    "reportId": "MAINT-EGI2",
+    "adminCode": "003",
+    "unitLabel": "Room 1",
+    "role": "maintenance",
+    "category": "Noise",
+    "description": "🔊 Loud noise at night",
+    "urgency": "emergency",
+    "dateAvailable": "2026-01-31",
+    "status": "Done",
+    "dateSubmitted": "30-01-2026"
+  },
+  {
+    "reportId": "MAINT-1Z0S",
+    "adminCode": "003",
+    "unitLabel": "Room 1",
+    "role": "maintenance",
+    "category": "Cleaning",
+    "description": "🧹 Dirty common area",
+    "urgency": "high",
+    "dateAvailable": "2026-01-29",
+    "status": "Done",
+    "dateSubmitted": "30-01-2026"
   }
 ]

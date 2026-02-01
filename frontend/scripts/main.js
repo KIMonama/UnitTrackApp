@@ -115,6 +115,7 @@ import { renderUserDetails } from "./UI/user.ui.js";
 import { populateTableUI } from "./UI/table.js";
 import { getCurrentUser } from "./state/session.js";
 import { initModalUI } from "./UI/modal.ui.js";
+import { initRoleTabs } from "./UI/table.js";
 
 ///////////////////////////////////////////////////////////
 // DOM READY
@@ -153,5 +154,6 @@ document.addEventListener("DOMContentLoaded", () => {
     renderUserDetails(); // sets Welcome Admin XXX
     populateTableUI(); // fetches reports + renders table
     initModalUI();
+    initRoleTabs();
   }
 });

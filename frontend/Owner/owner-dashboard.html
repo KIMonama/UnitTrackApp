@@ -60,20 +60,24 @@
           <!-- Role Tabs -->
           <ul class="nav nav-pills nav-fill mb-1" id="loginTabs">
             <li class="nav-item">
-              <button class="nav-link active" data-role="tenant" type="button">
+              <button
+                class="nav-link active"
+                data-role="maintenance"
+                type="button"
+              >
                 Maintenance
               </button>
             </li>
             <li class="nav-item">
-              <button class="nav-link" data-role="admin" type="button">
+              <button class="nav-link" data-role="suggestions" type="button">
                 Suggestions
               </button>
             </li>
           </ul>
 
           <button
-            class="btn btn-m btn-primary rounded px-3 shadow-sm d-flex align-items-center gap-1 btn-refresh"
-            onclick="location.reload()"
+            id="refreshBtn"
+            class="btn btn-m btn-primary rounded px-3 shadow-sm"
           >
             <i class="bi bi-arrow-clockwise"></i>
             Refresh
@@ -156,22 +160,30 @@
               <div id="availableDate"></div>
             </div>
           </div>
-
-          <div class="modal-footer d-flex justify-content-between">
+          <div class="modal-footer d-flex gap-2">
             <button
               id="closeModalBtn"
               type="button"
-              class="btn btn-light"
+              class="btn btn-outline-secondary btn-sm rounded-pill flex-fill"
               data-bs-dismiss="modal"
             >
+              <i class="bi bi-x-circle me-1"></i>
               Close
             </button>
-            <button id="shareButton" class="btn btn-outline-secondary btn-sm">
-              <i class="bi bi-share"></i> Share
+
+            <button
+              id="shareButton"
+              type="button"
+              class="btn btn-outline-primary btn-sm rounded-pill flex-fill"
+            >
+              <i class="bi bi-share me-1"></i>
+              Share
             </button>
+
             <button
               id="doneButton"
-              class="btn btn-success btn-sm rounded-pill px-3"
+              type="button"
+              class="btn btn-outline-success btn-sm rounded-pill flex-fill"
             >
               <i id="buttonIcon" class="bi bi-circle me-1"></i>
               <span id="buttonText">Mark as Done</span>

@@ -15,15 +15,15 @@ export const handleNewreport = async (event) => {
     showError(error);
     return;
   }
- const user = getCurrentUser();
+  const user = getCurrentUser();
 
   try {
     const payload =
       role === "maintenance"
         ? {
-            reportId : generateReportId(role),
-            adminCode : user.adminCode,
-            unitLabel : user.unitLabel,
+            reportId: generateReportId(role),
+            adminCode: user.adminCode,
+            unitLabel: user.unitLabel,
             role: role,
             category: document.getElementById("category").value,
             description: document.getElementById("description").value,
@@ -33,9 +33,9 @@ export const handleNewreport = async (event) => {
             dateSubmitted: getFormattedDate(),
           }
         : {
-            reportId : generateReportId(role),
-            adminCode : user.adminCode,
-            unitLabel :user.unitLabel,
+            reportId: generateReportId(role),
+            adminCode: user.adminCode,
+            unitLabel: user.unitLabel,
             role: role,
             description: document.getElementById("complaintsDescription").value,
             dateSubmitted: getFormattedDate(),
@@ -44,12 +44,7 @@ export const handleNewreport = async (event) => {
     const data = await logNewreport(payload);
 
     // Redirects
-    if (!data.ok) {
-      throw new Error("Failed to log a report, try again later.");
-    }
-    console.log(data);
-    console.log("Success! Redirecting...");
-    window.location.href = "Tenant/success.html";
+    window.location.href = "/frontend/Tenant/success.html";
   } catch (err) {
     showError(err.message);
   }

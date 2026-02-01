@@ -10,17 +10,24 @@ let activeReport = null;
 export const initModalUI = () => {
   const doneButton = document.getElementById("doneButton");
   const shareButton = document.getElementById("shareButton");
+  const modalEl = document.getElementById("viewRequestModal");
 
-  if (!doneButton) return;
+  if (!doneButton || !modalEl) return;
 
-  doneButton.addEventListener("click", async () => {
+  doneButton.addEventListener("click", async (e) => {
+    e.preventDefault(); // 🔒 stops form submission
+    e.stopPropagation(); // 🔒 stops bubbling
     if (!currentReportId) return;
 
     try {
       await updateReportStatus(currentReportId, "Done");
       activeReport.status = "Done";
       setDoneState();
-      await populateTableUI(); // refresh table immediately
+      alert("DONE");
+      // Close modal programmatically
+      const modal = bootstrap.Modal.getInstance(modalEl);
+      modal.hide();
+      //await populateTableUI(); // refresh table immediately
     } catch (err) {
       console.error("Failed to mark as Done:", err);
     }
