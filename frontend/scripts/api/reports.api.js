@@ -32,9 +32,7 @@ export const logNewreport = async (payload) => {
 };
 
 export const fetchAllReports = async (adminCode) => {
-  const response = await fetch(
-    `${BASE_URL}?adminCode=${adminCode}`
-  );
+  const response = await fetch(`${BASE_URL}?adminCode=${adminCode}`);
 
   if (!response.ok) {
     throw new Error("Failed to fetch reports");

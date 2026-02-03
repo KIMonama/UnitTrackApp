@@ -233,11 +233,6 @@ const updateReportStatus = (req, res) => {
   }
 };
 
-// backend/controllers/report.controller.js
-
-import fs from "fs";
-import path from "path";
-
 const getAllReports = (req, res) => {
   try {
     const { adminCode, status } = req.query;
