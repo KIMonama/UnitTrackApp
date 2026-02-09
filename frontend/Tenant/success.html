@@ -1,91 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Submission Complete | UnitTrack</title>
 
-    <!-- Bootstrap CSS -->
     <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
       rel="stylesheet"
-      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-      crossorigin="anonymous"
     />
-    <!-- Custom CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+    />
     <link href="/frontend/styles/style.css" rel="stylesheet" />
-    <title>Report</title>
   </head>
-  <body class="bg-white">
-    <nav class="navbar bg-primary py-3 mx-0 px-0">
-      <div class="container-fluid">
+
+  <body class="bg-light pb-5">
+    <nav class="navbar bg-white border-bottom py-3">
+      <div class="container-fluid px-3">
         <a class="navbar-brand" href="/frontend/index.html">
           <img
-            src="/frontend/assets/logo-white.png"
+            src="/frontend/assets/logo-blue.png"
             alt="Logo"
             width="100"
-            height="27"
             class="d-inline-block align-text-top"
           />
         </a>
-        <a class="text-white">Contact us</a>
+        <a class="text-primary fw-bold small text-decoration-none"
+          >Contact us</a
+        >
       </div>
     </nav>
-    <!-- Hero Section -->
-    <section class="hero text-center">
-      <h1>Submision complete!!</h1>
-      <p class="lead fst-italic mb-0">Track every fix, right from your unit</p>
-    </section>
 
-    <!-- Main Content -->
-    <div
-      class="container d-flex flex-column align-items-center justify-content-center my-4"
-    >
+    <div class="container px-3 p-5">
       <div
-        class="card shadow-lg border-0 rounded-4 p-4 text-center"
-        style="max-width: 400px; width: 100%"
+        class="card success-card shadow-sm border-0 mx-auto text-center p-4 p-md-5"
       >
-        <div class="mb-3">
-          <img
-            src="/frontend/assets/green-check.png"
-            class="img-fluid"
-            alt="Success"
-            style="max-width: 100px"
-          />
+        <div class="success-icon-container mb-4">
+          <div class="success-pulse"></div>
+          <i class="bi bi-check-circle-fill text-primary display-1"></i>
         </div>
-        <h2 class="fw-semibold text-success mb-2">
-          Report Submitted Successfully
-        </h2>
-        <p class="text-muted mb-4">
+
+        <h2 class="fw-bold text-dark mb-2">Report Submitted</h2>
+        <p class="text-muted mb-4 small">
           Thank you for your submission! Our maintenance team will review your
           report shortly.
         </p>
+
         <a
           href="report.html"
-          class="btn btn-primary w-100 py-2 fw-semibold rounded-pill"
+          class="btn btn-primary btn-lg w-100 py-3 fw-bold rounded-pill shadow-sm"
         >
-          New report
+          Submit New Report
+        </a>
+
+        <a
+          href="/frontend/index.html"
+          class="btn btn-link text-muted mt-3 text-decoration-none small"
+        >
+          Back to Home
         </a>
       </div>
     </div>
 
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-      crossorigin="anonymous"
-    ></script>
+    <footer class="text-center py-4 mt-5 text-muted small">
+      &#169; 2026 UnitTrack
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   </body>
-  <!-- Footer -->
-  <footer
-    class="text-center text-center py-3 bg-primary text-white fixed-bottom mt-3"
-  >
-    &#169;
-    <img
-      src="/frontend/assets/logo-white.png"
-      alt="Logo"
-      width="100"
-      height="27"
-      class="d-inline-block align-text-top"
-    />
-  </footer>
 </html>

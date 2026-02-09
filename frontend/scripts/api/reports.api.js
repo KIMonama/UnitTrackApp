@@ -25,7 +25,7 @@ export const logNewreport = async (payload) => {
   });
 
   if (!response.ok) {
-    throw new Error("Invalid login credentials");
+    throw new Error("Unable to log a new report at this time. Please try again later.");
   }
 
   return response.json();

@@ -1,23 +1,16 @@
 import fs from "fs";
-import path from "path";
-
-const __dirname = new URL(".", import.meta.url).pathname;
+import { reportsFile } from "../config/path.js";
 
 export const logAreport = (req, res) => {
-  const reportsPath = path.join(
-    __dirname,
-    "..",
-    "frontend/data",
-    "reports.json"
-  );
-  const data = fs.readFileSync(reportsPath, "utf-8");
+ 
+  const data = fs.readFileSync(reportsFile, "utf-8");
 
   const reports = JSON.parse(data);
   const newReport = req.body;
   reports.push(newReport);
 
   // ✅ WRITE BACK TO FILE (this was missing)
-  fs.writeFileSync(reportsPath, JSON.stringify(reports, null, 2));
+  fs.writeFileSync(reportsFile, JSON.stringify(reports, null, 2));
 
   // ✅ RESPONSE
   return res
@@ -33,15 +26,8 @@ export const updateReportStatus = (req, res) => {
     const reportId = req.params.id;
     const { status } = req.body;
 
-    const reportsPath = path.join(
-      __dirname,
-      "..",
-      "frontend/data",
-      "reports.json"
-    );
-
     // Read file
-    const data = fs.readFileSync(reportsPath, "utf-8");
+    const data = fs.readFileSync(reportsFile, "utf-8");
 
     const reports = JSON.parse(data);
 
@@ -59,7 +45,7 @@ export const updateReportStatus = (req, res) => {
     }
 
     // ✅ WRITE BACK TO FILE (this was missing)
-    fs.writeFileSync(reportsPath, JSON.stringify(reports, null, 2));
+    fs.writeFileSync(reportsFile, JSON.stringify(reports, null, 2));
 
     // ✅ RESPONSE
     return res.status(200).json({ message: "Report status updated" });
@@ -76,14 +62,7 @@ export const getAllReports = (req, res) => {
     const { adminCode, status } = req.query;
     console.log("QUERY PARAMS:", req.query);
 
-    const reportsPath = path.join(
-      __dirname,
-      "..",
-      "frontend/data",
-      "reports.json"
-    );
-
-    const data = fs.readFileSync(reportsPath, "utf-8");
+    const data = fs.readFileSync(reportsFile, "utf-8");
     let reports = JSON.parse(data);
 
     // ✅ FILTER BY adminCode IF PROVIDED

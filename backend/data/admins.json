@@ -1,0 +1,36 @@
+[
+  {
+    "adminCode": "003",
+    "name": "Keamogetswe Monama",
+    "email": "keamonama077@gmail.com",
+    "phone": "0814350822",
+    "property": "Mint resorts",
+    "unitCount": 10,
+    "active": true,
+    "createdAt": "2026-01-13",
+    "role": "admin",
+    "pin": "1234"
+  },
+  {
+    "adminCode": "002",
+    "name": "Thabiso Monama",
+    "email": "thabiso077@gmail.com",
+    "phone": "0814350822",
+    "property": "BLUE",
+    "unitCount": 5,
+    "password": "5678",
+    "active": true,
+    "createdAt": "2026-02-07"
+  },
+  {
+    "adminCode": "003",
+    "name": "KABELO STRIKE",
+    "email": "Strikemakhubela921@gmail.com",
+    "phone": "0814350822",
+    "property": "Yellow properties",
+    "unitCount": 3,
+    "password": "1234",
+    "active": true,
+    "createdAt": "2026-02-07"
+  }
+]

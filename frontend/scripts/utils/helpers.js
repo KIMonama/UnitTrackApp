@@ -1,27 +1,31 @@
 // Helper functions for colours
+// Helper functions for the new cool badges
 export function getUrgencyClass(urgency) {
+  // Directly mapping the lowercase strings from your server
   switch (urgency) {
+    case "emergency":
+      return "badge-urgent";
     case "high":
-      return "bg-danger";
+      return "badge-urgent";
     case "medium":
-      return "bg-warning text-dark";
+      return "badge-warning";
     case "low":
-      return "bg-success";
+      return "badge-stable";
     default:
-      return "bg-secondary";
+      return "badge-neutral";
   }
 }
 
 export function getStatusClass(status) {
   switch (status) {
     case "Done":
-      return "bg-secondary";
+      return "status-badge status-closed";
     case "Seen":
-      return "bg-primary";
+      return "status-badge status-progress";
     case "NEW":
-      return "bg-success";
+      return "status-badge status-open";
     default:
-      return "bg-secondary";
+      return "status-badge status-neutral";
   }
 }
 
@@ -94,4 +98,3 @@ export const getCategoryIcon = (category) => {
       return "bi-question-circle"; // fallback
   }
 };
-

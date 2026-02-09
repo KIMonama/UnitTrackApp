@@ -1,14 +1,14 @@
 import express from "express";
 
 import {
-  logReport,
+  logAreport,
   getAllReports,
   updateReportStatus,
 } from "../controllers/report.controller.js";
 
 const router = express.Router();
 
-router.post("/", logReport);
+router.post("/", logAreport);
 router.put("/:id", updateReportStatus);
 router.get("/", getAllReports);
 

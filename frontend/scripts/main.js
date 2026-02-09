@@ -53,4 +53,10 @@ document.addEventListener("DOMContentLoaded", () => {
     initModalUI();
     initRoleTabs();
   }
+
+  const unitDetails = document.getElementById("unitDetails");
+  if(unitDetails)
+  {
+    renderUserDetails(); //sets room label on the reports page.
+  }
 });

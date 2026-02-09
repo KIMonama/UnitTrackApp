@@ -6,7 +6,7 @@
     "role": "maintenance",
     "category": "Doors",
     "description": "🚪 Door won’t close",
-    "urgency": "high",
+    "urgency": "low",
     "dateAvailable": "2026-01-24",
     "status": "Done",
     "dateSubmitted": "23-01-2026"
@@ -114,5 +114,29 @@
     "dateAvailable": "2026-01-29",
     "status": "Done",
     "dateSubmitted": "30-01-2026"
+  },
+  {
+    "reportId": "MAINT-I3CP",
+    "adminCode": "003",
+    "unitLabel": "Room 1",
+    "role": "maintenance",
+    "category": "Cleaning",
+    "description": "🧹 Dirty common area",
+    "urgency": "medium",
+    "dateAvailable": "2026-02-10",
+    "status": "Done",
+    "dateSubmitted": "09-02-2026"
+  },
+  {
+    "reportId": "MAINT-HA62",
+    "adminCode": "003",
+    "unitLabel": "Room 1",
+    "role": "maintenance",
+    "category": "Electrical",
+    "description": "⚡ Power keeps tripping",
+    "urgency": "high",
+    "dateAvailable": "2026-02-11",
+    "status": "Done",
+    "dateSubmitted": "10-02-2026"
   }
 ]

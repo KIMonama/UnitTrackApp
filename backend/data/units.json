@@ -422,5 +422,61 @@
     "unitNumber": "10",
     "unitLabel": "Room 10",
     "active": true
+  },
+  {
+    "unitCode": "00201",
+    "adminCode": "002",
+    "unitNumber": "01",
+    "unitLabel": "Room 1",
+    "active": true
+  },
+  {
+    "unitCode": "00202",
+    "adminCode": "002",
+    "unitNumber": "02",
+    "unitLabel": "Room 2",
+    "active": true
+  },
+  {
+    "unitCode": "00203",
+    "adminCode": "002",
+    "unitNumber": "03",
+    "unitLabel": "Room 3",
+    "active": true
+  },
+  {
+    "unitCode": "00204",
+    "adminCode": "002",
+    "unitNumber": "04",
+    "unitLabel": "Room 4",
+    "active": true
+  },
+  {
+    "unitCode": "00205",
+    "adminCode": "002",
+    "unitNumber": "05",
+    "unitLabel": "Room 5",
+    "active": true
+  },
+  {
+    "unitCode": "00301",
+    "adminCode": "003",
+    "unitNumber": "01",
+    "unitLabel": "Room 1",
+    "active": true
+  },
+  {
+    "unitCode": "00302",
+    "adminCode": "003",
+    "unitNumber": "02",
+    "unitLabel": "Room 2",
+    "active": true
+  },
+  {
+    "unitCode": "00303",
+    "adminCode": "003",
+    "unitNumber": "03",
+    "unitLabel": "Room 3",
+    "active": true
   }
 ]

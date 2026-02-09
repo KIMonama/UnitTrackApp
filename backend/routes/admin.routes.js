@@ -2,7 +2,7 @@ import express from "express"
 
 const router = express.Router();
 
-import { createNewAdminUser } from "../controllers/admins.controller.js";
+import { createNewAdminUser } from "../controllers/admin.controller.js";
 
 router.put("/", createNewAdminUser );
 

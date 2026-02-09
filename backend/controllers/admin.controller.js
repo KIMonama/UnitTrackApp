@@ -1,23 +1,15 @@
 import fs from "fs";
-import path from "path";
+import { adminsFile } from "../config/path.js";
+import { unitsFile } from "../config/path.js";
 
 export const createNewAdminUser = (req, res) => {
   try {
     const { name, email, phone, property } = req.body;
     const unitCount = Number(req.body.unitCount);
 
-    //Create paths for both the units and admins files
-    const adminsPath = path.join(
-      __dirname,
-      "..",
-      "frontend/data",
-      "admins.json"
-    );
-    const unitsPath = path.join(__dirname, "..", "frontend/data", "units.json");
-
     //create parse the data from the files into json variables
-    const admins = JSON.parse(fs.readFileSync(adminsPath, "utf-8"));
-    const units = JSON.parse(fs.readFileSync(unitsPath, "utf-8"));
+    const admins = JSON.parse(fs.readFileSync(adminsFile, "utf-8"));
+    const units = JSON.parse(fs.readFileSync(unitsFile, "utf-8"));
 
     //AdminCode generation
     const nextAdminNumber = admins.length + 1;
@@ -51,8 +43,8 @@ export const createNewAdminUser = (req, res) => {
       });
     }
     // ✅ WRITE BACK TO FILE (this was missing)
-    fs.writeFileSync(adminsPath, JSON.stringify(admins, null, 2));
-    fs.writeFileSync(unitsPath, JSON.stringify(units, null, 2));
+    fs.writeFileSync(adminsFile, JSON.stringify(admins, null, 2));
+    fs.writeFileSync(unitsFile, JSON.stringify(units, null, 2));
 
     // ✅ RESPONSE
     return res.status(201).json({

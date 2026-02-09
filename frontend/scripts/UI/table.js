@@ -45,31 +45,43 @@ export const populateTableUI = async (filterType = "maintenance") => {
 
 const renderMaintenanceRow = (report) => {
   const row = document.createElement("tr");
-  row.classList.add("shadow-sm");
+  // Reduced margin from mb-3 to mb-2, removed shadow-sm
+  row.classList.add("d-block", "mb-2", "border-0");
 
   row.innerHTML = `
-    <td class="bg-white rounded ps-3">
-      <div class="d-flex justify-content-between align-items-start">
+    <td class="bg-white rounded-3 p-2 d-block border-bottom">
+      <div class="d-flex justify-content-between align-items-center">
 
-        <div>
-          <strong>
-            <i class="bi ${getCategoryIcon(report.category)} me-2"></i>
-            ${report.unitLabel}
-          </strong><br>
-
-          <small class="text-muted">${report.category}</small>
-
-          <span class="badge ${getUrgencyClass(report.urgency)}">
-            ${report.urgency}
-          </span>
-
-          <span class="badge ${getStatusClass(report.status)} ms-1">
-            ${report.status}
-          </span>
+        <div style="line-height: 1.2;">
+          <div class="mb-1">
+            <strong class="text-dark small">
+              <i class="bi ${getCategoryIcon(
+                report.category
+              )} me-1 text-primary"></i>
+              ${report.unitLabel}
+            </strong>
+          </div>
+          <div class="d-flex align-items-center gap-2">
+            <small class="text-muted x-small">${report.category}</small>
+            <span class="status-badge ${getUrgencyClass(
+              report.urgency
+            )} x-small py-0 px-2">
+              ${report.urgency}
+            </span>
+          </div>
         </div>
 
-        <div>
-          <button class="btn btn-sm btn-outline-primary view-btn">View</button>
+        <div class="text-end">
+          <div class="mb-1">
+             <span class="status-badge ${getStatusClass(
+               report.status
+             )} x-small py-0 px-2">
+              ${report.status}
+            </span>
+          </div>
+          <button class="btn btn-sm btn-outline-primary py-0 px-3 rounded-pill view-btn" style="font-size: 0.75rem;">
+            View
+          </button>
         </div>
 
       </div>
@@ -82,7 +94,6 @@ const renderMaintenanceRow = (report) => {
 
   return row;
 };
-
 const renderSuggestionRow = (report) => {
   const row = document.createElement("tr");
   row.classList.add("shadow-sm");
@@ -136,10 +147,14 @@ export const initRoleTabs = () => {
   });
 };
 
-document.getElementById("refreshBtn").addEventListener("click", async () => {
-  const activeTab = document.querySelector("#loginTabs .nav-link.active");
+const refreshBtn = document.getElementById("refreshBtn");
 
-  // Get the role from that tab (defaulting to null or a specific role if none found)
-  const activeRole = activeTab ? activeTab.dataset.role : null;
-  await populateTableUI(activeRole);
-});
+// Only run the code if the button actually exists on the current page
+if (refreshBtn) {
+  refreshBtn.addEventListener("click", async () => {
+    const activeTab = document.querySelector("#loginTabs .nav-link.active");
+    // Get the role from that tab (defaulting to null or a specific role if none found)
+    const activeRole = activeTab ? activeTab.dataset.role : null;
+    await populateTableUI(activeRole);
+  });
+}

@@ -80,3 +80,279 @@ tr:hover {
 .table tr:hover {
   background-color: #f8fafc; /* subtle hover */
 }
+
+/* NEWWWWWW STYLE FROM GEMINI */
+/* --- MOBILE LOGIN THEME --- */
+
+:root {
+  --primary-blue: #0a5bd3;
+  --bg-light-blue: #f0f5ff; /* Soft blue for the background */
+  --card-glass: rgba(255, 255, 255, 0.95);
+}
+
+body {
+  /* Subtle gradient: Starts soft blue at the top, fades to white at the bottom */
+  background: linear-gradient(180deg, var(--bg-light-blue) 0%, #ffffff 100%);
+  background-attachment: fixed; /* Keeps the gradient steady while scrolling */
+  min-height: 100vh;
+  color: #2d3436;
+}
+.card,
+.report-card,
+.login-card {
+  background: var(--card-glass) !important;
+  border: 1px solid rgba(10, 91, 211, 0.1) !important; /* Very thin blue border */
+  box-shadow: 0 10px 30px rgba(10, 91, 211, 0.05) !important; /* Blue-tinted shadow */
+  backdrop-filter: blur(5px); /* Adds a high-end "frosted" look */
+}
+.hero-login h1 {
+  font-size: 1.75rem;
+  letter-spacing: -0.5px;
+}
+
+/* Modern Pill Tabs */
+.modern-tabs {
+  background: #f1f3f5;
+  padding: 5px;
+  border-radius: 12px;
+}
+
+.modern-tabs .nav-link {
+  border-radius: 10px;
+  color: #6c757d;
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 10px;
+}
+
+.modern-tabs .nav-link.active {
+  background-color: #ffffff !important;
+  color: var(--primary-blue) !important;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* Form Controls */
+.form-control-lg {
+  font-size: 1rem;
+  padding: 0.8rem 1rem;
+}
+/* Make inputs pop against the blue background */
+.form-control {
+  background-color: #ffffff !important;
+  border: 1px solid #e1e8f0 !important;
+}
+.form-control:focus {
+  background-color: #ffffff !important;
+  border-color: var(--primary-blue) !important;
+}
+
+/* CTA Button */
+.btn-primary {
+  background: linear-gradient(135deg, #0a5bd3, #0046af);
+  border: none;
+  transition: transform 0.2s;
+}
+
+.btn-primary:active {
+  transform: scale(0.98);
+}
+
+/* --- REPORT PAGE SPECIFIC --- */
+.hero-report h1 {
+  font-size: 1.5rem;
+  letter-spacing: -0.5px;
+}
+
+/* Category Dropdown Styling */
+.category-select {
+  background-color: var(--primary-blue) !important;
+  color: white !important;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+}
+
+/* Suggestion Chips */
+#descriptionSuggestions .btn-outline-primary {
+  border-radius: 50px;
+  font-size: 0.8rem;
+  padding: 5px 15px;
+  border: 1px solid #dee2e6;
+  color: #495057;
+  background: white;
+}
+
+#descriptionSuggestions .btn-outline-primary:hover {
+  background: var(--primary-blue);
+  color: white;
+  border-color: var(--primary-blue);
+}
+
+/* Fix for floating labels on white backgrounds */
+.form-floating > .form-control:focus,
+.form-floating > .form-control:not(:placeholder-shown) {
+  background-color: #fff !important;
+}
+
+/* --- SUCCESS ANIMATION & THEME --- */
+.success-card {
+  max-width: 400px;
+  border-radius: 24px !important;
+  background: rgba(255, 255, 255, 0.9) !important;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(10, 91, 211, 0.1) !important;
+}
+
+.success-icon-container {
+  position: relative;
+  display: inline-block;
+}
+
+.success-pulse {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px;
+  height: 60px;
+  background-color: rgba(10, 91, 211, 0.15);
+  border-radius: 50%;
+  animation: pulse-ring 2s infinite;
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: translate(-50%, -50%) scale(0.9);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.6);
+    opacity: 0;
+  }
+}
+/* --- SLOGAN STYLING --- */
+.hero-report p {
+  letter-spacing: 0.5px;
+  font-weight: 500;
+  text-transform: lowercase; /* Gives it a modern, tech-startup feel */
+}
+
+.hero-report p::first-letter {
+  text-transform: uppercase; /* Keeps it grammatically correct */
+}
+/* Ensure buttons are easy to tap on mobile */
+.btn-lg {
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.btn-lg:active {
+  transform: scale(0.95);
+}
+
+/* --- THE COOL BADGE SYSTEM --- */
+.status-badge {
+  padding: 6px 16px;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: inline-block;
+}
+
+/* Open / New */
+.status-open {
+  background-color: #e6fcf5;
+  color: #087f5b;
+  border: 1px solid #c3fae8;
+}
+
+/* In Progress / Seen */
+.status-progress {
+  background-color: #fff9db;
+  color: #f08c00;
+  border: 1px solid #fff3bf;
+}
+
+/* Closed / Done */
+.status-closed {
+  background-color: #f1f3f5;
+  color: #495057;
+  border: 1px solid #e9ecef;
+}
+
+/* --- SYNCHRONIZED URGENCY BADGES --- */
+.badge-urgent {
+  background-color: #fff5f5;
+  color: #fa5252;
+  border: 1px solid #ffe3e3;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-weight: 700;
+}
+
+.badge-warning {
+  background-color: #fff9db;
+  color: #f08c00;
+  border: 1px solid #fff3bf;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-weight: 700;
+}
+
+.badge-stable {
+  background-color: #ebfbee;
+  color: #2b8a3e;
+  border: 1px solid #d3f9d8;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-weight: 700;
+}
+
+/* Optional: Make emergency look even more critical */
+.badge-urgent:contains("emergency") {
+  border: 2px solid #fa5252;
+}
+
+.fw-black {
+  font-weight: 900;
+  letter-spacing: -0.03em;
+}
+
+.tracking-wider {
+  letter-spacing: 0.15em;
+}
+
+.x-small {
+  font-size: 0.65rem !important;
+}
+
+/* Adds a very subtle soft blue glow to the property name */
+#propertyName {
+  color: #ffffff;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Makes the slogan background look like the marketing site */
+.bg-light {
+  background-color: #f8faff !important;
+  border: 1px solid #eef2ff;
+}
+/* Deep Blue Hero Gradient */
+.bg-primary {
+  background: linear-gradient(180deg, #0a5bd3 0%, #0849a8 100%) !important;
+}
+/* Subtle contrast for the welcome text */
+.opacity-75 {
+  opacity: 0.75;
+}
+
+/* Dashboard Background (Soft Blue/Grey tint) */
+body {
+  background-color: #f4f7fa; /* This stops the 'Too White' feeling globally */
+}
+
+/* Update the row border to feel integrated */
+.border-bottom {
+  border-bottom: 1px solid rgba(10, 91, 211, 0.08) !important;
+}
