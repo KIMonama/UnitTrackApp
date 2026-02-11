@@ -32,5 +32,15 @@
     "password": "1234",
     "active": true,
     "createdAt": "2026-02-07"
+  },
+  {
+    "adminCode": "004",
+    "name": "Thabiso Monama",
+    "email": "thabisomonama077@gmail.com",
+    "phone": "0814350822",
+    "property": "Yellow properties",
+    "unitCount": 12,
+    "active": true,
+    "createdAt": "2026-02-11"
   }
 ]

@@ -1,54 +1,55 @@
 import fs from "fs";
 import { reportsFile } from "../config/path.js";
+import Report from "../models/Report.js";
 
-export const logAreport = (req, res) => {
- 
-  const data = fs.readFileSync(reportsFile, "utf-8");
+export const logAreport = async (req, res) => {
+  try {
+    console.log("hello");
+    // 1. Create an instance of the model using data from the request body
+    const newReport = new Report(req.body);
 
-  const reports = JSON.parse(data);
-  const newReport = req.body;
-  reports.push(newReport);
+    // 2. Save it directly to MongoDB (Mongoose handles the "write" logic)
+    // We use 'await' because database operations are asynchronous
+    const savedReport = await newReport.save();
 
-  // ✅ WRITE BACK TO FILE (this was missing)
-  fs.writeFileSync(reportsFile, JSON.stringify(reports, null, 2));
-
-  // ✅ RESPONSE
-  return res
-    .status(200)
-    .json({ message: "New report was recreated successfully" });
+    // 3. Send back the professional response
+    return res.status(201).json({
+      message: "New report was created successfully",
+      report: savedReport,
+    });
+  } catch (error) {
+    return res.status(400).json({
+      message: "Failed to create report",
+      error: error.message,
+    });
+  }
 };
 
-export const updateReportStatus = (req, res) => {
-  console.log("PARAM ID:", req.params.id);
-  console.log("BODY:", req.body);
+export const updateReportStatus = async (req, res) => {
+  // Helpful for debugging during the transition
+  console.log("PARAM ID (reportId):", req.params.id);
+  console.log("NEW STATUS:", req.body.status);
 
   try {
-    const reportId = req.params.id;
+    const { id } = req.params; // This matches the 'reportId' (e.g., MAINT-JOKM)
     const { status } = req.body;
 
-    // Read file
-    const data = fs.readFileSync(reportsFile, "utf-8");
+    // We use { new: true } to get the updated document back in the response
+    // We use { runValidators: true } to ensure 'status' is still NEW, seen, or Done
+    const updatedReport = await Report.findOneAndUpdate(
+      { reportId: id },
+      { status: status },
+      { new: true, runValidators: true }
+    );
 
-    const reports = JSON.parse(data);
-
-    let reportFound = false;
-
-    // Update status
-    reports.forEach((report) => {
-      if (report.reportId === reportId) {
-        report.status = status;
-        reportFound = true;
-      }
-    });
-    if (!reportFound) {
-      return res.status(404).json({ message: "Report not found" });
+    if (!updatedReport) {
+      return res.status(404).json({ message: "Report not found in database" });
     }
 
-    // ✅ WRITE BACK TO FILE (this was missing)
-    fs.writeFileSync(reportsFile, JSON.stringify(reports, null, 2));
-
-    // ✅ RESPONSE
-    return res.status(200).json({ message: "Report status updated" });
+    return res.status(200).json({
+      message: "Report status updated successfully",
+      data: updatedReport,
+    });
   } catch (error) {
     return res.status(500).json({
       message: "Error updating report status",
@@ -57,26 +58,23 @@ export const updateReportStatus = (req, res) => {
   }
 };
 
-export const getAllReports = (req, res) => {
+export const getAllReports = async (req, res) => {
   try {
-    const { adminCode, status } = req.query;
-    console.log("QUERY PARAMS:", req.query);
+    const { adminCode} = req.query;
 
-    const data = fs.readFileSync(reportsFile, "utf-8");
-    let reports = JSON.parse(data);
+    // 1. Build a dynamic query object
+    let query = {};
 
-    // ✅ FILTER BY adminCode IF PROVIDED
+    // Only add adminCode to the query if the user provided it
     if (adminCode) {
-      reports = reports.filter((report) => report.adminCode === adminCode);
+      query.adminCode = adminCode;
     }
+    const reports = await Report.find(query);
 
-    // ✅ FILTER BY status IF PROVIDED
-    if (status) {
-      reports = reports.filter((report) => report.status === status);
-    }
-
+    // 3. Professional Response
     return res.status(200).json({
       message: "Reports retrieved successfully",
+      count: reports.length, // Helpful for the frontend to know the total
       reports,
     });
   } catch (error) {

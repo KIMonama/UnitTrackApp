@@ -138,5 +138,17 @@
     "dateAvailable": "2026-02-11",
     "status": "Done",
     "dateSubmitted": "10-02-2026"
+  },
+  {
+    "reportId": "MAINT-0AD5",
+    "adminCode": "003",
+    "unitLabel": "Room 1",
+    "role": "maintenance",
+    "category": "Noise",
+    "description": "👥 People making noise",
+    "urgency": "low",
+    "dateAvailable": "2026-02-12",
+    "status": "NEW",
+    "dateSubmitted": "10-02-2026"
   }
 ]

@@ -1,10 +1,11 @@
 import fs from "fs";
-import path from "path";
 import { adminsFile } from "../config/path.js";
 import { unitsFile } from "../config/path.js";
 
+import Admin from "../models/Admin.js";
+import Unit from "../models/Unit.js";
 
-export const login = (req, res) => {
+export const login = async (req, res) => {
   try {
     const { role } = req.body;
 
@@ -17,20 +18,13 @@ export const login = (req, res) => {
     // ===============================
     if (role === "tenant") {
       const { unitCode } = req.body;
-
+      let query = {};
       if (!unitCode) {
         return res.status(400).json({ message: "Unit code is required" });
+      } else {
+        query.unitCode = unitCode;
       }
-
-      const units = JSON.parse(fs.readFileSync(unitsFile, "utf-8"));
-
-      const unitExists = units.find(
-        (unit) => unit.unitCode === unitCode && unit.active === true
-      );
-
-      if (!unitExists) {
-        return res.status(404).json({ message: "Unit not found" });
-      }
+      const unitExists = await Unit.find(query);
 
       return res.status(200).json({
         message: "Login successful",
@@ -43,13 +37,16 @@ export const login = (req, res) => {
     // ===============================
     if (role === "admin") {
       const { email, pin } = req.body;
+      let query = {};
 
       if (!email || !pin) {
         return res
           .status(400)
           .json({ message: "Admin credentials is required" });
+      } else {
+        query.email = email;
+        query.pin = pin;
       }
-      const admins = JSON.parse(fs.readFileSync(adminsFile, "utf-8"));
 
       const adminExists = admins.find(
         (admin) =>
@@ -79,56 +76,51 @@ export const login = (req, res) => {
   }
 };
 
-export const register = (req, res) => {
+export const register = async (req, res) => {
   try {
-    const { name, email, phone, property, password} = req.body;
+    const { name, email, phone, property, pin } = req.body;
     const unitCount = Number(req.body.unitCount);
 
+    // 1. Better AdminCode generation for MongoDB
+    const count = await Admin.countDocuments();
+    const adminCode = String(count + 1).padStart(3, "0");
 
-    //create parse the data from the files into json variables
-    const admins = JSON.parse(fs.readFileSync(adminsFile, "utf-8"));
-    const units = JSON.parse(fs.readFileSync(unitsFile, "utf-8"));
-
-    //AdminCode generation
-    const nextAdminNumber = admins.length + 1;
-    const adminCode = String(nextAdminNumber).padStart(3, "0");
-
-    //create a new admin object
-    const newAdmin = {
+    // 2. Create the Admin Instance
+    const newAdmin = new Admin({
       adminCode,
       name,
       email,
       phone,
-      property,
-      unitCount,
-      password,
+      // Mapping your 'property' string to our Schema's 'properties' array
+      properties: [{ propertyName: property, unitCount }],
+      pin, // Don't forget the pin for login!
       active: true,
-      createdAt: new Date().toISOString().split("T")[0],
-    };
+    });
 
-    //ADD the new admin to the admins json array
-    admins.push(newAdmin);
+    const savedAdmin = await newAdmin.save(); // ✅ Fixed: Save the instance
 
-    //Autogenerate units based on unitCount
+    // 3. Auto-generate units
+    const unitPromises = [];
     for (let i = 1; i <= unitCount; i++) {
       const unitNumber = String(i).padStart(2, "0");
 
-      units.push({
+      const newUnit = new Unit({
         unitCode: `${adminCode}${unitNumber}`,
         adminCode,
         unitNumber,
         unitLabel: `Room ${i}`,
         active: true,
       });
-    }
-    // ✅ WRITE BACK TO FILE (this was missing)
-    fs.writeFileSync(adminsFile, JSON.stringify(admins, null, 2));
-    fs.writeFileSync(unitsFile, JSON.stringify(units, null, 2));
 
-    // ✅ RESPONSE
+      unitPromises.push(newUnit.save());
+    }
+
+    // This makes the unit creation run in parallel (faster!)
+    await Promise.all(unitPromises);
+
     return res.status(201).json({
       message: "Admin and units created successfully",
-      adminCode,
+      adminCode: savedAdmin.adminCode,
       unitsCreated: unitCount,
     });
   } catch (error) {

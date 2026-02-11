@@ -17,4 +17,5 @@ app.use("/api/auth", authRoutes);
 app.use("/api/admins", adminRoutes);
 
 
+
 export default app;

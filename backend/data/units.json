@@ -478,5 +478,89 @@
     "unitNumber": "03",
     "unitLabel": "Room 3",
     "active": true
+  },
+  {
+    "unitCode": "00401",
+    "adminCode": "004",
+    "unitNumber": "01",
+    "unitLabel": "Room 1",
+    "active": true
+  },
+  {
+    "unitCode": "00402",
+    "adminCode": "004",
+    "unitNumber": "02",
+    "unitLabel": "Room 2",
+    "active": true
+  },
+  {
+    "unitCode": "00403",
+    "adminCode": "004",
+    "unitNumber": "03",
+    "unitLabel": "Room 3",
+    "active": true
+  },
+  {
+    "unitCode": "00404",
+    "adminCode": "004",
+    "unitNumber": "04",
+    "unitLabel": "Room 4",
+    "active": true
+  },
+  {
+    "unitCode": "00405",
+    "adminCode": "004",
+    "unitNumber": "05",
+    "unitLabel": "Room 5",
+    "active": true
+  },
+  {
+    "unitCode": "00406",
+    "adminCode": "004",
+    "unitNumber": "06",
+    "unitLabel": "Room 6",
+    "active": true
+  },
+  {
+    "unitCode": "00407",
+    "adminCode": "004",
+    "unitNumber": "07",
+    "unitLabel": "Room 7",
+    "active": true
+  },
+  {
+    "unitCode": "00408",
+    "adminCode": "004",
+    "unitNumber": "08",
+    "unitLabel": "Room 8",
+    "active": true
+  },
+  {
+    "unitCode": "00409",
+    "adminCode": "004",
+    "unitNumber": "09",
+    "unitLabel": "Room 9",
+    "active": true
+  },
+  {
+    "unitCode": "00410",
+    "adminCode": "004",
+    "unitNumber": "10",
+    "unitLabel": "Room 10",
+    "active": true
+  },
+  {
+    "unitCode": "00411",
+    "adminCode": "004",
+    "unitNumber": "11",
+    "unitLabel": "Room 11",
+    "active": true
+  },
+  {
+    "unitCode": "00412",
+    "adminCode": "004",
+    "unitNumber": "12",
+    "unitLabel": "Room 12",
+    "active": true
   }
 ]
