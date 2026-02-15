@@ -1,78 +1,46 @@
-import fs from "fs";
-import { adminsFile } from "../config/path.js";
-import { unitsFile } from "../config/path.js";
-
 import Admin from "../models/Admin.js";
 import Unit from "../models/Unit.js";
+
+import jwt from "jsonwebtoken";
 
 export const login = async (req, res) => {
   try {
     const { role } = req.body;
+    let user;
 
-    if (!role) {
-      return res.status(400).json({ message: "Role is required" });
-    }
-
-    // ===============================
-    // TENANT LOGIN (UNIT-BASED)
-    // ===============================
     if (role === "tenant") {
       const { unitCode } = req.body;
-      let query = {};
-      if (!unitCode) {
-        return res.status(400).json({ message: "Unit code is required" });
-      } else {
-        query.unitCode = unitCode;
-      }
-      const unitExists = await Unit.find(query);
-
-      return res.status(200).json({
-        message: "Login successful",
-        user: unitExists,
-      });
-    }
-
-    // ===============================
-    // ADMIN LOGIN
-    // ===============================
-    if (role === "admin") {
+      user = await Unit.findOne({ unitCode });
+      if (!user) return res.status(401).json({ message: "Invalid Unit Code" });
+    } else if (role === "admin") {
       const { email, pin } = req.body;
-      let query = {};
-
-      if (!email || !pin) {
-        return res
-          .status(400)
-          .json({ message: "Admin credentials is required" });
-      } else {
-        query.email = email;
-        query.pin = pin;
-      }
-
-      const adminExists = admins.find(
-        (admin) =>
-          admin.email === email && admin.pin === pin && admin.active === true
-      );
-
-      if (!adminExists) {
-        return res.status(404).json({ message: "Admin not found" });
-      }
-
-      return res.status(200).json({
-        message: "Login successful",
-        user: adminExists,
-      });
+      user = await Admin.findOne({ email, pin });
+      if (!user)
+        return res.status(401).json({ message: "Invalid email or PIN" });
     }
 
-    // ===============================
-    // INVALID ROLE
-    // ===============================
-    return res.status(400).json({ message: "Invalid role" });
-  } catch (error) {
-    console.error("LOGIN ERROR:", error);
-    return res.status(500).json({
-      message: "Login failed",
-      error: error.message,
+    // 1. GENERATE THE TOKEN
+    // We store the ID and Role inside the token so the middleware can read it later.
+    const token = jwt.sign(
+      { id: user._id, role: role },
+      process.env.JWT_SECRET || "supersecret_key",
+      { expiresIn: "1d" } // Token lasts for 24 hours
+    );
+
+    // 2. SEND TOKEN BACK TO FRONTEND
+    return res.status(200).json({
+      message: "Login successful",
+      token, // <--- THIS IS THE KEY
+      role: role,
+      user: {
+        id: user._id,
+        role: user.role,
+        name: user.name || user.unitCode,
+        properties: user.properties,
+      },
     });
+  } catch (error) {
+    return res.status(500).json({ message: "Server error" });
   }
 };
 

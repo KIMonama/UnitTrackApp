@@ -22,10 +22,17 @@ export const renderUserDetails = () => {
 // --- Helper Functions to keep it lightweight ---
 
 const renderAdminUI = (user) => {
-  const property = document.getElementById("propertyName");
+  const propertyLabel = document.getElementById("propertyName");
   const welcome = document.getElementById("welcomeName");
 
-  if (property) property.innerText = user.property || "UnitTrack Portfolio";
+  if (user.properties && user.properties.length > 0) {
+    const property = user.properties[0]; // Extracting the first object in the array
+
+    // Now you can access any key inside that property object
+    console.log("Property Name:", property.propertyName);
+
+    if (propertyLabel) propertyLabel.innerText = property.propertyName;
+  }
   // On dashboard, unitDetails might be used for Manager Name
   if (welcome) welcome.innerText = `Manager: ${user.name}`;
 };

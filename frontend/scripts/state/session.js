@@ -1,7 +1,15 @@
 const USER_KEY = "currentUser";
+const TOKEN_KEY = "authToken"; // Add a key for the token
 
-export const saveCurrentUser = (user) => {
+export const saveCurrentUser = (user, token) => {
   sessionStorage.setItem(USER_KEY, JSON.stringify(user));
+  if (token) {
+    sessionStorage.setItem(TOKEN_KEY, token); // Save the "Key"
+  }
+};
+
+export const getToken = () => {
+  return sessionStorage.getItem(TOKEN_KEY);
 };
 
 export const getCurrentUser = () => {
@@ -11,8 +19,10 @@ export const getCurrentUser = () => {
 
 export const clearCurrentUser = () => {
   sessionStorage.removeItem(USER_KEY);
+  sessionStorage.removeItem(TOKEN_KEY); // Clear the token on logout
 };
 
 export const isAuthenticated = () => {
-  return !!sessionStorage.getItem(USER_KEY);
+  // Real authentication checks if the TOKEN exists
+  return !!sessionStorage.getItem(TOKEN_KEY);
 };
