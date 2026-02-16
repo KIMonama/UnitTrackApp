@@ -34,7 +34,7 @@ const renderAdminUI = (user) => {
     if (propertyLabel) propertyLabel.innerText = property.propertyName;
   }
   // On dashboard, unitDetails might be used for Manager Name
-  if (welcome) welcome.innerText = `Manager: ${user.name}`;
+  if (welcome) welcome.innerText = `Admin: ${user.name}`;
 };
 
 const renderTenantUI = (user) => {

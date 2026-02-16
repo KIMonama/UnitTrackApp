@@ -9,7 +9,7 @@ import {
 const router = express.Router();
 
 router.post("/", logAreport);
-router.put("/:id", updateReportStatus);
+router.patch("/:id", updateReportStatus);
 router.get("/", getAllReports);
 
 export default router;

@@ -22,7 +22,7 @@ export const handleNewreport = async (event) => {
       role === "maintenance"
         ? {
             reportId: generateReportId(role),
-            adminCode: user.adminCode,
+           // adminCode: user.adminCode,
             unitLabel: user.unitLabel,
             role: role,
             category: document.getElementById("category").value,
@@ -34,7 +34,7 @@ export const handleNewreport = async (event) => {
           }
         : {
             reportId: generateReportId(role),
-            adminCode: user.adminCode,
+            //adminCode: user.adminCode,
             unitLabel: user.unitLabel,
             role: role,
             description: document.getElementById("complaintsDescription").value,

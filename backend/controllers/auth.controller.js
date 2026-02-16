@@ -22,22 +22,34 @@ export const login = async (req, res) => {
     // 1. GENERATE THE TOKEN
     // We store the ID and Role inside the token so the middleware can read it later.
     const token = jwt.sign(
-      { id: user._id, role: role },
+      { id: user._id, adminCode: user.adminCode },
       process.env.JWT_SECRET || "supersecret_key",
       { expiresIn: "1d" } // Token lasts for 24 hours
     );
 
     // 2. SEND TOKEN BACK TO FRONTEND
+    // Define the user data structure based on the role
+    let userData = {
+      id: user._id,
+      role: user.role,
+      adminCode: user.adminCode, // Common to both as a reference
+    };
+
+    if (role === "tenant") {
+      // Fields specifically for the Tenant (Unit)
+      userData.unitLabel = user.unitLabel;
+    } else {
+      // Fields specifically for the Admin
+      userData.name = user.name;
+      userData.properties = user.properties;
+    }
+
+    // Send the response
     return res.status(200).json({
       message: "Login successful",
-      token, // <--- THIS IS THE KEY
+      token,
       role: role,
-      user: {
-        id: user._id,
-        role: user.role,
-        name: user.name || user.unitCode,
-        properties: user.properties,
-      },
+      user: userData,
     });
   } catch (error) {
     return res.status(500).json({ message: "Server error" });

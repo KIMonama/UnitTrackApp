@@ -5,25 +5,29 @@ const reportSchema = new mongoose.Schema({
 
   adminCode: { type: String, required: true },
   unitLabel: { type: String, required: true },
-  category: { type: String, required: true },
+  category: { type: String },
   description: { type: String, required: true },
   urgency: {
     type: String,
-    enum: ["low", "medium", "high", "emergency"],
-    default: "low",
+    enum: ["low", "medium", "high", "emergency", undefined], // Add undefined to enum
+    default: function () {
+      // If this is a maintenance report, use 'low'. Otherwise, don't set it.
+      return this.role === "maintenance" ? "low" : undefined;
+    },
   },
 
-  // Status with your specific range
   status: {
     type: String,
-    enum: ["NEW", "seen", "Done"],
-    default: "NEW",
+    enum: ["NEW", "Seen", "Done", undefined],
+    default: function () {
+      // Suggestions might not need a status, or you can keep it 'NEW'
+      return this.role === "maintenance" ? "NEW" : undefined;
+    },
   },
-
   dateAvailable: { type: String }, // Storing as string per your example
   dateSubmitted: { type: String }, // Storing as string per your example
-  role: { type: String, default: "maintenance" },
+  role: { type: String, required: true },
 });
 
-const Report = mongoose.model("Report",reportSchema);
+const Report = mongoose.model("Report", reportSchema);
 export default Report;

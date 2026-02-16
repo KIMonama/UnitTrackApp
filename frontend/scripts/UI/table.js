@@ -3,7 +3,6 @@ import { getCurrentUser } from "../state/session.js";
 import {
   getStatusClass,
   getUrgencyClass,
-  getCategoryAccent,
   getCategoryIcon,
 } from "../utils/helpers.js";
 import { openReportModal } from "./modal.ui.js";
@@ -22,7 +21,7 @@ export const populateTableUI = async (filterType = "maintenance") => {
     }
 
     const allReports = await fetchAllReports(user.adminCode);
-    // ✅ FILTER BY ROLE (maintenance / suggestions)
+    // ✅ FILTER BY ROLE (maintenance / complaints)
     const reports = allReports.filter((report) => report.role === filterType);
 
     const statusOrder = { NEW: 1, Seen: 2, Done: 3 };

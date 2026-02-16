@@ -1,12 +1,16 @@
-import fs from "fs";
-import { reportsFile } from "../config/path.js";
 import Report from "../models/Report.js";
+import jwt from "jsonwebtoken";
 
 export const logAreport = async (req, res) => {
   try {
-    console.log("hello");
+    console.log("New Report controller hit");
+    // Merge frontend form data with verified token data
+    const reportData = {
+      ...req.body,
+      adminCode: req.user.adminCode,
+    };
     // 1. Create an instance of the model using data from the request body
-    const newReport = new Report(req.body);
+    const newReport = new Report(reportData);
 
     // 2. Save it directly to MongoDB (Mongoose handles the "write" logic)
     // We use 'await' because database operations are asynchronous
@@ -33,13 +37,14 @@ export const updateReportStatus = async (req, res) => {
   try {
     const { id } = req.params; // This matches the 'reportId' (e.g., MAINT-JOKM)
     const { status } = req.body;
+    const { adminCode } = req.user; // Verified from token
 
     // We use { new: true } to get the updated document back in the response
     // We use { runValidators: true } to ensure 'status' is still NEW, seen, or Done
     const updatedReport = await Report.findOneAndUpdate(
-      { reportId: id },
+      { reportId: id, adminCode: adminCode },
       { status: status },
-      { new: true, runValidators: true }
+      { returnDocument: "after", runValidators: true }
     );
 
     if (!updatedReport) {
@@ -60,27 +65,21 @@ export const updateReportStatus = async (req, res) => {
 
 export const getAllReports = async (req, res) => {
   try {
-    const { adminCode} = req.query;
+    console.log("get all hit");
+    // 🔥 We IGNORE req.query and use the verified token data
+    const { adminCode } = req.user;
 
-    // 1. Build a dynamic query object
-    let query = {};
+    // This ensures you only find reports belonging to THIS admin's building
+    const reports = await Report.find({ adminCode: adminCode });
 
-    // Only add adminCode to the query if the user provided it
-    if (adminCode) {
-      query.adminCode = adminCode;
-    }
-    const reports = await Report.find(query);
-
-    // 3. Professional Response
     return res.status(200).json({
       message: "Reports retrieved successfully",
-      count: reports.length, // Helpful for the frontend to know the total
+      count: reports.length,
       reports,
     });
   } catch (error) {
-    return res.status(500).json({
-      message: "Error retrieving reports",
-      error: error.message,
-    });
+    return res
+      .status(500)
+      .json({ message: "Error retrieving reports", error: error.message });
   }
 };
