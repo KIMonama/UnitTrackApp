@@ -14,6 +14,32 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
     />
     <link href="/frontend/styles/style.css" rel="stylesheet" />
+    <style>
+      .fw-black {
+        font-weight: 900 !important;
+      }
+      .x-small {
+        font-size: 0.75rem !important;
+      }
+      #hiddenReportTemplate {
+        position: fixed;
+        top: -9999px;
+        left: -9999px;
+        visibility: hidden;
+      }
+      @media print {
+        #hiddenReportTemplate {
+          visibility: visible;
+          position: static;
+        }
+        body * {
+          visibility: hidden;
+        }
+        #hiddenReportTemplate * {
+          visibility: visible;
+        }
+      }
+    </style>
   </head>
 
   <body class="bg-light pb-5">
@@ -27,9 +53,14 @@
             class="d-inline-block align-text-top"
           />
         </a>
-        <a class="text-primary fw-bold small text-decoration-none"
-          >Contact us</a
+        <button
+          class="btn btn-link text-primary p-0"
+          type="button"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#adminSidebar"
         >
+          <i class="bi bi-person-circle fs-4"></i>
+        </button>
       </div>
     </nav>
 
@@ -41,11 +72,9 @@
       >
         <h4 class="fw-bold" id="welcomeName">User</h4>
       </div>
-
       <h1 class="display-6 fw-black text-white mb-1" id="propertyName">
         Loading Property...
       </h1>
-
       <div
         class="d-inline-block px-3 py-1 rounded-pill bg-white bg-opacity-10 mt-2"
       >
@@ -84,7 +113,6 @@
                 </button>
               </li>
             </ul>
-
             <button
               id="refreshBtn"
               class="btn btn-primary rounded-3 px-3 shadow-sm"
@@ -123,7 +151,6 @@
               data-bs-dismiss="modal"
             ></button>
           </div>
-
           <div class="modal-body pt-2">
             <div class="row g-3 mb-4">
               <div class="col-6">
@@ -139,7 +166,6 @@
                 <div id="modalDate" class="small"></div>
               </div>
             </div>
-
             <div class="mb-4">
               <label
                 class="badge bg-primary-subtle text-primary mb-2"
@@ -151,22 +177,20 @@
                 id="modalDescription"
               ></div>
             </div>
-
             <div class="row g-2 mb-4">
               <div class="col-6">
                 <div class="p-2 border rounded-3 text-center">
-                  <small class="d-block text-muted x-small">URGENCY</small>
-                  <span id="modalUrgency" class="badge"></span>
+                  <small class="d-block text-muted x-small">URGENCY</small
+                  ><span id="modalUrgency" class="badge"></span>
                 </div>
               </div>
               <div class="col-6">
                 <div class="p-2 border rounded-3 text-center">
-                  <small class="d-block text-muted x-small">STATUS</small>
-                  <span id="modalStatus" class="badge"></span>
+                  <small class="d-block text-muted x-small">STATUS</small
+                  ><span id="modalStatus" class="badge"></span>
                 </div>
               </div>
             </div>
-
             <div class="p-3 bg-blue-light rounded-3 mb-2">
               <small class="text-muted d-block small"
                 >Owner Access Available:</small
@@ -174,7 +198,6 @@
               <div id="availableDate" class="fw-bold"></div>
             </div>
           </div>
-
           <div class="modal-footer border-0 flex-column gap-2 pb-4">
             <div class="d-flex w-100 gap-2">
               <button
@@ -189,8 +212,8 @@
                 type="button"
                 class="btn btn-success rounded-pill flex-fill py-2 fw-bold"
               >
-                <i id="buttonIcon" class="bi bi-check-circle me-1"></i>
-                <span id="buttonText">Mark Done</span>
+                <i id="buttonIcon" class="bi bi-check-circle me-1"></i
+                ><span id="buttonText">Mark Done</span>
               </button>
             </div>
             <button
@@ -201,6 +224,272 @@
               Close
             </button>
           </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="offcanvas offcanvas-end border-0"
+      tabindex="-1"
+      id="adminSidebar"
+      style="width: 85%"
+    >
+      <div class="offcanvas-header bg-primary text-white py-4">
+        <h5 class="offcanvas-title fw-bold">UnitTrack Settings</h5>
+        <button
+          type="button"
+          class="btn-close btn-close-white"
+          data-bs-dismiss="offcanvas"
+        ></button>
+      </div>
+      <div class="offcanvas-body p-0">
+        <div class="list-group list-group-flush">
+          <button
+            class="list-group-item list-group-item-action py-3 px-4 border-0 d-flex align-items-center justify-content-between"
+            data-bs-toggle="modal"
+            data-bs-target="#reportSelectionModal"
+          >
+            <div class="d-flex align-items-center gap-3">
+              <i class="bi bi-file-earmark-bar-graph fs-5 text-primary"></i>
+              <span class="fw-semibold">Generate Monthly Report</span>
+            </div>
+            <i class="bi bi-chevron-right small text-muted"></i>
+          </button>
+          <button
+            class="list-group-item list-group-item-action py-3 px-4 border-0 opacity-50"
+            disabled
+          >
+            <div class="d-flex align-items-center gap-3">
+              <i class="bi bi-person-gear fs-5"></i>
+              <span>Profile Settings</span>
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="reportSelectionModal"
+      tabindex="-1"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered px-3">
+        <div class="modal-content border-0 shadow rounded-4">
+          <div class="modal-header border-0">
+            <h5 class="modal-title fw-bold">Monthly Report</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <label class="small text-muted mb-2">Select Reporting Month</label>
+            <select
+              class="form-select border-light-subtle py-2"
+              id="reportMonthSelect"
+            >
+              <option value="01">January 2026</option>
+              <option value="02" selected>February 2026</option>
+              <option value="03">March 2026</option>
+            </select>
+          </div>
+          <div class="modal-footer border-0">
+            <button
+              type="button"
+              id="finalGenerateBtn"
+              class="btn btn-primary w-100 py-3 rounded-pill fw-bold"
+            >
+              <i class="bi bi-filetype-pdf me-2"></i>Generate PDF Report
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="hiddenReportTemplate">
+      <div
+        style="
+          font-family: 'Segoe UI', Arial, sans-serif;
+          padding: 40px;
+          background: white;
+          color: #333;
+        "
+      >
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 3px solid #0d6efd;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+          "
+        >
+          <div>
+            <h1
+              style="
+                color: #0d6efd;
+                margin: 0;
+                font-weight: 900;
+                letter-spacing: -1px;
+              "
+            >
+              UNITTRACK
+            </h1>
+            <p
+              style="
+                color: #666;
+                margin: 5px 0 0 0;
+                font-size: 14px;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+              "
+            >
+              Management Report
+            </p>
+          </div>
+          <div style="text-align: right">
+            <h3 id="printPropName" style="margin: 0; font-weight: 700">
+              Property Name
+            </h3>
+            <p
+              id="printReportMonth"
+              style="color: #0d6efd; margin: 5px 0 0 0; font-weight: 600"
+            >
+              Month: February 2026
+            </p>
+          </div>
+        </div>
+
+        <div
+          style="
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 40px;
+          "
+        >
+          <div
+            style="
+              background: #f8f9fa;
+              padding: 20px;
+              border-radius: 12px;
+              border-left: 5px solid #0d6efd;
+              text-align: center;
+            "
+          >
+            <small
+              style="
+                color: #666;
+                font-weight: bold;
+                display: block;
+                margin-bottom: 5px;
+              "
+              >TOTAL ISSUES</small
+            >
+            <span id="printTotalCount" style="font-size: 28px; font-weight: 900"
+              >0</span
+            >
+          </div>
+          <div
+            style="
+              background: #f0fdf4;
+              padding: 20px;
+              border-radius: 12px;
+              border-left: 5px solid #22c55e;
+              text-align: center;
+            "
+          >
+            <small
+              style="
+                color: #166534;
+                font-weight: bold;
+                display: block;
+                margin-bottom: 5px;
+              "
+              >MAINTENANCE</small
+            >
+            <div style="font-size: 20px; font-weight: 800">
+              <span id="printMaintCount">0</span>
+              <small style="font-size: 12px; font-weight: 400">Items</small>
+            </div>
+          </div>
+          <div
+            style="
+              background: #fff7ed;
+              padding: 20px;
+              border-radius: 12px;
+              border-left: 5px solid #f97316;
+              text-align: center;
+            "
+          >
+            <small
+              style="
+                color: #9a3412;
+                font-weight: bold;
+                display: block;
+                margin-bottom: 5px;
+              "
+              >COMPLAINTS</small
+            >
+            <div style="font-size: 20px; font-weight: 800">
+              <span id="printCompCount">0</span>
+              <small style="font-size: 12px; font-weight: 400">Items</small>
+            </div>
+          </div>
+        </div>
+
+        <h4
+          style="
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+          "
+        >
+          Itemized Log
+        </h4>
+        <table style="width: 100%; border-collapse: collapse; font-size: 13px">
+          <thead>
+            <tr style="background: #0d6efd; color: white">
+              <th
+                style="
+                  padding: 12px;
+                  text-align: left;
+                  border-top-left-radius: 8px;
+                "
+              >
+                Date
+              </th>
+              <th style="padding: 12px; text-align: left">Type</th>
+              <th style="padding: 12px; text-align: left">Room/Location</th>
+              <th style="padding: 12px; text-align: left">Description</th>
+              <th
+                style="
+                  padding: 12px;
+                  text-align: left;
+                  border-top-right-radius: 8px;
+                "
+              >
+                Status
+              </th>
+            </tr>
+          </thead>
+          <tbody id="printTableBody"></tbody>
+        </table>
+
+        <div
+          style="
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            text-align: center;
+            color: #999;
+            font-size: 11px;
+          "
+        >
+          Generated via UnitTrack Property Management System © 2026. This is an
+          official document.
         </div>
       </div>
     </div>

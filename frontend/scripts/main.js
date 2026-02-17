@@ -14,6 +14,8 @@ import { getCurrentUser } from "./state/session.js";
 import { initModalUI } from "./UI/modal.ui.js";
 import { initRoleTabs } from "./UI/table.js";
 
+import { initReportPrint } from "./UI/reportPrint.ui.js";
+
 ///////////////////////////////////////////////////////////
 // DOM READY
 ///////////////////////////////////////////////////////////
@@ -52,11 +54,13 @@ document.addEventListener("DOMContentLoaded", () => {
     populateTableUI(); // fetches reports + renders table
     initModalUI();
     initRoleTabs();
+    initReportPrint(); 
   }
 
   const unitDetails = document.getElementById("unitDetails");
-  if(unitDetails)
-  {
+  if (unitDetails) {
     renderUserDetails(); //sets room label on the reports page.
   }
+
+
 });

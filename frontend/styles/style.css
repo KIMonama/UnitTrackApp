@@ -356,3 +356,41 @@ body {
 .border-bottom {
   border-bottom: 1px solid rgba(10, 91, 211, 0.08) !important;
 }
+
+/* --- PRINT STYLES --- */
+@media print {
+  /* Hide everything on the screen */
+  body * {
+    visibility: hidden;
+    background: none !important;
+  }
+
+  /* Only show the hidden template and its children */
+  #hiddenReportTemplate,
+  #hiddenReportTemplate * {
+    visibility: visible;
+  }
+
+  /* Position the template at the very top-left of the paper */
+  #hiddenReportTemplate {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    visibility: visible !important;
+  }
+
+  /* Remove margins/footers added by browsers */
+  @page {
+    margin: 0;
+  }
+
+  footer,
+  nav,
+  .hero-report,
+  .btn,
+  .modal,
+  .offcanvas {
+    display: none !important;
+  }
+}

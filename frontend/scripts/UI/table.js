@@ -21,6 +21,7 @@ export const populateTableUI = async (filterType = "maintenance") => {
     }
 
     const allReports = await fetchAllReports(user.adminCode);
+    sessionStorage.setItem('currentDashboardData', JSON.stringify(allReports));
     // ✅ FILTER BY ROLE (maintenance / complaints)
     const reports = allReports.filter((report) => report.role === filterType);
 
