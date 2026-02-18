@@ -15,6 +15,7 @@ import { initModalUI } from "./UI/modal.ui.js";
 import { initRoleTabs } from "./UI/table.js";
 
 import { initReportPrint } from "./UI/reportPrint.ui.js";
+import { updatePropertyHealth } from "./UI/propertyHealth.ui.js";
 
 ///////////////////////////////////////////////////////////
 // DOM READY
@@ -54,13 +55,12 @@ document.addEventListener("DOMContentLoaded", () => {
     populateTableUI(); // fetches reports + renders table
     initModalUI();
     initRoleTabs();
-    initReportPrint(); 
+    initReportPrint();
+    updatePropertyHealth();
   }
 
   const unitDetails = document.getElementById("unitDetails");
   if (unitDetails) {
     renderUserDetails(); //sets room label on the reports page.
   }
-
-
 });

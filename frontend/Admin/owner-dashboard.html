@@ -72,17 +72,46 @@
       >
         <h4 class="fw-bold" id="welcomeName">User</h4>
       </div>
+
       <h1 class="display-6 fw-black text-white mb-1" id="propertyName">
         Loading Property...
       </h1>
-      <div
-        class="d-inline-block px-3 py-1 rounded-pill bg-white bg-opacity-10 mt-2"
-      >
-        <p
-          class="x-small mb-0 fw-bold text-uppercase tracking-wider text-warning"
-        >
-          <i class="bi bi-shield-check me-1"></i> Maintenance made simple
-        </p>
+
+      <div class="container mt-4">
+        <div class="row g-2 justify-content-center">
+          <div class="col-6 col-md-3">
+            <div
+              class="bg-white bg-opacity-10 py-2 rounded-3 border border-white border-opacity-25"
+            >
+              <small class="d-block x-small opacity-75">TOTAL REQUESTS</small>
+              <span class="fw-bold" id="healthTotal">0</span>
+            </div>
+          </div>
+          <div class="col-6 col-md-3">
+            <div
+              class="bg-white bg-opacity-10 py-2 rounded-3 border border-white border-opacity-25"
+            >
+              <small class="d-block x-small opacity-75">PENDING</small>
+              <span class="fw-bold text-warning" id="healthPending">0</span>
+            </div>
+          </div>
+          <div class="col-6 col-md-3">
+            <div
+              class="bg-white bg-opacity-10 py-2 rounded-3 border border-white border-opacity-25"
+            >
+              <small class="d-block x-small opacity-75">DONE</small>
+              <span class="fw-bold text-info" id="healthDone">0</span>
+            </div>
+          </div>
+          <div class="col-6 col-md-3">
+            <div
+              class="bg-white bg-opacity-10 py-2 rounded-3 border border-white border-opacity-25"
+            >
+              <small class="d-block x-small opacity-75">COMPLAINTS</small>
+              <span class="fw-bold text-white" id="healthSuggestions">0</span>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
