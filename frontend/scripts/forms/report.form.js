@@ -2,6 +2,7 @@ import { logNewreport } from "../api/reports.api.js";
 import { validateReport } from "../validation/validation.js";
 import { showError } from "../utils/ui.utils.js";
 import { getActiveReportRole } from "../UI/report.ui.js";
+import { sendWhatsAppReport } from "../UI/report.ui.js";
 import { generateReportId, getFormattedDate } from "../utils/helpers.js";
 import { getCurrentUser } from "../state/session.js";
 
@@ -22,7 +23,7 @@ export const handleNewreport = async (event) => {
       role === "maintenance"
         ? {
             reportId: generateReportId(role),
-           // adminCode: user.adminCode,
+            // adminCode: user.adminCode,
             unitLabel: user.unitLabel,
             role: role,
             category: document.getElementById("category").value,
@@ -43,8 +44,15 @@ export const handleNewreport = async (event) => {
 
     const data = await logNewreport(payload);
 
+    alert("thus far");
+    sendWhatsAppReport();
     // Redirects
-    window.location.href = "/frontend/Tenant/success.html";
+    //window.location.href = "/frontend/Tenant/success.html";
+    // Redirects
+    // window.location.href = "/frontend/Tenant/success.html";
+    setTimeout(() => {
+      window.location.href = "/frontend/Tenant/success.html";
+    }, 1000);
   } catch (err) {
     showError(err.message);
   }

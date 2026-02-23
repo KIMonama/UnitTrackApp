@@ -35,9 +35,9 @@
         style="max-width: 550px"
       >
         <div class="text-center mb-4">
-          <span class="step-indicator">Step 1 of 2</span>
-          <h2 class="fw-bold mt-2">Create Your Account</h2>
-          <p class="text-muted">Tell us about you and your property.</p>
+          <span class="step-indicator text-primary fw-bold">Step 1 of 3</span>
+          <h2 class="fw-bold mt-2">Admin Details</h2>
+          <p class="text-muted">Let's start with your personal info.</p>
         </div>
         <form id="formStep1">
           <div class="row g-3">
@@ -74,29 +74,10 @@
                 /><label>Phone Number</label>
               </div>
             </div>
-            <div class="col-8">
-              <div class="form-floating">
-                <input
-                  type="text"
-                  class="form-control"
-                  id="propName"
-                  placeholder="Property"
-                  required
-                /><label>Property Name</label>
-              </div>
-            </div>
-            <div class="col-4">
-              <div class="form-floating">
-                <input
-                  type="number"
-                  class="form-control"
-                  id="units"
-                  placeholder="Units"
-                  required
-                /><label>Units</label>
-              </div>
-            </div>
-            <button type="submit" class="btn btn-primary w-100 mt-4">
+            <button
+              type="submit"
+              class="btn btn-primary w-100 mt-4 rounded-pill py-3"
+            >
               Continue <i class="bi bi-arrow-right"></i>
             </button>
           </div>
@@ -105,15 +86,76 @@
 
       <div
         id="step2"
-        class="signup-card p-4 p-md-5 w-100"
+        class="signup-card p-4 p-md-5 w-100 d-none"
         style="max-width: 550px"
       >
         <div class="text-center mb-4">
-          <span class="step-indicator">Step 2 of 2</span>
-          <h2 class="fw-bold mt-2">Set Your Password</h2>
-          <p class="text-muted">Secure your access to the Owner Dashboard.</p>
+          <span class="step-indicator text-primary fw-bold">Step 2 of 3</span>
+          <h2 class="fw-bold mt-2">Property Setup</h2>
+          <p class="text-muted">How many properties are we managing today?</p>
         </div>
         <form id="formStep2">
+          <div class="mb-4">
+            <label class="form-label small fw-bold">NUMBER OF PROPERTIES</label>
+            <select class="form-select form-select-lg" id="propCountSelector">
+              <option value="1">1 Property</option>
+              <option value="2">2 Properties</option>
+              <option value="3">3 Properties</option>
+              <option value="4">4 Properties</option>
+              <option value="5">5 Properties</option>
+              <option value="10">10 Properties (Max)</option>
+            </select>
+          </div>
+
+          <div id="dynamicPropsContainer" class="mb-4">
+            <div class="property-entry bg-light p-3 rounded-3 mb-2 border">
+              <div class="row g-2">
+                <div class="col-8">
+                  <input
+                    type="text"
+                    class="form-control prop-name"
+                    placeholder="Property Name"
+                    required
+                  />
+                </div>
+                <div class="col-4">
+                  <input
+                    type="number"
+                    class="form-control prop-units"
+                    placeholder="Units"
+                    required
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="d-flex gap-2">
+            <button
+              type="button"
+              onclick="showStep(1)"
+              class="btn btn-outline-secondary w-50 rounded-pill"
+            >
+              Back
+            </button>
+            <button type="submit" class="btn btn-primary w-50 rounded-pill">
+              Next Step
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <div
+        id="step3"
+        class="signup-card p-4 p-md-5 w-100 d-none"
+        style="max-width: 550px"
+      >
+        <div class="text-center mb-4">
+          <span class="step-indicator text-primary fw-bold">Step 3 of 3</span>
+          <h2 class="fw-bold mt-2">Set Your PIN</h2>
+          <p class="text-muted">Choose a 4-digit PIN for your dashboard.</p>
+        </div>
+        <form id="formStep3">
           <div class="row g-3">
             <div class="col-12">
               <div class="form-floating">
@@ -121,9 +163,10 @@
                   type="password"
                   class="form-control"
                   id="pass"
-                  placeholder="Pass"
+                  maxlength="4"
+                  placeholder="Pin"
                   required
-                /><label>Pin</label>
+                /><label>4-Digit Pin</label>
               </div>
             </div>
             <div class="col-12">
@@ -132,31 +175,17 @@
                   type="password"
                   class="form-control"
                   id="confirmPass"
+                  maxlength="4"
                   placeholder="Confirm"
                   required
                 /><label>Confirm Pin</label>
               </div>
             </div>
-            <div class="form-check mt-3 mx-2">
-              <input
-                class="form-check-input"
-                type="checkbox"
-                id="terms"
-                required
-              />
-              <label class="form-check-label small text-muted"
-                >I agree to the terms and conditions.</label
-              >
-            </div>
-            <button type="submit" class="btn btn-primary w-100 mt-4">
-              Finish Registration <i class="bi bi-check-circle"></i>
-            </button>
             <button
-              type="button"
-              onclick="showStep(1)"
-              class="btn btn-link btn-sm text-muted mt-2 text-decoration-none"
+              type="submit"
+              class="btn btn-primary w-100 mt-4 rounded-pill py-3"
             >
-              Back to Step 1
+              Finish Registration <i class="bi bi-check-circle"></i>
             </button>
           </div>
         </form>

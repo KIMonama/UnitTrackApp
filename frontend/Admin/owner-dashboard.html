@@ -285,6 +285,17 @@
             <i class="bi bi-chevron-right small text-muted"></i>
           </button>
           <button
+            class="list-group-item list-group-item-action py-3 px-4 border-0 d-flex align-items-center justify-content-between"
+            data-bs-toggle="modal"
+            data-bs-target="#contactSupportModal"
+          >
+            <div class="d-flex align-items-center gap-3">
+              <i class="bi bi-headset fs-5 text-primary"></i>
+              <span class="fw-semibold">Contact Support</span>
+            </div>
+            <i class="bi bi-chevron-right small text-muted"></i>
+          </button>
+          <button
             class="list-group-item list-group-item-action py-3 px-4 border-0 opacity-50"
             disabled
           >
@@ -296,7 +307,109 @@
         </div>
       </div>
     </div>
-
+    <div
+      class="modal fade"
+      id="contactSupportModal"
+      tabindex="-1"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered px-3">
+        <div class="modal-content border-0 shadow rounded-4">
+          <div class="modal-header border-0 pb-0">
+            <h5 class="modal-title fw-bold">Support Team</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="row g-3">
+              <div class="col-12">
+                <div class="contact-card p-3 text-center bg-white shadow-sm">
+                  <img
+                    src="/public/assets/images/IMG_9368.jpg"
+                    class="rounded-circle profile-img mb-2"
+                    alt="Isaac Monama"
+                  />
+                  <div class="d-block">
+                    <div class="role-badge">Lead Developer</div>
+                  </div>
+                  <h6 class="fw-bold mb-0">Isaac Monama</h6>
+                  <p class="text-muted x-small mb-3">
+                    Software Architecture & Support
+                  </p>
+                  <div class="d-flex justify-content-center gap-2 mb-3">
+                    <a href="#" class="social-link"
+                      ><i class="bi bi-github"></i
+                    ></a>
+                    <a href="#" class="social-link"
+                      ><i class="bi bi-linkedin"></i
+                    ></a>
+                    <a href="mailto:dev@unitrack.co.za" class="social-link"
+                      ><i class="bi bi-envelope-at"></i
+                    ></a>
+                  </div>
+                  <div class="d-grid">
+                    <a
+                      href="tel:+27814350822"
+                      class="btn btn-primary btn-sm rounded-pill py-2"
+                    >
+                      <i class="bi bi-telephone-outbound me-2"></i>Call
+                      Technical Support
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="contact-card p-3 text-center bg-white shadow-sm">
+                  <img
+                    src="/public/assets/images/IMG_9367.jpg"
+                    class="rounded-circle profile-img mb-2"
+                    alt="Sabelo Madlala"
+                  />
+                  <div class="d-block">
+                    <div class="role-badge">Sales & Marketing</div>
+                  </div>
+                  <h6 class="fw-bold mb-0">Sabelo Madlala</h6>
+                  <p class="text-muted x-small mb-3">
+                    Growth & Client Relations
+                  </p>
+                  <div class="d-flex justify-content-center gap-2 mb-3">
+                    <a href="#" class="social-link"
+                      ><i class="bi bi-linkedin"></i
+                    ></a>
+                    <a href="mailto:sales@unitrack.co.za" class="social-link"
+                      ><i class="bi bi-envelope-at"></i
+                    ></a>
+                    <a href="#" class="social-link"
+                      ><i class="bi bi-whatsapp"></i
+                    ></a>
+                  </div>
+                  <div class="d-grid">
+                    <a
+                      href="tel:+27800000000"
+                      class="btn btn-outline-primary btn-sm rounded-pill py-2"
+                    >
+                      <i class="bi bi-chat-dots me-2"></i>Inquire About Pricing
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer border-0">
+            <button
+              type="button"
+              class="btn btn-light w-100 rounded-pill"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
     <div
       class="modal fade"
       id="reportSelectionModal"
@@ -331,6 +444,14 @@
               class="btn btn-primary w-100 py-3 rounded-pill fw-bold"
             >
               <i class="bi bi-filetype-pdf me-2"></i>Generate PDF Report
+            </button>
+
+            <button
+              type="button"
+              class="btn btn-light w-100 rounded-pill"
+              data-bs-dismiss="modal"
+            >
+              Close
             </button>
           </div>
         </div>

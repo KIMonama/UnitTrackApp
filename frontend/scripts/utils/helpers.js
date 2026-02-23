@@ -98,3 +98,16 @@ export const getCategoryIcon = (category) => {
       return "bi-question-circle"; // fallback
   }
 };
+
+// Function to calculate the tier based on your business model
+export function calculateSubscriptionPlan(units, properties) {
+  if (units <= 5 && properties <= 1) {
+    return { name: "Starter Tier", price: "R99", color: "text-success" };
+  } else if (units <= 20 && properties <= 2) {
+    return { name: "Growth Tier", price: "R199", color: "text-primary" };
+  } else if (units <= 50 && properties <= 5) {
+    return { name: "Professional Tier", price: "R499", color: "text-warning" };
+  } else {
+    return { name: "Mogul Tier", price: "R999", color: "text-danger" };
+  }
+}

@@ -64,3 +64,12 @@ document.addEventListener("DOMContentLoaded", () => {
     renderUserDetails(); //sets room label on the reports page.
   }
 });
+
+import { initStepUI } from "../../frontend/scripts/UI/steps.ui.js";
+import { initRegisterForm } from "../../frontend/scripts/forms/register.form.js";
+
+document.addEventListener("DOMContentLoaded", () => {
+  console.log("UnitTrack App Initialized");
+  initStepUI();
+  initRegisterForm();
+});
