@@ -73,3 +73,9 @@ document.addEventListener("DOMContentLoaded", () => {
   initStepUI();
   initRegisterForm();
 });
+
+//UPDATE STEPPER
+
+import { updateStepper } from "../scripts/UI/steps.ui.js";
+// Attach to window so the HTML buttons can access it
+window.updateStepper = updateStepper;

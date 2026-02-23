@@ -1,5 +1,5 @@
 import { showStep } from "../UI/steps.ui.js";
-import { calculateSubscriptionPlan } from "../../../public/scripts/util/helpers.js";
+import { calculateSubscriptionPlan } from "../utils/helpers.js";
 import { registerUser } from "../api/register.api.js";
 
 export function initRegisterForm() {
