@@ -41,8 +41,7 @@ export const adminSchema = new mongoose.Schema(
     role: { type: String, default: "admin" },
     pin: { type: String, required: true }, // Industry standard: will be hashed later
     createdAt: { type: Date, default: Date.now },
-  },
-  { _id: false }
+  }
 );
 
 const Admin = mongoose.model("Admin", adminSchema);

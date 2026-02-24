@@ -102,12 +102,12 @@ export const getCategoryIcon = (category) => {
 // Function to calculate the tier based on your business model
 export function calculateSubscriptionPlan(units, properties) {
   if (units <= 5 && properties <= 1) {
-    return { name: "Starter Tier", price: "R99", color: "text-success" };
+    return { name: "Freemium", price: "FREE", color: "text-success" };
   } else if (units <= 20 && properties <= 2) {
-    return { name: "Growth Tier", price: "R199", color: "text-primary" };
+    return { name: "Starter", price: "R149", color: "text-primary" };
   } else if (units <= 50 && properties <= 5) {
-    return { name: "Professional Tier", price: "R499", color: "text-warning" };
+    return { name: "Elite", price: "R299", color: "text-warning" };
   } else {
-    return { name: "Mogul Tier", price: "R999", color: "text-danger" };
+    return { name: "Portfolio", price: "R599", color: "text-danger" };
   }
 }

@@ -65,6 +65,9 @@ function handleStep2(e) {
 
 async function handleStep3(e) {
   e.preventDefault();
+  // 1. Get the button and save the original content
+  const submitBtn = e.target.querySelector('button[type="submit"]');
+  const originalContent = submitBtn.innerHTML;
   // ... existing PIN validation logic ...
 
   const finalData = JSON.parse(sessionStorage.getItem("tempUser"));
@@ -76,6 +79,8 @@ async function handleStep3(e) {
     finalData.properties.length
   );
 
+  //initialise the plan details
+  finalData.subscription = planDetails;
   // Store the plan details specifically for the success page to read
   sessionStorage.setItem(
     "registrationSuccessContext",
@@ -86,10 +91,20 @@ async function handleStep3(e) {
     })
   );
 
+  console.log(finalData);
   try {
-    // await registerUser(finalData); // Save to DB
-    window.location.href = "/public/reg-success.html";
+    // 2. Start Loading State
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = `
+      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+      Processing...
+    `;
+    await registerUser(finalData); // Save to DB
+    window.location.href = "../register/reg-success.html";
   } catch (err) {
+    // 3. Reset Button on Error
+    submitBtn.disabled = false;
+    submitBtn.innerHTML = originalContent;
     alert("Registration failed: " + err.message);
   }
 }

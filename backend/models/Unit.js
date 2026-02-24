@@ -10,8 +10,7 @@ const unitSchema = new mongoose.Schema(
     unitLabel: { type: String, required: true },
     active: { type: Boolean, default: true },
     role: { type: String, default: "tenant" },
-  },
-  { _id: false }
+  }
 );
 
 unitSchema.index({ adminCode: 1 });

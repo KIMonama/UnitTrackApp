@@ -2,6 +2,11 @@ import Admin from "../models/Admin.js";
 import Unit from "../models/Unit.js";
 
 import jwt from "jsonwebtoken";
+import {
+  generateAdminCode,
+  generatePropertyId,
+  generateUnitCode,
+} from "../utils/codeGenerators.js";
 
 export const login = async (req, res) => {
   try {
@@ -58,52 +63,69 @@ export const login = async (req, res) => {
 
 export const register = async (req, res) => {
   try {
-    const { name, email, phone, property, pin } = req.body;
-    const unitCount = Number(req.body.unitCount);
+    console.log("registerbackend");
+    const { name, email, phone, properties, pin, subscription } = req.body;
 
-    // 1. Better AdminCode generation for MongoDB
-    const count = await Admin.countDocuments();
-    const adminCode = String(count + 1).padStart(3, "0");
+    const adminCode = generateAdminCode();
 
-    // 2. Create the Admin Instance
+    // 1️⃣ Map properties into Admin schema format
+    const mappedProperties = properties.map((p) => ({
+      propertyName: p.name.trim(),
+      totalUnits: p.units,
+    }));
+
+    // 2️⃣ Create Admin
     const newAdmin = new Admin({
       adminCode,
       name,
       email,
       phone,
-      // Mapping your 'property' string to our Schema's 'properties' array
-      properties: [{ propertyName: property, unitCount }],
-      pin, // Don't forget the pin for login!
+      properties: mappedProperties,
+      subscription: {
+        tier: subscription.name, // must match enum
+        active: true,
+      },
+      pin,
       active: true,
     });
 
-    const savedAdmin = await newAdmin.save(); // ✅ Fixed: Save the instance
+    const savedAdmin = await newAdmin.save();
 
-    // 3. Auto-generate units
+    // 3️⃣ Generate Units per Property
     const unitPromises = [];
-    for (let i = 1; i <= unitCount; i++) {
-      const unitNumber = String(i).padStart(2, "0");
 
-      const newUnit = new Unit({
-        unitCode: `${adminCode}${unitNumber}`,
-        adminCode,
-        unitNumber,
-        unitLabel: `Room ${i}`,
-        active: true,
-      });
+    for (const property of mappedProperties) {
+      const propertyId = generatePropertyId();
 
-      unitPromises.push(newUnit.save());
+      for (let i = 1; i <= property.totalUnits; i++) {
+        const unitNumber = String(i).padStart(2, "0");
+
+        const unitCode = generateUnitCode(property.propertyName, unitNumber);
+
+        const newUnit = new Unit({
+          unitCode,
+          adminCode,
+          propertyId,
+          propertyName: property.propertyName,
+          unitNumber,
+          unitLabel: `Unit ${i}`,
+          active: true,
+        });
+
+        unitPromises.push(newUnit.save());
+      }
     }
 
-    // This makes the unit creation run in parallel (faster!)
     await Promise.all(unitPromises);
 
     return res.status(201).json({
       message: "Admin and units created successfully",
       adminCode: savedAdmin.adminCode,
-      unitsCreated: unitCount,
+      properties: mappedProperties.length,
+      unitsCreated: unitPromises.length,
     });
   } catch (error) {
+    console.error("REGISTER ERROR FULL:", error);
     return res.status(500).json({
       message: "Failed to create admin",
       error: error.message,
