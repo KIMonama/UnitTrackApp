@@ -4,6 +4,9 @@ const reportSchema = new mongoose.Schema({
   reportId: { type: String, required: true, unique: true },
 
   adminCode: { type: String, required: true },
+  propertyId: { type: String, required: true },
+  propertyName: { type: String, required: true },
+  unitCode: { type: String, required: true },
   unitLabel: { type: String, required: true },
   category: { type: String },
   description: { type: String, required: true },
