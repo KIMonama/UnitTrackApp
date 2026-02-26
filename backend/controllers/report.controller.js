@@ -1,13 +1,14 @@
 import Report from "../models/Report.js";
 import jwt from "jsonwebtoken";
+import { generateReportId } from "../utils/codeGenerators.js";
 
 export const logAreport = async (req, res) => {
   try {
     console.log("New Report controller hit");
 
     const {
-      reportId,
       propertyId,
+      reportId,
       propertyName,
       unitCode,
       unitLabel,
@@ -17,7 +18,7 @@ export const logAreport = async (req, res) => {
       dateAvailable,
       role,
     } = req.body;
-
+console.log(req.body);
     // 🔐 Trust JWT, not frontend
     const adminCode = req.user.adminCode;
 

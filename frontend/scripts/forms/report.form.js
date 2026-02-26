@@ -18,7 +18,7 @@ export const handleNewreport = async (event) => {
   }
 
   const user = getCurrentUser(); // from session/local storage
-
+ console.log(user);
   try {
     const basePayload = {
       reportId: generateReportId(reportRole),

@@ -5,10 +5,9 @@ import { getActiveRole } from "../UI/login.ui.js";
 import { saveCurrentUser } from "../state/session.js";
 
 export const handleLogin = async () => {
-
   const role = getActiveRole();
 
-  const error = validateLogin(role); 
+  const error = validateLogin(role);
   if (error) {
     showError(error);
     return;
@@ -34,12 +33,12 @@ export const handleLogin = async () => {
     const user = data.user;
     const token = data.token;
     // 🔥 STEP 3: save user to sessionStorage
-    saveCurrentUser(user,token);
-
+    saveCurrentUser(user, token);
+   
     if (role === "tenant") {
       window.location.href = "Tenant/report.html";
     } else {
-      window.location.href = "Admin/owner-dashboard.html";
+     window.location.href = "Admin/owner-dashboard.html";
     }
   } catch (err) {
     showError(err.message);

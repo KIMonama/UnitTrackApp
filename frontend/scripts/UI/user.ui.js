@@ -2,7 +2,9 @@ import { getCurrentUser } from "../state/session.js";
 
 export const renderUserDetails = () => {
   const user = getCurrentUser();
-  console.log("Debug - User Role detected:", user?.role);
+  console.log("Debug - User Role detected:", user.role);
+   console.log("Debug - User Role detected:", user.unitLabel);
+
 
   // 1. Critical Guard: If no user, reset and stop.
   if (!user) {

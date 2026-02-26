@@ -18,7 +18,7 @@ export const login = async (req, res) => {
       const { unitCode } = req.body;
 
       user = await Unit.findOne({ unitCode })
-        .select("unitCode unitLabel propertyName unitNumber adminCode")
+        .select("unitCode unitLabel propertyName unitNumber adminCode role propertyId")
         .lean();
 
       if (!user) return res.status(401).json({ message: "Invalid Unit Code" });
@@ -28,7 +28,7 @@ export const login = async (req, res) => {
       const { email, pin } = req.body;
 
       user = await Admin.findOne({ email, pin })
-        .select("name adminCode email properties") // exclude subscription & pin
+        .select("name adminCode email properties role") // exclude subscription & pin
         .lean();
 
       if (!user)
@@ -37,7 +37,7 @@ export const login = async (req, res) => {
 
     // 🔐 TOKEN
     const token = jwt.sign(
-      { id: user._id, role },
+      { id: user._id, role, adminCode: user.adminCode },
       process.env.JWT_SECRET || "supersecret_key",
       { expiresIn: "1d" }
     );
@@ -53,6 +53,7 @@ export const login = async (req, res) => {
         propertyId: user.propertyId,
         propertyName: user.propertyName,
         adminCode: user.adminCode,
+        role: user.role,
       };
     }
 
@@ -67,13 +68,14 @@ export const login = async (req, res) => {
           name: p.name,
           totalUnits: p.totalUnits,
         })),
+        role: user.role,
       };
     }
+console.log("user data returned" ,userData);
 
     return res.status(200).json({
       message: "Login successful",
       token,
-      role,
       user: userData,
     });
   } catch (error) {

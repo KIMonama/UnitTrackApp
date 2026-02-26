@@ -1,6 +1,7 @@
 let activeRole = "maintenance";
 
 export const initReportUI = () => {
+  console.log("report page initialised");
   const maintenanceTab = document.querySelector('[data-role="maintenance"]');
   const complaintsTab = document.querySelector('[data-role="complaints"]');
 
