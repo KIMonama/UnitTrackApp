@@ -10,53 +10,74 @@ import {
 
 export const login = async (req, res) => {
   try {
+    console.log("log in try started");
     const { role } = req.body;
     let user;
 
     if (role === "tenant") {
       const { unitCode } = req.body;
-      user = await Unit.findOne({ unitCode });
+
+      user = await Unit.findOne({ unitCode })
+        .select("unitCode unitLabel propertyName unitNumber adminCode")
+        .lean();
+
       if (!user) return res.status(401).json({ message: "Invalid Unit Code" });
-    } else if (role === "admin") {
+    }
+
+    if (role === "admin") {
       const { email, pin } = req.body;
-      user = await Admin.findOne({ email, pin });
+
+      user = await Admin.findOne({ email, pin })
+        .select("name adminCode email properties") // exclude subscription & pin
+        .lean();
+
       if (!user)
         return res.status(401).json({ message: "Invalid email or PIN" });
     }
 
-    // 1. GENERATE THE TOKEN
-    // We store the ID and Role inside the token so the middleware can read it later.
+    // 🔐 TOKEN
     const token = jwt.sign(
-      { id: user._id, adminCode: user.adminCode },
+      { id: user._id, role },
       process.env.JWT_SECRET || "supersecret_key",
-      { expiresIn: "1d" } // Token lasts for 24 hours
+      { expiresIn: "1d" }
     );
 
-    // 2. SEND TOKEN BACK TO FRONTEND
-    // Define the user data structure based on the role
-    let userData = {
-      id: user._id,
-      role: user.role,
-      adminCode: user.adminCode, // Common to both as a reference
-    };
+    // 🎯 BUILD RESPONSE BASED ON ROLE
+    let userData;
 
     if (role === "tenant") {
-      // Fields specifically for the Tenant (Unit)
-      userData.unitLabel = user.unitLabel;
-    } else {
-      // Fields specifically for the Admin
-      userData.name = user.name;
-      userData.properties = user.properties;
+      userData = {
+        unitId: user._id,
+        unitCode: user.unitCode,
+        unitLabel: user.unitLabel,
+        propertyId: user.propertyId,
+        propertyName: user.propertyName,
+        adminCode: user.adminCode,
+      };
     }
 
-    // Send the response
+    if (role === "admin") {
+      userData = {
+        adminId: user._id,
+        name: user.name,
+        adminCode: user.adminCode,
+        email: user.email,
+        properties: user.properties.map((p) => ({
+          id: p._id,
+          name: p.name,
+          totalUnits: p.totalUnits,
+        })),
+      };
+    }
+
     return res.status(200).json({
       message: "Login successful",
       token,
-      role: role,
+      role,
       user: userData,
     });
   } catch (error) {
+    console.error("LOGIN ERROR:", error);
     return res.status(500).json({ message: "Server error" });
   }
 };
@@ -100,7 +121,11 @@ export const register = async (req, res) => {
       for (let i = 1; i <= property.totalUnits; i++) {
         const unitNumber = String(i).padStart(2, "0");
 
-        const unitCode = generateUnitCode(property.propertyName, unitNumber);
+        const unitCode = generateUnitCode(
+          property.propertyName,
+          propertyId,
+          unitNumber
+        );
 
         const newUnit = new Unit({
           unitCode,

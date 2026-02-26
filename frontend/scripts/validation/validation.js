@@ -9,19 +9,28 @@ export const validateLogin = (role) => {
     const unitCode = document.getElementById("unitCode");
     helpers.resetInputState(unitCode);
 
-    if (!unitCode.value.trim()) {
+    const value = unitCode.value.trim().toUpperCase();
+
+    // 1️⃣ Empty check
+    if (!value) {
       helpers.markInvalid(unitCode);
       return "Please enter your unit code";
     }
 
-    if (unitCode.value.trim().length !== 5) {
+    // 2️⃣ Format check: AA99999 (2 letters + 5 digits)
+    const unitCodePattern = /^[A-Z]{2}\d{5}$/;
+
+    if (!unitCodePattern.test(value)) {
       helpers.markInvalid(unitCode);
-      return "Unit code must be exactly 5 characters";
+      return "Unit code format is invalid (e.g. BL74201)";
     }
+
+    // 3️⃣ Save back normalized value
+    unitCode.value = value;
+
     helpers.markValid(unitCode);
     return null; // valid tenant login
   }
-
   // admin VALIDATION
 
   if (role === "admin") {

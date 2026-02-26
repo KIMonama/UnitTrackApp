@@ -3,7 +3,7 @@ const BASE_URL = "http://localhost:3000/api/reports";
 import { getToken } from "../state/session.js";
 
 export const updateReportStatus = async (id, status) => {
-  console.log("update front end hit")
+  console.log("update front end hit");
   const token = getToken();
 
   const response = await fetch(`${BASE_URL}/${id}`, {

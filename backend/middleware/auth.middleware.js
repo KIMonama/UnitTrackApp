@@ -13,7 +13,7 @@ export const verifyToken = (req, res, next) => {
       token,
       process.env.JWT_SECRET || "supersecret_key"
     );
-    req.user = decoded; // Adds {id, adminCode to the request object
+    req.user = decoded; // Adds {id, adminCode to the request object}
     next();
   } catch (error) {
     res.status(401).json({ message: "Token failed" });

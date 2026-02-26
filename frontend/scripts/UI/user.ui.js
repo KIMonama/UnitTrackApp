@@ -40,4 +40,6 @@ const renderAdminUI = (user) => {
 const renderTenantUI = (user) => {
   const unitDetails = document.getElementById("unitDetails");
   if (unitDetails) unitDetails.innerText = `${user.unitLabel}`;
+  const propertyName = document.getElementById("display-property-name");
+  if (propertyName) propertyName.innerText = `${user.propertyName}`;
 };

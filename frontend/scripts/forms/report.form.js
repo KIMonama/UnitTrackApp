@@ -8,48 +8,53 @@ import { getCurrentUser } from "../state/session.js";
 
 export const handleNewreport = async (event) => {
   console.log("form function hit");
-  if (event) event.preventDefault(); // Stop the refresh immediately
-  const role = getActiveReportRole();
+  if (event) event.preventDefault();
 
-  const error = validateReport(role); //const error = validateLogin(role, identifierInput);
+  const reportRole = getActiveReportRole(); // "maintenance" or "suggestion"
+  const error = validateReport(reportRole);
   if (error) {
     showError(error);
     return;
   }
-  const user = getCurrentUser();
+
+  const user = getCurrentUser(); // from session/local storage
 
   try {
+    const basePayload = {
+      reportId: generateReportId(reportRole),
+
+      adminCode: user.adminCode,
+      propertyId: user.propertyId,
+      propertyName: user.propertyName,
+
+      unitCode: user.unitCode,
+      unitLabel: user.unitLabel,
+
+      role: reportRole,
+      dateSubmitted: new Date(), // let backend store as Date
+    };
+
     const payload =
-      role === "maintenance"
+      reportRole === "maintenance"
         ? {
-            reportId: generateReportId(role),
-            // adminCode: user.adminCode,
-            unitLabel: user.unitLabel,
-            role: role,
+            ...basePayload,
             category: document.getElementById("category").value,
             description: document.getElementById("description").value,
             urgency: document.getElementById("urgency").value,
-            dateAvailable: document.getElementById("availableDate").value,
+            dateAvailable: new Date(
+              document.getElementById("availableDate").value
+            ),
             status: "NEW",
-            dateSubmitted: getFormattedDate(),
           }
         : {
-            reportId: generateReportId(role),
-            //adminCode: user.adminCode,
-            unitLabel: user.unitLabel,
-            role: role,
+            ...basePayload,
             description: document.getElementById("complaintsDescription").value,
-            dateSubmitted: getFormattedDate(),
           };
 
     const data = await logNewreport(payload);
 
-    alert("thus far");
     sendWhatsAppReport();
-    // Redirects
-    //window.location.href = "/frontend/Tenant/success.html";
-    // Redirects
-    // window.location.href = "/frontend/Tenant/success.html";
+
     setTimeout(() => {
       window.location.href = "/frontend/Tenant/success.html";
     }, 1000);

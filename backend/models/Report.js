@@ -12,7 +12,7 @@ const reportSchema = new mongoose.Schema({
   description: { type: String, required: true },
   urgency: {
     type: String,
-    enum: ["low", "medium", "high", "emergency", undefined], // Add undefined to enum
+    enum: ["low", "medium", "high", "emergency"],
     default: function () {
       // If this is a maintenance report, use 'low'. Otherwise, don't set it.
       return this.role === "maintenance" ? "low" : undefined;
@@ -21,15 +21,15 @@ const reportSchema = new mongoose.Schema({
 
   status: {
     type: String,
-    enum: ["NEW", "Seen", "Done", undefined],
+    enum: ["NEW", "Seen", "Done"],
     default: function () {
       // Suggestions might not need a status, or you can keep it 'NEW'
       return this.role === "maintenance" ? "NEW" : undefined;
     },
   },
-  dateAvailable: { type: String }, // Storing as string per your example
-  dateSubmitted: { type: String }, // Storing as string per your example
-  role: { type: String, required: true },
+  dateAvailable: { type: Date },
+  dateSubmitted: { type: Date, default: Date.now },
+  role: { type: String, enum: ["maintenance", "suggestion"], required: true },
 });
 
 const Report = mongoose.model("Report", reportSchema);

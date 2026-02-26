@@ -4,24 +4,53 @@ import jwt from "jsonwebtoken";
 export const logAreport = async (req, res) => {
   try {
     console.log("New Report controller hit");
-    // Merge frontend form data with verified token data
-    const reportData = {
-      ...req.body,
-      adminCode: req.user.adminCode,
-    };
-    // 1. Create an instance of the model using data from the request body
-    const newReport = new Report(reportData);
 
-    // 2. Save it directly to MongoDB (Mongoose handles the "write" logic)
-    // We use 'await' because database operations are asynchronous
+    const {
+      reportId,
+      propertyId,
+      propertyName,
+      unitCode,
+      unitLabel,
+      category,
+      description,
+      urgency,
+      dateAvailable,
+      role,
+    } = req.body;
+
+    // 🔐 Trust JWT, not frontend
+    const adminCode = req.user.adminCode;
+
+    // 🧠 Base report object (schema-aligned)
+    const reportData = {
+      reportId,
+      adminCode,
+      propertyId,
+      propertyName,
+      unitCode,
+      unitLabel,
+      role,
+      description,
+      dateSubmitted: new Date(),
+    };
+
+    // 🧰 Only maintenance reports get these fields
+    if (role === "maintenance") {
+      reportData.category = category;
+      reportData.urgency = urgency;
+      reportData.dateAvailable = dateAvailable ? new Date(dateAvailable) : null;
+      reportData.status = "NEW";
+    }
+
+    const newReport = new Report(reportData);
     const savedReport = await newReport.save();
 
-    // 3. Send back the professional response
     return res.status(201).json({
-      message: "New report was created successfully",
+      message: "New report created successfully",
       report: savedReport,
     });
   } catch (error) {
+    console.error("REPORT CREATE ERROR:", error);
     return res.status(400).json({
       message: "Failed to create report",
       error: error.message,

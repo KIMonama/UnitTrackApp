@@ -3,17 +3,21 @@ import { calculateSubscriptionPlan } from "../utils/helpers.js";
 import { registerUser } from "../api/register.api.js";
 
 export function initRegisterForm() {
-  // Listeners for the 3 steps
-  document.getElementById("formStep1").addEventListener("submit", handleStep1);
-  document.getElementById("formStep2").addEventListener("submit", handleStep2);
-  document.getElementById("formStep3").addEventListener("submit", handleStep3);
+  // Select the elements
+  const step1 = document.getElementById("formStep1");
+  const step2 = document.getElementById("formStep2");
+  const step3 = document.getElementById("formStep3");
+  const propSelector = document.getElementById("propCountSelector");
 
-  // Listener for dynamic property generation
-  document
-    .getElementById("propCountSelector")
-    .addEventListener("change", generatePropInputs);
+  // Only add listeners if the element actually exists on the current page
+  if (step1) step1.addEventListener("submit", handleStep1);
+  if (step2) step2.addEventListener("submit", handleStep2);
+  if (step3) step3.addEventListener("submit", handleStep3);
+
+  if (propSelector) {
+    propSelector.addEventListener("change", generatePropInputs);
+  }
 }
-
 function generatePropInputs(e) {
   const count = parseInt(e.target.value);
   const container = document.getElementById("dynamicPropsContainer");
