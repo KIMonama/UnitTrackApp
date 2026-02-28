@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
     renderUserDetails(); // sets Welcome Admin XXX
-    populateTableUI(); // fetches reports + renders table
+   // populateTableUI(); // fetches reports + renders table
     initModalUI();
     initRoleTabs();
     initReportPrint();

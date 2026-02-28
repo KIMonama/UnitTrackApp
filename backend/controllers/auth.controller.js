@@ -18,7 +18,9 @@ export const login = async (req, res) => {
       const { unitCode } = req.body;
 
       user = await Unit.findOne({ unitCode })
-        .select("unitCode unitLabel propertyName unitNumber adminCode role propertyId")
+        .select(
+          "unitCode unitLabel propertyName unitNumber adminCode role propertyId"
+        )
         .lean();
 
       if (!user) return res.status(401).json({ message: "Invalid Unit Code" });
@@ -65,13 +67,13 @@ export const login = async (req, res) => {
         email: user.email,
         properties: user.properties.map((p) => ({
           id: p._id,
-          name: p.name,
+          propertyName: p.propertyName,
           totalUnits: p.totalUnits,
         })),
         role: user.role,
       };
     }
-console.log("user data returned" ,userData);
+    console.log("user data returned", userData);
 
     return res.status(200).json({
       message: "Login successful",

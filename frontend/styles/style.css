@@ -576,3 +576,38 @@ body {
   text-transform: uppercase;
   letter-spacing: 1px;
 }
+
+.owner-pill-wrapper {
+  width: 100%;
+  max-width: 480px;
+}
+
+.owner-property-pill {
+  /* 1. Body & Shape */
+  background-color: white !important;
+  color: #0d6efd;
+  border-radius: 50px;
+  padding: 0.6rem 2.8rem 0.6rem 1.5rem; /* Increased right padding to make room for icon */
+  font-weight: 700;
+  text-align: center;
+  appearance: none;
+  cursor: pointer;
+
+  /* 2. Layered Backgrounds: Arrow (top) + White Body (mid) + Colorful Border (bottom) */
+  background: 
+    /* Layer 1: The Chevron Icon (using UnitTrack blue) */ url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%230d6efd' d='M8 10l4-4H4l4 4z'/%3E%3C/svg%3E")
+      right 1.2rem center / 16px no-repeat,
+    /* Layer 2: White Body */ linear-gradient(white, white) padding-box,
+    /* Layer 3: The Amazon-style Gradient Border */
+      linear-gradient(135deg, #ff5fad, #f5b642, #4facfe, #ff5fad) border-box;
+
+  border: 2.5px solid transparent;
+  box-shadow: 0 0 12px rgba(255, 175, 204, 0.35);
+  transition: all 0.25s ease-in-out;
+}
+
+/* Ensure the arrow stays clickable even when hovering */
+.owner-property-pill:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(255, 175, 204, 0.5);
+}

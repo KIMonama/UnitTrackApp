@@ -7,7 +7,12 @@ import {
 } from "../utils/helpers.js";
 import { openReportModal } from "./modal.ui.js";
 
-export const populateTableUI = async (filterType = "maintenance") => {
+let selectedProperty = null;
+
+export const populateTableUI = async (
+  filterType = "maintenance",
+  property = selectedProperty
+) => {
   try {
     const tableBody = document.getElementById("requestsTableBody");
     if (!tableBody) return;
@@ -21,9 +26,13 @@ export const populateTableUI = async (filterType = "maintenance") => {
     }
 
     const allReports = await fetchAllReports(user.adminCode);
-    sessionStorage.setItem('currentDashboardData', JSON.stringify(allReports));
+    sessionStorage.setItem("currentDashboardData", JSON.stringify(allReports));
     // ✅ FILTER BY ROLE (maintenance / complaints)
-    const reports = allReports.filter((report) => report.role === filterType);
+    const reports = allReports.filter(
+      (report) =>
+        report.role === filterType &&
+        (!property || report.propertyName == property.propertyName)
+    );
 
     const statusOrder = { NEW: 1, Seen: 2, Done: 3 };
     reports.sort((a, b) => statusOrder[a.status] - statusOrder[b.status]);
@@ -142,7 +151,7 @@ export const initRoleTabs = () => {
       console.log("Tab selected:", role);
 
       // trigger table reload
-      populateTableUI(role);
+      populateTableUI(role, selectedProperty);
     });
   });
 };
@@ -155,6 +164,10 @@ if (refreshBtn) {
     const activeTab = document.querySelector("#loginTabs .nav-link.active");
     // Get the role from that tab (defaulting to null or a specific role if none found)
     const activeRole = activeTab ? activeTab.dataset.role : null;
-    await populateTableUI(activeRole);
+    await populateTableUI(activeRole, selectedProperty);
   });
 }
+
+export const setSelectedProperty = (property) => {
+  selectedProperty = property;
+};
