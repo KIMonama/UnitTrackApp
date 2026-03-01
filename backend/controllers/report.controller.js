@@ -18,7 +18,7 @@ export const logAreport = async (req, res) => {
       dateAvailable,
       role,
     } = req.body;
-console.log(req.body);
+    console.log(req.body);
     // 🔐 Trust JWT, not frontend
     const adminCode = req.user.adminCode;
 
@@ -93,7 +93,7 @@ export const updateReportStatus = async (req, res) => {
   }
 };
 
-export const getAllReports = async (req, res) => {
+export const getAllAdminReports = async (req, res) => {
   try {
     console.log("get all hit");
     // 🔥 We IGNORE req.query and use the verified token data
@@ -101,6 +101,27 @@ export const getAllReports = async (req, res) => {
 
     // This ensures you only find reports belonging to THIS admin's building
     const reports = await Report.find({ adminCode: adminCode });
+
+    return res.status(200).json({
+      message: "Reports retrieved successfully",
+      count: reports.length,
+      reports,
+    });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ message: "Error retrieving reports", error: error.message });
+  }
+};
+
+export const getAllTenantReports = async (req, res) => {
+  try {
+    console.log("get all Tenant reports hit");
+    // 🔥 We IGNORE req.query and use the verified token data
+    const { unitCode } = req.user;
+    console.log(unitCode);
+    // This ensures you only find reports belonging to THIS admin's building
+    const reports = await Report.find({ unitCode: unitCode });
 
     return res.status(200).json({
       message: "Reports retrieved successfully",

@@ -26,9 +26,17 @@
       </div>
     </nav>
 
-    <div
-      class="container py-4 d-flex align-items-center justify-content-center"
-    >
+    <div class="container py-4 d-flex align-items-center flex-column">
+      <div
+        class="alert alert-danger d-flex align-items-center d-none mb-4"
+        role="alert"
+        id="alert"
+        style="max-width: 550px; width: 100%"
+      >
+        
+        <i class="bi bi-exclamation-octagon-fill me-2"></i>
+        <div id="errorMessage1"></div>
+      </div>
       <div
         id="step1"
         class="signup-card p-4 p-md-5 w-100 active"

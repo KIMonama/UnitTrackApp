@@ -48,7 +48,7 @@ export const logNewreport = async (payload) => {
 export const fetchAllReports = async () => {
   const token = getToken(); // Get the secure key
 
-  const response = await fetch(`${BASE_URL}`, {
+  const response = await fetch(`${BASE_URL}/admin`, {
     method: "GET",
     headers: {
       Authorization: `Bearer ${token}`, // 🔥 Essential for the backend to filter data
@@ -60,4 +60,17 @@ export const fetchAllReports = async () => {
   }
   const data = await response.json();
   return data.reports;
+};
+
+export const getTenantReports = async () => {
+  console.log("inside Tenant reports API call")
+  const token = getToken(); // Or your specific token getter
+
+  const response = await fetch(`${BASE_URL}/tenant`, {
+    method: "GET",
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+  if (!response.ok) throw new Error("Failed to fetch reports");
+  return response.json();
 };

@@ -1,6 +1,7 @@
 import { showStep } from "../UI/steps.ui.js";
 import { calculateSubscriptionPlan } from "../utils/helpers.js";
 import { registerUser } from "../api/register.api.js";
+import { toggleError } from "../utils/ui.utils.js";
 
 export function initRegisterForm() {
   // Select the elements
@@ -36,11 +37,36 @@ function generatePropInputs(e) {
 
 function handleStep1(e) {
   e.preventDefault();
-  const data = {
-    name: document.getElementById("fullName").value,
-    email: document.getElementById("email").value,
-    phone: document.getElementById("phone").value,
-  };
+
+  // Get values
+  const nameInput = document.getElementById("fullName").value.trim();
+  const emailInput = document.getElementById("email").value.trim();
+  const phoneInput = document.getElementById("phone").value.trim();
+
+  // NAME
+  const nameRegex = /^[A-Za-z\s]+$/;
+  if (!nameRegex.test(nameInput)) {
+    toggleError("Name must contain only letters and spaces");
+    return;
+  }
+
+  // EMAIL
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(emailInput)) {
+    toggleError("Please enter a valid email address");
+    return;
+  }
+
+  // PHONE
+  const phoneRegex = /^[0-9]{10}$/;
+  if (!phoneRegex.test(phoneInput)) {
+    toggleError("Phone number must be 10 digits");
+    return;
+  }
+
+  // ✅ ALL VALID
+  toggleError(""); // hide error
+  const data = { name: nameInput, email: emailInput, phone: phoneInput };
   sessionStorage.setItem("tempUser", JSON.stringify(data));
   showStep(2);
 }
@@ -53,12 +79,38 @@ function handleStep2(e) {
   let properties = [];
   let totalUnits = 0;
 
-  propNames.forEach((el, i) => {
+  const nameRegex = /^[A-Za-z0-9\s]+$/;
+  for (let i = 0; i < propNames.length; i++) {
+    const name = propNames[i].value.trim();
     const units = parseInt(propUnits[i].value);
-    properties.push({ name: el.value, units: units });
-    totalUnits += units;
-  });
 
+    // Property name validation
+    if (!name) {
+      toggleError("Property name cannot be empty");
+      return;
+    }
+
+    if (!nameRegex.test(name)) {
+      toggleError("Property name can only contain letters and numbers");
+      return;
+    }
+
+    // Units validation
+    if (isNaN(units)) {
+      toggleError("Units must be a number");
+      return;
+    }
+
+    if (units < 1) {
+      toggleError("Each property must have at least 1 unit");
+      return;
+    }
+
+    properties.push({ name: name, units: units });
+    totalUnits += units;
+  }
+
+  toggleError(""); // clear errors
   const data = JSON.parse(sessionStorage.getItem("tempUser"));
   data.properties = properties;
   data.totalUnits = totalUnits;
@@ -72,11 +124,35 @@ async function handleStep3(e) {
   // 1. Get the button and save the original content
   const submitBtn = e.target.querySelector('button[type="submit"]');
   const originalContent = submitBtn.innerHTML;
-  // ... existing PIN validation logic ...
+
+  const pinInput = document.getElementById("pass").value.trim();
+  const confirmPinInput = document.getElementById("confirmPass").value.trim();
+
+  const pinRegex = /^[0-9]{4}$/;
+
+  // 1️⃣ PIN format check
+  if (!pinRegex.test(pinInput)) {
+    toggleError("PIN must be exactly 4 digits");
+    return;
+  }
+
+  // 2️⃣ Confirm PIN format check
+  if (!pinRegex.test(confirmPinInput)) {
+    toggleError("Confirm PIN must be exactly 4 digits");
+    return;
+  }
+
+  // 3️⃣ Match check
+  if (pinInput !== confirmPinInput) {
+    toggleError("PIN and Confirm PIN do not match");
+    return;
+  }
+
+  // ✅ Clear error
+  toggleError("");
 
   const finalData = JSON.parse(sessionStorage.getItem("tempUser"));
-  finalData.pin = document.getElementById("pass").value;
-
+  finalData.pin = pinInput;
   // Calculate the plan
   const planDetails = calculateSubscriptionPlan(
     finalData.totalUnits,

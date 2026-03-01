@@ -1,6 +1,6 @@
 import Admin from "../models/Admin.js";
 import Unit from "../models/Unit.js";
-
+import { sendAdminWelcomeEmail } from "../services/email.service.js";
 import jwt from "jsonwebtoken";
 import {
   generateAdminCode,
@@ -38,8 +38,21 @@ export const login = async (req, res) => {
     }
 
     // 🔐 TOKEN
+    // 🔐 TOKEN - Update to include unitCode for tenants
+    const tokenPayload = {
+      id: user._id,
+      role,
+    };
+
+    if (role === "admin") {
+      tokenPayload.adminCode = user.adminCode;
+    } else {
+      // Assuming tenant users have a 'unitCode' field in their DB model
+      tokenPayload.unitCode = user.unitCode;
+    }
+
     const token = jwt.sign(
-      { id: user._id, role, adminCode: user.adminCode },
+      tokenPayload,
       process.env.JWT_SECRET || "supersecret_key",
       { expiresIn: "1d" }
     );
@@ -118,10 +131,11 @@ export const register = async (req, res) => {
 
     // 3️⃣ Generate Units per Property
     const unitPromises = [];
+    const propertiesWithUnits = [];
 
     for (const property of mappedProperties) {
       const propertyId = generatePropertyId();
-
+      const unitsForEmail = [];
       for (let i = 1; i <= property.totalUnits; i++) {
         const unitNumber = String(i).padStart(2, "0");
 
@@ -130,28 +144,52 @@ export const register = async (req, res) => {
           propertyId,
           unitNumber
         );
-
+        const unitLabel = `Unit ${i}`;
         const newUnit = new Unit({
           unitCode,
           adminCode,
           propertyId,
           propertyName: property.propertyName,
           unitNumber,
-          unitLabel: `Unit ${i}`,
+          unitLabel,
           active: true,
         });
 
         unitPromises.push(newUnit.save());
+        // 👇 This is what will be emailed
+        unitsForEmail.push({
+          unitLabel,
+          unitCode,
+        });
       }
+      propertiesWithUnits.push({
+        propertyName: property.propertyName,
+        units: unitsForEmail,
+      });
     }
 
     await Promise.all(unitPromises);
+
+    let emailSent = true;
+
+    try {
+      await sendAdminWelcomeEmail({
+        name: savedAdmin.name,
+        email: savedAdmin.email,
+        subscription: savedAdmin.subscription,
+        propertiesWithUnits,
+      });
+    } catch (emailError) {
+      console.error("EMAIL FAILED:", emailError.message);
+      emailSent = false;
+    }
 
     return res.status(201).json({
       message: "Admin and units created successfully",
       adminCode: savedAdmin.adminCode,
       properties: mappedProperties.length,
       unitsCreated: unitPromises.length,
+      emailSent,
     });
   } catch (error) {
     console.error("REGISTER ERROR FULL:", error);

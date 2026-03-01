@@ -40,6 +40,20 @@ document.addEventListener("DOMContentLoaded", () => {
       handleNewreport(event); // Pass the event object!
     });
   }
+  // ADDED: Initialize reports on button click
+  const viewReportsBtn = document.getElementById("viewReportsBtn");
+  if (viewReportsBtn) {
+    viewReportsBtn.addEventListener("click", async () => {
+      // Check if we've already loaded the data to prevent loop
+      const list = document.getElementById("reportsList");
+      if (list.dataset.loaded === "true") return;
+
+      import("./UI/reportList.ui.js").then((m) => {
+        m.initReportsModal();
+        list.dataset.loaded = "true"; // Set flag
+      });
+    });
+  }
   // =========================
   // DASHBOARD PAGE
   // =========================
@@ -52,7 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
     renderUserDetails(); // sets Welcome Admin XXX
-   // populateTableUI(); // fetches reports + renders table
+    // populateTableUI(); // fetches reports + renders table
     initModalUI();
     initRoleTabs();
     initReportPrint();
