@@ -10,7 +10,7 @@ export const logAreport = async (req, res) => {
       propertyId,
       reportId,
       propertyName,
-      unitCode,
+      adminCode,
       unitLabel,
       category,
       description,
@@ -18,9 +18,9 @@ export const logAreport = async (req, res) => {
       dateAvailable,
       role,
     } = req.body;
-    console.log(req.body);
+   
     // 🔐 Trust JWT, not frontend
-    const adminCode = req.user.adminCode;
+    const { unitCode } = req.user;
 
     // 🧠 Base report object (schema-aligned)
     const reportData = {
